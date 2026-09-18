@@ -101,3 +101,17 @@ export const LESSONS: Lesson[] = [
 export function getLessonById(id: string) {
   return LESSONS.find((lesson) => lesson.id === id);
 }
+
+export function getLessonIndexById(id: string) {
+  return LESSONS.findIndex((lesson) => lesson.id === id);
+}
+
+export function getNextLesson(id: string) {
+  const index = getLessonIndexById(id);
+
+  if (index < 0) {
+    return undefined;
+  }
+
+  return LESSONS[index + 1];
+}

@@ -14,3 +14,19 @@ export interface Lesson {
   commonMistakes: string[];
   modelAnswer: string;
 }
+
+export interface DiagnoseError {
+  point: string;
+  detail: string;
+}
+
+export interface DiagnoseResult {
+  coveredPointIds: string[];
+  missedPointIds: string[];
+  errors: DiagnoseError[];
+  fatalErrorCount: number;
+  coverage: number;
+  passed: boolean;
+  modelAnswer: string;
+  encouragement: string;
+}

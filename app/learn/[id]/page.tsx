@@ -1,5 +1,10 @@
 import Link from "next/link";
-import { getLessonById, LESSONS } from "../../../lib/lessons";
+import {
+  getLessonById,
+  getLessonIndexById,
+  getNextLesson,
+  LESSONS
+} from "../../../lib/lessons";
 import { LessonStage } from "./LessonStage";
 
 type LessonPageProps = {
@@ -13,6 +18,8 @@ export function generateStaticParams() {
 export default async function LessonPage({ params }: LessonPageProps) {
   const { id } = await params;
   const lesson = getLessonById(id);
+  const lessonIndex = getLessonIndexById(id);
+  const nextLesson = getNextLesson(id);
 
   if (!lesson) {
     return (
@@ -34,5 +41,11 @@ export default async function LessonPage({ params }: LessonPageProps) {
     );
   }
 
-  return <LessonStage lesson={lesson} />;
+  return (
+    <LessonStage
+      lesson={lesson}
+      lessonIndex={lessonIndex}
+      nextLesson={nextLesson}
+    />
+  );
 }
