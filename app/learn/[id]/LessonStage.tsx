@@ -5,6 +5,7 @@ import {
   ArrowLeft,
   CheckCircle2,
   ChevronDown,
+  Lightbulb,
   Loader2,
   RotateCcw,
   Send,
@@ -22,6 +23,7 @@ import type {
   Lesson,
   MicroBlock,
   MicroLesson,
+  RemedyResult,
   RubricPoint
 } from "../../../lib/types";
 
@@ -36,6 +38,7 @@ const steps = ["学微课", "复述", "诊断"];
 type Stage = 1 | 2 | 3;
 
 type DiagnoseResponse = DiagnoseResult | { error?: string };
+type RemedyResponse = RemedyResult | { error?: string };
 
 function isDiagnoseResult(value: DiagnoseResponse): value is DiagnoseResult {
   return (
@@ -43,6 +46,10 @@ function isDiagnoseResult(value: DiagnoseResponse): value is DiagnoseResult {
     "missedPointIds" in value &&
     "fatalErrorCount" in value
   );
+}
+
+function isRemedyResult(value: RemedyResponse): value is RemedyResult {
+  return "remedyItems" in value && Array.isArray(value.remedyItems);
 }
 
 function getPointMap(points: RubricPoint[]) {
@@ -73,6 +80,10 @@ export function LessonStage({
   const [stage, setStage] = useState<Stage>(1);
   const [userText, setUserText] = useState("");
   const [result, setResult] = useState<DiagnoseResult | null>(null);
+  const [remedy, setRemedy] = useState<RemedyResult | null>(null);
+  const [remedyLoading, setRemedyLoading] = useState(false);
+  const [remedyError, setRemedyError] = useState("");
+  const [attemptCount, setAttemptCount] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -101,11 +112,47 @@ export function LessonStage({
     setStage(2);
   }
 
+  async function handleLoadRemedy(diagnosis: DiagnoseResult) {
+    setRemedyLoading(true);
+    setRemedyError("");
+
+    try {
+      const response = await fetch("/api/remedy", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          lessonId: lesson.id,
+          coveredPointIds: diagnosis.coveredPointIds,
+          missedPointIds: diagnosis.missedPointIds,
+          errors: diagnosis.errors,
+          userText
+        })
+      });
+
+      const data = (await response.json()) as RemedyResponse;
+
+      if (!response.ok || !isRemedyResult(data)) {
+        throw new Error("Remedy request failed");
+      }
+
+      setRemedy(data);
+    } catch {
+      setRemedyError("补讲没生成出来，点下面按钮重试");
+    } finally {
+      setRemedyLoading(false);
+    }
+  }
+
   async function handleSubmit() {
     if (!canSubmit) {
       return;
     }
 
+    setAttemptCount((count) => count + 1);
+    setRemedy(null);
+    setRemedyError("");
     setIsSubmitting(true);
     setErrorMessage("");
     incrementLessonAttempts(lesson.id);
@@ -143,6 +190,10 @@ export function LessonStage({
         lessonIndex
       });
       setStage(3);
+
+      if (!nextPassed) {
+        void handleLoadRemedy(nextResult);
+      }
     } catch (error) {
       setErrorMessage(
         error instanceof Error ? error.message : "网络波动，请再试一次"
@@ -231,6 +282,24 @@ export function LessonStage({
 
       {stage === 2 && (
         <div className="space-y-5">
+          {result && !passed && missedPoints.length > 0 ? (
+            <section className="rounded-lg border border-wheat bg-wheat/30 p-4">
+              <h2 className="mb-3 font-bold text-ink">
+                上一次还漏了这几点，这次重点讲清楚
+              </h2>
+              <ul className="space-y-2">
+                {missedPoints.map((point) => (
+                  <li
+                    key={point.id}
+                    className="rounded-lg bg-paper px-3 py-2 text-sm leading-6 text-ink/75"
+                  >
+                    {point.point}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
+
           <label className="block space-y-3">
             <span className="text-base font-semibold text-ink">
               用自己的话讲一遍
@@ -285,8 +354,15 @@ export function LessonStage({
               本次覆盖率 {Math.round(recalculatedCoverage * 100)}%
             </p>
             <h2 className="mt-1 text-xl font-bold text-ink">
-              {passed ? "达标了，下一节已解锁" : "还差一点，再补讲一次"}
+              {passed
+                ? "达标了，下一节已解锁"
+                : "还差一点，先补这几点，再讲一遍"}
             </h2>
+            {!passed ? (
+              <p className="mt-2 text-sm text-ink/60">
+                这是你第 {attemptCount} 次复述
+              </p>
+            ) : null}
           </div>
 
           <ResultBlock
@@ -323,6 +399,15 @@ export function LessonStage({
             </section>
           ) : null}
 
+          {!passed ? (
+            <RemedySection
+              remedy={remedy}
+              isLoading={remedyLoading}
+              errorMessage={remedyError}
+              onRetry={() => void handleLoadRemedy(result)}
+            />
+          ) : null}
+
           <section className="rounded-lg border border-black/10 bg-white p-4 shadow-sm">
             <h3 className="mb-2 font-bold text-ink">鼓励一下</h3>
             <p className="text-sm leading-6 text-ink/70">
@@ -330,12 +415,27 @@ export function LessonStage({
             </p>
           </section>
 
-          <section className="rounded-lg border border-black/10 bg-white p-4 shadow-sm">
-            <h3 className="mb-2 font-bold text-ink">参考讲法</h3>
-            <p className="text-sm leading-6 text-ink/70">
-              {result.modelAnswer}
-            </p>
-          </section>
+          {passed ? (
+            <section className="rounded-lg border border-black/10 bg-white p-4 shadow-sm">
+              <h3 className="mb-2 font-bold text-ink">参考讲法</h3>
+              <p className="text-sm leading-6 text-ink/70">
+                {result.modelAnswer}
+              </p>
+            </section>
+          ) : (
+            <details className="rounded-lg border border-black/10 bg-white p-4 shadow-sm">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-sm font-semibold leading-6 text-ink">
+                实在没思路？展开看完整讲法（建议先自己补讲）
+                <ChevronDown
+                  aria-hidden="true"
+                  className="h-5 w-5 shrink-0"
+                />
+              </summary>
+              <p className="mt-4 text-sm leading-6 text-ink/70">
+                {result.modelAnswer}
+              </p>
+            </details>
+          )}
 
           {passed ? (
             nextLesson ? (
@@ -355,11 +455,14 @@ export function LessonStage({
             <div className="grid grid-cols-1 gap-3">
               <button
                 type="button"
-                onClick={() => setStage(2)}
+                onClick={() => {
+                  setUserText("");
+                  setStage(2);
+                }}
                 className="flex h-16 w-full items-center justify-center gap-2 rounded-lg bg-leaf px-5 text-base font-bold text-white shadow-soft"
               >
                 <RotateCcw aria-hidden="true" className="h-5 w-5" />
-                我再讲一遍
+                我补好了，脱稿再讲一遍
               </button>
               <button
                 type="button"
@@ -454,6 +557,98 @@ function renderBlocks(blocks: MicroBlock[]) {
         );
     }
   });
+}
+
+function RemedySection({
+  remedy,
+  isLoading,
+  errorMessage,
+  onRetry
+}: {
+  remedy: RemedyResult | null;
+  isLoading: boolean;
+  errorMessage: string;
+  onRetry: () => void;
+}) {
+  return (
+    <section className="space-y-3">
+      <h3 className="font-bold text-ink">针对性补讲</h3>
+
+      {isLoading ? (
+        <div className="flex items-center gap-2 rounded-lg border border-leaf/25 bg-leaf/10 p-4 text-sm leading-6 text-leaf">
+          <Loader2 aria-hidden="true" className="h-5 w-5 animate-spin" />
+          正在根据你漏的点准备补讲...
+        </div>
+      ) : null}
+
+      {errorMessage ? (
+        <div className="rounded-lg border border-coral/25 bg-coral/10 p-4">
+          <div className="flex gap-2 text-sm leading-6 text-coral">
+            <AlertCircle aria-hidden="true" className="mt-0.5 h-5 w-5" />
+            <p>{errorMessage}</p>
+          </div>
+          <button
+            type="button"
+            disabled={isLoading}
+            onClick={onRetry}
+            className="mt-3 h-11 w-full rounded-lg border border-coral/30 bg-white px-4 text-sm font-bold text-coral disabled:opacity-50"
+          >
+            重新生成补讲
+          </button>
+        </div>
+      ) : null}
+
+      {remedy ? (
+        <div className="space-y-3">
+          <div className="rounded-lg border border-leaf/25 bg-leaf/10 p-4 text-sm leading-6 text-leaf">
+            {remedy.recap}
+          </div>
+
+          {remedy.remedyItems.map((item, index) => {
+            const isError = item.kind === "error";
+            const Icon = isError ? XCircle : Lightbulb;
+
+            return (
+              <article
+                key={`${item.kind}-${item.pointId}-${index}`}
+                className={[
+                  "rounded-lg border p-4",
+                  isError
+                    ? "border-coral/25 bg-coral/10"
+                    : "border-wheat bg-wheat/30"
+                ].join(" ")}
+              >
+                <div
+                  className={[
+                    "mb-3 flex items-center gap-2",
+                    isError ? "text-coral" : "text-ink"
+                  ].join(" ")}
+                >
+                  <Icon aria-hidden="true" className="h-5 w-5 shrink-0" />
+                  <h4 className="font-bold">{item.title}</h4>
+                </div>
+                <p className="text-sm leading-6 text-ink/75">
+                  {item.explanation}
+                </p>
+                <p className="mt-3 text-sm leading-6 text-ink/75">
+                  <span className="font-semibold text-ink">例：</span>
+                  {item.example}
+                </p>
+                <p className="mt-3 text-sm leading-6 text-leaf">
+                  <span className="font-semibold">记住：</span>
+                  {item.tip}
+                </p>
+              </article>
+            );
+          })}
+
+          <p className="rounded-lg bg-paper px-4 py-3 text-sm leading-6 text-ink/70">
+            {remedy.nextPrompt}
+          </p>
+        </div>
+      ) : null}
+    </section>
+  );
 }
 
 function ResultBlock({

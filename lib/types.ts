@@ -48,3 +48,20 @@ export interface DiagnoseResult {
   modelAnswer: string;
   encouragement: string;
 }
+
+export type RemedyKind = "gap" | "error";
+
+export interface RemedyItem {
+  pointId: string;
+  kind: RemedyKind;
+  title: string;
+  explanation: string;
+  example: string;
+  tip: string;
+}
+
+export interface RemedyResult {
+  recap: string;
+  remedyItems: RemedyItem[];
+  nextPrompt: string;
+}
