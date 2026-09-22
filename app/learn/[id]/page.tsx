@@ -28,7 +28,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
           <p className="text-sm font-semibold text-coral">没有找到这节课</p>
           <h1 className="mt-2 text-2xl font-bold text-ink">课程还没准备好</h1>
           <p className="mt-3 text-sm leading-6 text-ink/60">
-            先回到课程地图，从已开放的章节开始学习。
+            先回到课程地图，选择一节开始学习。
           </p>
           <Link
             href="/learn"

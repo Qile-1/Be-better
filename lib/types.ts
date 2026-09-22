@@ -2,8 +2,17 @@ export interface RubricPoint {
   id: string;
   point: string;
   keyPhrases: string[];
+  tier: "core" | "bonus";
   mustCover: boolean;
 }
+
+export interface KeyWord {
+  word: string;
+  meaning: string;
+  note?: string;
+}
+
+export type LessonMasteryStatus = "mastered" | "basic" | "review";
 
 export type MicroBlock =
   | { type: "heading"; text: string }
@@ -27,6 +36,7 @@ export interface Lesson {
   title: string;
   video?: { provider: "bilibili" | "youtube"; ref: string };
   microLesson?: MicroLesson;
+  keyWords?: KeyWord[];
   retellTask: string;
   rubricPoints: RubricPoint[];
   commonMistakes: string[];

@@ -16,11 +16,12 @@ import { useMemo, useState } from "react";
 import {
   incrementLessonAttempts,
   markVideoChecked,
-  saveDiagnosisResult
+  saveMastery
 } from "../../../lib/storage";
 import type {
   DiagnoseResult,
   Lesson,
+  LessonMasteryStatus,
   MicroBlock,
   MicroLesson,
   RemedyResult,
@@ -36,7 +37,6 @@ type LessonStageProps = {
 const steps = ["学微课", "复述", "诊断"];
 
 type Stage = 1 | 2 | 3;
-
 type DiagnoseResponse = DiagnoseResult | { error?: string };
 type RemedyResponse = RemedyResult | { error?: string };
 
@@ -52,24 +52,40 @@ function isRemedyResult(value: RemedyResponse): value is RemedyResult {
   return "remedyItems" in value && Array.isArray(value.remedyItems);
 }
 
-function getPointMap(points: RubricPoint[]) {
-  return new Map(points.map((point) => [point.id, point.point]));
-}
-
-function getPointsByIds(pointMap: Map<string, string>, ids: string[]) {
-  return ids
-    .map((id) => ({ id, point: pointMap.get(id) }))
-    .filter((item): item is { id: string; point: string } =>
-      Boolean(item.point)
-    );
-}
-
-function getCoverage(result: DiagnoseResult | null, total: number) {
-  if (!result || total <= 0) {
+function getCoreCoverage(
+  result: DiagnoseResult | null,
+  corePoints: RubricPoint[]
+) {
+  if (!result || corePoints.length === 0) {
     return 0;
   }
 
-  return result.coveredPointIds.length / total;
+  const coveredIds = new Set(result.coveredPointIds);
+  const coveredCoreCount = corePoints.filter((point) =>
+    coveredIds.has(point.id)
+  ).length;
+
+  return coveredCoreCount / corePoints.length;
+}
+
+function getMasteryStatus(
+  result: DiagnoseResult,
+  coreCoverage: number,
+  attemptCount: number
+): LessonMasteryStatus {
+  if (result.fatalErrorCount > 0) {
+    return "review";
+  }
+
+  if (coreCoverage === 1) {
+    return "mastered";
+  }
+
+  if (attemptCount >= 2 && coreCoverage >= 0.6) {
+    return "basic";
+  }
+
+  return "review";
 }
 
 export function LessonStage({
@@ -87,23 +103,34 @@ export function LessonStage({
   const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const pointMap = useMemo(
-    () => getPointMap(lesson.rubricPoints),
+  const corePoints = useMemo(
+    () => lesson.rubricPoints.filter((point) => point.tier === "core"),
     [lesson.rubricPoints]
   );
-  const coveredPoints = useMemo(
-    () => getPointsByIds(pointMap, result?.coveredPointIds ?? []),
-    [pointMap, result]
+  const bonusPoints = useMemo(
+    () => lesson.rubricPoints.filter((point) => point.tier === "bonus"),
+    [lesson.rubricPoints]
   );
-  const missedPoints = useMemo(
-    () => getPointsByIds(pointMap, result?.missedPointIds ?? []),
-    [pointMap, result]
+  const coveredIds = useMemo(
+    () => new Set(result?.coveredPointIds ?? []),
+    [result]
   );
-  const recalculatedCoverage = getCoverage(result, lesson.rubricPoints.length);
-  const passed =
-    result !== null &&
-    recalculatedCoverage >= 0.7 &&
-    result.fatalErrorCount === 0;
+  const coveredCorePoints = corePoints.filter((point) =>
+    coveredIds.has(point.id)
+  );
+  const missedCorePoints = corePoints.filter(
+    (point) => !coveredIds.has(point.id)
+  );
+  const coveredBonusPoints = bonusPoints.filter((point) =>
+    coveredIds.has(point.id)
+  );
+  const missedBonusPoints = bonusPoints.filter(
+    (point) => !coveredIds.has(point.id)
+  );
+  const coreCoverage = getCoreCoverage(result, corePoints);
+  const masteryStatus = result
+    ? getMasteryStatus(result, coreCoverage, attemptCount)
+    : null;
   const canSubmit = userText.trim().length > 0 && !isSubmitting;
   const lessonNumber = String(lessonIndex + 1).padStart(2, "0");
 
@@ -112,7 +139,31 @@ export function LessonStage({
     setStage(2);
   }
 
+  function saveCurrentMastery(
+    status: LessonMasteryStatus,
+    diagnosis: DiagnoseResult,
+    coverage: number
+  ) {
+    const diagnosisCoveredIds = new Set(diagnosis.coveredPointIds);
+    const missingCorePointIds = corePoints
+      .filter((point) => !diagnosisCoveredIds.has(point.id))
+      .map((point) => point.id);
+
+    saveMastery({
+      lessonId: lesson.id,
+      status,
+      coreCoverage: coverage,
+      lessonIndex,
+      missingCorePointIds
+    });
+  }
+
   async function handleLoadRemedy(diagnosis: DiagnoseResult) {
+    const diagnosisCoveredIds = new Set(diagnosis.coveredPointIds);
+    const missingCorePointIds = corePoints
+      .filter((point) => !diagnosisCoveredIds.has(point.id))
+      .map((point) => point.id);
+
     setRemedyLoading(true);
     setRemedyError("");
 
@@ -125,7 +176,7 @@ export function LessonStage({
         body: JSON.stringify({
           lessonId: lesson.id,
           coveredPointIds: diagnosis.coveredPointIds,
-          missedPointIds: diagnosis.missedPointIds,
+          missedPointIds: missingCorePointIds,
           errors: diagnosis.errors,
           userText
         })
@@ -150,8 +201,8 @@ export function LessonStage({
       return;
     }
 
-    setAttemptCount((count) => count + 1);
-    setRemedy(null);
+    const nextAttemptCount = attemptCount + 1;
+    setAttemptCount(nextAttemptCount);
     setRemedyError("");
     setIsSubmitting(true);
     setErrorMessage("");
@@ -177,22 +228,19 @@ export function LessonStage({
         );
       }
 
-      const nextResult = data;
-      const nextCoverage = getCoverage(nextResult, lesson.rubricPoints.length);
-      const nextPassed =
-        nextCoverage >= 0.7 && nextResult.fatalErrorCount === 0;
+      const nextCoreCoverage = getCoreCoverage(data, corePoints);
+      const nextMasteryStatus = getMasteryStatus(
+        data,
+        nextCoreCoverage,
+        nextAttemptCount
+      );
 
-      setResult(nextResult);
-      saveDiagnosisResult({
-        lessonId: lesson.id,
-        coverage: nextCoverage,
-        passed: nextPassed,
-        lessonIndex
-      });
+      setResult(data);
+      saveCurrentMastery(nextMasteryStatus, data, nextCoreCoverage);
       setStage(3);
 
-      if (!nextPassed) {
-        void handleLoadRemedy(nextResult);
+      if (nextMasteryStatus === "review" && nextAttemptCount === 1) {
+        void handleLoadRemedy(data);
       }
     } catch (error) {
       setErrorMessage(
@@ -200,6 +248,19 @@ export function LessonStage({
       );
     } finally {
       setIsSubmitting(false);
+    }
+  }
+
+  function retryRetell(clearInput = true) {
+    if (clearInput) {
+      setUserText("");
+    }
+    setStage(2);
+  }
+
+  function markForReviewBeforeLeaving() {
+    if (result) {
+      saveCurrentMastery("review", result, coreCoverage);
     }
   }
 
@@ -247,27 +308,51 @@ export function LessonStage({
               <ChevronDown aria-hidden="true" className="h-5 w-5" />
             </summary>
 
-            <div className="mt-4 space-y-4 text-sm leading-6 text-ink/75">
+            <div className="mt-4 space-y-5 text-sm leading-6 text-ink/75">
               <div>
                 <p className="mb-2 font-semibold text-ink">复述任务</p>
                 <p>{lesson.retellTask}</p>
+                <p className="mt-2 text-ink/60">
+                  必会点要能合上讲义脱稿讲出来；拓展点看懂即可，没讲到不影响过关。
+                </p>
               </div>
 
-              <div>
-                <p className="mb-2 font-semibold text-ink">必须讲清楚</p>
-                <ul className="space-y-2">
-                  {lesson.rubricPoints.map((point) => (
-                    <li
-                      key={point.id}
-                      className="rounded-lg bg-paper px-3 py-2"
-                    >
-                      {point.point}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <RubricGroup
+                title="必会点"
+                badge="必会"
+                points={corePoints}
+                tone="core"
+              />
+              <RubricGroup
+                title="拓展点"
+                badge="看懂就行"
+                points={bonusPoints}
+                tone="bonus"
+              />
             </div>
           </details>
+
+          {lesson.keyWords && lesson.keyWords.length > 0 ? (
+            <section className="rounded-lg border border-black/10 bg-white p-4 shadow-sm">
+              <h2 className="font-bold text-ink">
+                本节高频词（会认就行，不要求复述）
+              </h2>
+              <ul className="mt-3 space-y-2">
+                {lesson.keyWords.map((item) => (
+                  <li
+                    key={item.word}
+                    className="rounded-lg bg-paper px-3 py-2 text-sm leading-6"
+                  >
+                    <span className="font-semibold text-ink">{item.word}</span>
+                    <span className="ml-2 text-ink/70">{item.meaning}</span>
+                    {item.note ? (
+                      <p className="text-xs text-ink/50">{item.note}</p>
+                    ) : null}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
 
           <button
             type="button"
@@ -282,13 +367,13 @@ export function LessonStage({
 
       {stage === 2 && (
         <div className="space-y-5">
-          {result && !passed && missedPoints.length > 0 ? (
+          {result && masteryStatus === "review" && missedCorePoints.length > 0 ? (
             <section className="rounded-lg border border-wheat bg-wheat/30 p-4">
               <h2 className="mb-3 font-bold text-ink">
                 上一次还漏了这几点，这次重点讲清楚
               </h2>
               <ul className="space-y-2">
-                {missedPoints.map((point) => (
+                {missedCorePoints.map((point) => (
                   <li
                     key={point.id}
                     className="rounded-lg bg-paper px-3 py-2 text-sm leading-6 text-ink/75"
@@ -340,44 +425,40 @@ export function LessonStage({
         </div>
       )}
 
-      {stage === 3 && result && (
+      {stage === 3 && result && masteryStatus && (
         <div className="space-y-4">
-          <div
-            className={[
-              "rounded-lg border p-4",
-              passed
-                ? "border-leaf/25 bg-leaf/10"
-                : "border-coral/25 bg-coral/10"
-            ].join(" ")}
-          >
-            <p className="text-sm font-semibold text-ink/60">
-              本次覆盖率 {Math.round(recalculatedCoverage * 100)}%
+          <MasteryCard
+            status={masteryStatus}
+            coreCoverage={coreCoverage}
+            attemptCount={attemptCount}
+          />
+
+          {coveredBonusPoints.length > 0 ? (
+            <p className="rounded-lg bg-leaf/10 px-4 py-3 text-sm text-leaf">
+              额外讲到 {coveredBonusPoints.length} 个拓展点
             </p>
-            <h2 className="mt-1 text-xl font-bold text-ink">
-              {passed
-                ? "达标了，下一节已解锁"
-                : "还差一点，先补这几点，再讲一遍"}
-            </h2>
-            {!passed ? (
-              <p className="mt-2 text-sm text-ink/60">
-                这是你第 {attemptCount} 次复述
-              </p>
-            ) : null}
-          </div>
+          ) : null}
 
           <ResultBlock
             title="你讲清楚了这些"
             tone="green"
-            items={coveredPoints.map((point) => point.point)}
-            emptyText="还没有明确覆盖的要点。"
+            items={coveredCorePoints.map((point) => point.point)}
+            emptyText="还没有明确覆盖的核心点。"
           />
 
           <ResultBlock
             title="你漏掉了这些"
             tone="orange"
-            items={missedPoints.map((point) => point.point)}
-            emptyText="没有遗漏要点。"
+            items={missedCorePoints.map((point) => point.point)}
+            emptyText="核心点没有遗漏。"
           />
+
+          {bonusPoints.length > 0 ? (
+            <BonusSummary
+              coveredPoints={coveredBonusPoints}
+              missedPoints={missedBonusPoints}
+            />
+          ) : null}
 
           {result.errors.length > 0 ? (
             <section className="rounded-lg border border-red-200 bg-red-50 p-4">
@@ -399,7 +480,7 @@ export function LessonStage({
             </section>
           ) : null}
 
-          {!passed ? (
+          {masteryStatus === "review" ? (
             <RemedySection
               remedy={remedy}
               isLoading={remedyLoading}
@@ -415,14 +496,7 @@ export function LessonStage({
             </p>
           </section>
 
-          {passed ? (
-            <section className="rounded-lg border border-black/10 bg-white p-4 shadow-sm">
-              <h3 className="mb-2 font-bold text-ink">参考讲法</h3>
-              <p className="text-sm leading-6 text-ink/70">
-                {result.modelAnswer}
-              </p>
-            </section>
-          ) : (
+          {masteryStatus === "review" ? (
             <details className="rounded-lg border border-black/10 bg-white p-4 shadow-sm">
               <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-sm font-semibold leading-6 text-ink">
                 实在没思路？展开看完整讲法（建议先自己补讲）
@@ -435,48 +509,288 @@ export function LessonStage({
                 {result.modelAnswer}
               </p>
             </details>
+          ) : (
+            <section className="rounded-lg border border-black/10 bg-white p-4 shadow-sm">
+              <h3 className="mb-2 font-bold text-ink">参考讲法</h3>
+              <p className="text-sm leading-6 text-ink/70">
+                {result.modelAnswer}
+              </p>
+            </section>
           )}
 
-          {passed ? (
-            nextLesson ? (
-              <Link
-                href={`/learn/${nextLesson.id}`}
-                className="flex h-16 w-full items-center justify-center rounded-lg bg-leaf px-5 text-base font-bold text-white shadow-soft"
-              >
-                进入下一节
-              </Link>
-            ) : (
-              <div className="rounded-lg bg-leaf p-5 text-center text-white shadow-soft">
-                <p className="text-lg font-bold">全部课程已完成</p>
-                <p className="mt-1 text-sm text-white/80">这一轮讲得漂亮。</p>
-              </div>
-            )
+          {masteryStatus === "mastered" ? (
+            <CompletedActions nextLesson={nextLesson} />
+          ) : masteryStatus === "basic" ? (
+            <BasicActions
+              nextLesson={nextLesson}
+              onRetry={() => retryRetell()}
+            />
           ) : (
-            <div className="grid grid-cols-1 gap-3">
-              <button
-                type="button"
-                onClick={() => {
-                  setUserText("");
-                  setStage(2);
-                }}
-                className="flex h-16 w-full items-center justify-center gap-2 rounded-lg bg-leaf px-5 text-base font-bold text-white shadow-soft"
-              >
-                <RotateCcw aria-hidden="true" className="h-5 w-5" />
-                我补好了，脱稿再讲一遍
-              </button>
-              <button
-                type="button"
-                onClick={() => setStage(1)}
-                className="flex h-16 w-full items-center justify-center gap-2 rounded-lg border border-black/10 bg-white px-5 text-base font-bold text-ink shadow-sm"
-              >
-                <ArrowLeft aria-hidden="true" className="h-5 w-5" />
-                回看微课
-              </button>
-            </div>
+            <ReviewActions
+              attemptCount={attemptCount}
+              nextLesson={nextLesson}
+              onRetry={() => retryRetell()}
+              onReviewLesson={() => setStage(1)}
+              onLeave={markForReviewBeforeLeaving}
+            />
           )}
         </div>
       )}
     </section>
+  );
+}
+
+function RubricGroup({
+  title,
+  badge,
+  points,
+  tone
+}: {
+  title: string;
+  badge: string;
+  points: RubricPoint[];
+  tone: "core" | "bonus";
+}) {
+  if (points.length === 0) {
+    return null;
+  }
+
+  const isCore = tone === "core";
+
+  return (
+    <div>
+      <p className={`mb-2 font-semibold ${isCore ? "text-leaf" : "text-ink"}`}>
+        {title}
+      </p>
+      <ul className="space-y-2">
+        {points.map((point) => (
+          <li
+            key={point.id}
+            className={[
+              "rounded-lg border px-3 py-2",
+              isCore
+                ? "border-leaf/25 bg-leaf/10"
+                : "border-black/5 bg-paper"
+            ].join(" ")}
+          >
+            <span
+              className={[
+                "mr-2 inline-flex rounded-full px-2 py-0.5 text-xs font-semibold",
+                isCore ? "bg-leaf text-white" : "bg-white text-ink/55"
+              ].join(" ")}
+            >
+              {badge}
+            </span>
+            {point.point}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function MasteryCard({
+  status,
+  coreCoverage,
+  attemptCount
+}: {
+  status: LessonMasteryStatus;
+  coreCoverage: number;
+  attemptCount: number;
+}) {
+  const presentation = {
+    mastered: {
+      title: "已掌握",
+      className: "border-leaf/25 bg-leaf/10"
+    },
+    basic: {
+      title: "基本掌握",
+      className: "border-wheat bg-wheat/40"
+    },
+    review: {
+      title: "还差一点",
+      className: "border-coral/25 bg-coral/10"
+    }
+  }[status];
+
+  return (
+    <div className={`rounded-lg border p-4 ${presentation.className}`}>
+      <p className="text-sm font-semibold text-ink/60">
+        核心点覆盖率 {Math.round(coreCoverage * 100)}%
+      </p>
+      <h2 className="mt-1 text-xl font-bold text-ink">
+        {presentation.title}
+      </h2>
+      {status === "review" ? (
+        <p className="mt-2 text-sm text-ink/60">
+          这是你第 {attemptCount} 次复述
+        </p>
+      ) : null}
+    </div>
+  );
+}
+
+function BonusSummary({
+  coveredPoints,
+  missedPoints
+}: {
+  coveredPoints: RubricPoint[];
+  missedPoints: RubricPoint[];
+}) {
+  return (
+    <section className="rounded-lg border border-black/5 bg-paper p-4">
+      <h3 className="font-bold text-ink">拓展点（不影响掌握度）</h3>
+      <p className="mt-1 text-xs leading-5 text-ink/50">
+        拓展点看懂即可，没讲到不影响本节结果。
+      </p>
+      <ul className="mt-3 space-y-2">
+        {[...coveredPoints, ...missedPoints].map((point) => {
+          const isCovered = coveredPoints.some(
+            (covered) => covered.id === point.id
+          );
+
+          return (
+            <li
+              key={point.id}
+              className="rounded-lg bg-white/75 px-3 py-2 text-sm leading-6 text-ink/65"
+            >
+              <span
+                className={[
+                  "mr-2 inline-flex rounded-full px-2 py-0.5 text-xs font-semibold",
+                  isCovered
+                    ? "bg-leaf/10 text-leaf"
+                    : "bg-black/5 text-ink/45"
+                ].join(" ")}
+              >
+                {isCovered ? "已讲到" : "看懂就行"}
+              </span>
+              {point.point}
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+  );
+}
+
+function CompletedActions({ nextLesson }: { nextLesson?: Lesson }) {
+  if (!nextLesson) {
+    return (
+      <div className="rounded-lg bg-leaf p-5 text-center text-white shadow-soft">
+        <p className="text-lg font-bold">全部课程已完成</p>
+        <p className="mt-1 text-sm text-white/80">这一轮讲得漂亮。</p>
+      </div>
+    );
+  }
+
+  return (
+    <Link
+      href={`/learn/${nextLesson.id}`}
+      className="flex h-16 w-full items-center justify-center rounded-lg bg-leaf px-5 text-base font-bold text-white shadow-soft"
+    >
+      进入下一节
+    </Link>
+  );
+}
+
+function BasicActions({
+  nextLesson,
+  onRetry
+}: {
+  nextLesson?: Lesson;
+  onRetry: () => void;
+}) {
+  return (
+    <div className="space-y-3">
+      <p className="text-center text-sm leading-6 text-ink/60">
+        基本掌握，漏掉的个别核心点会在复习中再出现
+      </p>
+      {nextLesson ? (
+        <Link
+          href={`/learn/${nextLesson.id}`}
+          className="flex h-16 w-full items-center justify-center rounded-lg bg-leaf px-5 text-base font-bold text-white shadow-soft"
+        >
+          进入下一节
+        </Link>
+      ) : (
+        <div className="rounded-lg bg-leaf p-5 text-center text-white shadow-soft">
+          <p className="text-lg font-bold">全部课程已完成</p>
+          <p className="mt-1 text-sm text-white/80">
+            待复习点已经为你记下。
+          </p>
+        </div>
+      )}
+      <button
+        type="button"
+        onClick={onRetry}
+        className="h-12 w-full text-sm font-semibold text-leaf"
+      >
+        再讲一遍冲全掌握
+      </button>
+    </div>
+  );
+}
+
+function ReviewActions({
+  attemptCount,
+  nextLesson,
+  onRetry,
+  onReviewLesson,
+  onLeave
+}: {
+  attemptCount: number;
+  nextLesson?: Lesson;
+  onRetry: () => void;
+  onReviewLesson: () => void;
+  onLeave: () => void;
+}) {
+  const isFirstAttempt = attemptCount === 1;
+  const nextHref = nextLesson ? `/learn/${nextLesson.id}` : "/learn";
+
+  return (
+    <div className="grid grid-cols-1 gap-3">
+      <button
+        type="button"
+        onClick={onRetry}
+        className="flex h-16 w-full items-center justify-center gap-2 rounded-lg bg-leaf px-5 text-base font-bold text-white shadow-soft"
+      >
+        <RotateCcw aria-hidden="true" className="h-5 w-5" />
+        {isFirstAttempt ? "我补好了，脱稿再讲一遍" : "再讲一遍"}
+      </button>
+
+      {!isFirstAttempt ? (
+        <Link
+          href={nextHref}
+          onClick={onLeave}
+          className="flex h-14 w-full items-center justify-center rounded-lg border border-coral/25 bg-coral/10 px-5 text-sm font-bold text-coral"
+        >
+          {nextLesson
+            ? "进入下一节（标记为待复习）"
+            : "完成本轮（标记为待复习）"}
+        </Link>
+      ) : null}
+
+      <button
+        type="button"
+        onClick={onReviewLesson}
+        className="flex h-14 w-full items-center justify-center gap-2 rounded-lg border border-black/10 bg-white px-5 text-sm font-bold text-ink shadow-sm"
+      >
+        <ArrowLeft aria-hidden="true" className="h-5 w-5" />
+        回看微课
+      </button>
+
+      {isFirstAttempt ? (
+        <Link
+          href={nextHref}
+          onClick={onLeave}
+          className="flex h-12 w-full items-center justify-center text-sm font-semibold text-ink/55"
+        >
+          {nextLesson
+            ? "先进入下一节，这点之后再复习"
+            : "先结束本轮，这点之后再复习"}
+        </Link>
+      ) : null}
+    </div>
   );
 }
 
@@ -582,19 +896,9 @@ function RemedySection({
       ) : null}
 
       {errorMessage ? (
-        <div className="rounded-lg border border-coral/25 bg-coral/10 p-4">
-          <div className="flex gap-2 text-sm leading-6 text-coral">
-            <AlertCircle aria-hidden="true" className="mt-0.5 h-5 w-5" />
-            <p>{errorMessage}</p>
-          </div>
-          <button
-            type="button"
-            disabled={isLoading}
-            onClick={onRetry}
-            className="mt-3 h-11 w-full rounded-lg border border-coral/30 bg-white px-4 text-sm font-bold text-coral disabled:opacity-50"
-          >
-            重新生成补讲
-          </button>
+        <div className="flex gap-2 rounded-lg border border-coral/25 bg-coral/10 p-4 text-sm leading-6 text-coral">
+          <AlertCircle aria-hidden="true" className="mt-0.5 h-5 w-5" />
+          <p>{errorMessage}</p>
         </div>
       ) : null}
 
@@ -646,6 +950,16 @@ function RemedySection({
             {remedy.nextPrompt}
           </p>
         </div>
+      ) : null}
+
+      {!isLoading ? (
+        <button
+          type="button"
+          onClick={onRetry}
+          className="h-11 w-full rounded-lg border border-black/10 bg-white px-4 text-sm font-semibold text-ink/60"
+        >
+          {remedy ? "重新生成补讲" : "生成补讲"}
+        </button>
       ) : null}
     </section>
   );

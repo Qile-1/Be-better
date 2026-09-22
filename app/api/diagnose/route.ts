@@ -9,6 +9,7 @@ const systemRule = `你是大学英语四级阅读的「费曼复述」考评老
 2. 只有当学生的说法与《要点清单》或四级阅读的标准方法直接冲突时，才算硬伤错误；清单之外的内容不要评判对错，也不要补充清单以外的知识点，更不要编造。
 3. 拿不准是否覆盖，一律算遗漏，不要默认他会了。
 4. 给出一段简洁的参考讲法，严格基于要点清单。
+5. 要点的 tier="core" 表示核心必会点，tier="bonus" 表示拓展点。每个点都要如实判断并返回在 coveredPointIds 或 missedPointIds 中；bonus 没讲到不算错误，也不算致命问题。
 
 你必须只输出一个 JSON 对象。键名必须与下面完全一致，一个都不能少、不能改名、不能新增键：
 {
@@ -21,7 +22,7 @@ const systemRule = `你是大学英语四级阅读的「费曼复述」考评老
   "modelAnswer": "一段基于要点清单的简洁参考讲法",
   "encouragement": "一句简短的中文鼓励"
 }
-要求：errors 在没有硬伤错误时必须是空数组 []；fatalErrorCount 必须等于 errors 数组的长度；coverage 等于 coveredPointIds 的数量除以要点总数，保留两位小数；当 coverage 不低于 0.7 且 fatalErrorCount 为 0 时 passed 为 true，否则为 false。不要输出 JSON 以外的任何文字，不要使用 markdown 代码块。`;
+要求：errors 在没有硬伤错误时必须是空数组 []；fatalErrorCount 必须等于 errors 数组的长度；coverage 只按已覆盖 core 点数量除以 core 点总数计算，保留两位小数；passed 只在全部 core 点都覆盖且 fatalErrorCount 为 0 时为 true，最终掌握状态由前端判定。不要输出 JSON 以外的任何文字，不要使用 markdown 代码块。`;
 
 type DeepSeekResponse = {
   choices?: Array<{
@@ -83,7 +84,7 @@ function normalizeErrors(value: unknown): DiagnoseError[] {
 function normalizeDiagnoseResult(
   value: unknown,
   validPointIds: Set<string>,
-  totalPoints: number
+  corePointIds: Set<string>
 ): DiagnoseResult | null {
   if (!value || typeof value !== "object") {
     return null;
@@ -91,15 +92,25 @@ function normalizeDiagnoseResult(
 
   const record = value as Record<string, unknown>;
 
-  const coveredPointIds = toStringArray(
-    record.coveredPointIds ?? record.coveredPoints
-  ).filter((id) => validPointIds.has(id));
+  const coveredPointIds = Array.from(
+    new Set(
+      toStringArray(record.coveredPointIds ?? record.coveredPoints).filter(
+        (id) => validPointIds.has(id)
+      )
+    )
+  );
 
   const coveredSet = new Set(coveredPointIds);
 
-  const missedPointIds = toStringArray(
+  const reportedMissedPointIds = toStringArray(
     record.missedPointIds ?? record.missingPoints ?? record.missedPoints
   ).filter((id) => validPointIds.has(id) && !coveredSet.has(id));
+  const missedPointIds = Array.from(
+    new Set([
+      ...reportedMissedPointIds,
+      ...Array.from(validPointIds).filter((id) => !coveredSet.has(id))
+    ])
+  );
 
   const errors = normalizeErrors(record.errors);
 
@@ -108,12 +119,15 @@ function normalizeDiagnoseResult(
       ? record.fatalErrorCount
       : errors.length;
 
+  const coveredCoreCount = coveredPointIds.filter((id) =>
+    corePointIds.has(id)
+  ).length;
   const coverage =
-    totalPoints > 0
-      ? Math.round((coveredPointIds.length / totalPoints) * 100) / 100
+    corePointIds.size > 0
+      ? Math.round((coveredCoreCount / corePointIds.size) * 100) / 100
       : 0;
 
-  const passed = coverage >= 0.7 && fatalErrorCount === 0;
+  const passed = coverage === 1 && fatalErrorCount === 0;
 
   const modelAnswer =
     typeof record.modelAnswer === "string" && record.modelAnswer.trim()
@@ -181,12 +195,16 @@ async function callDeepSeek({
   return content;
 }
 
-function parseModelJson(content: string, validPointIds: Set<string>, totalPoints: number) {
+function parseModelJson(
+  content: string,
+  validPointIds: Set<string>,
+  corePointIds: Set<string>
+) {
   try {
     return normalizeDiagnoseResult(
       JSON.parse(content),
       validPointIds,
-      totalPoints
+      corePointIds
     );
   } catch {
     return null;
@@ -222,8 +240,17 @@ export async function POST(request: Request) {
   }
 
   const validPointIds = new Set(lesson.rubricPoints.map((point) => point.id));
+  const corePointIds = new Set(
+    lesson.rubricPoints
+      .filter((point) => point.tier === "core")
+      .map((point) => point.id)
+  );
   const lessonContext = {
-    rubricPoints: lesson.rubricPoints.map(({ id, point }) => ({ id, point })),
+    rubricPoints: lesson.rubricPoints.map(({ id, point, tier }) => ({
+      id,
+      point,
+      tier
+    })),
     commonMistakes: lesson.commonMistakes
   };
   const systemContent = `${systemRule}\n本节《要点清单》与常见错误：${JSON.stringify(
@@ -235,7 +262,7 @@ export async function POST(request: Request) {
     const firstResult = parseModelJson(
       firstContent,
       validPointIds,
-      lesson.rubricPoints.length
+      corePointIds
     );
 
     if (firstResult) {
@@ -250,7 +277,7 @@ export async function POST(request: Request) {
     const secondResult = parseModelJson(
       secondContent,
       validPointIds,
-      lesson.rubricPoints.length
+      corePointIds
     );
 
     if (secondResult) {

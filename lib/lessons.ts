@@ -1,9 +1,11 @@
+// tier 为临时划分，待真题材料校准，第二步会重排
 import type { Lesson } from "./types";
 
 export const LESSONS: Lesson[] = [
   {
     id: "l1",
     title: "仔细阅读·主旨大意题",
+    keyWords: [],
     microLesson: {
       goal: "学完这节课，你能在 1 分钟内认出主旨大意题，快速在文章里定位主旨，并排除三类常见干扰项。",
       blocks: [
@@ -98,6 +100,7 @@ export const LESSONS: Lesson[] = [
         id: "p1",
         point: "先看题干和题目再读文章，带着问题去读，定位更高效。",
         keyPhrases: ["先题后文", "带着问题", "审题"],
+        tier: "core",
         mustCover: true
       },
       {
@@ -112,6 +115,7 @@ export const LESSONS: Lesson[] = [
           "中心",
           "目的"
         ],
+        tier: "core",
         mustCover: true
       },
       {
@@ -119,19 +123,22 @@ export const LESSONS: Lesson[] = [
         point:
           "知道主旨常出现的位置：首段、末段、各段首句、转折词 but/however/yet 之后、全文反复出现的高频词。",
         keyPhrases: ["首段", "末段", "段首", "转折", "however", "高频词"],
+        tier: "core",
         mustCover: true
       },
       {
         id: "p4",
         point: "正确选项特征：能概括全文，不太宽也不太窄，不含文章没提的信息。",
         keyPhrases: ["概括全文", "以偏概全", "未提及", "太宽", "太窄"],
+        tier: "core",
         mustCover: true
       },
       {
         id: "p5",
         point: "干扰项特征：用某个段落的细节冒充主旨、以偏概全、偷换概念、表述绝对化。",
         keyPhrases: ["细节冒充", "以偏概全", "偷换", "绝对化"],
-        mustCover: true
+        tier: "bonus",
+        mustCover: false
       }
     ],
     commonMistakes: [
@@ -145,6 +152,7 @@ export const LESSONS: Lesson[] = [
   {
     id: "l2",
     title: "仔细阅读·细节理解与定位题",
+    keyWords: [],
     microLesson: {
       goal: "学完这节课，你能在题干里圈出定位词，快速回原文找到出题句，并认出正确答案大多是原文的同义改写，而不是原词照搬。",
       blocks: [
@@ -237,6 +245,7 @@ export const LESSONS: Lesson[] = [
           "事实细节",
           "true"
         ],
+        tier: "core",
         mustCover: true
       },
       {
@@ -251,6 +260,7 @@ export const LESSONS: Lesson[] = [
           "大写",
           "回原文"
         ],
+        tier: "core",
         mustCover: true
       },
       {
@@ -258,12 +268,14 @@ export const LESSONS: Lesson[] = [
         point:
           "知道题文同序：题目顺序和文章段落顺序基本一致，可以据此缩小查找范围。",
         keyPhrases: ["题文同序", "顺序", "段落顺序", "顺着往下"],
-        mustCover: true
+        tier: "bonus",
+        mustCover: false
       },
       {
         id: "p4",
         point: "定位后读定位句和前后句，结合上下文，遇到长难句先抓主干。",
         keyPhrases: ["定位句", "前后句", "上下文", "主干", "长难句"],
+        tier: "core",
         mustCover: true
       },
       {
@@ -278,6 +290,7 @@ export const LESSONS: Lesson[] = [
           "张冠李戴",
           "答非所问"
         ],
+        tier: "core",
         mustCover: true
       }
     ],
@@ -293,6 +306,7 @@ export const LESSONS: Lesson[] = [
   {
     id: "l3",
     title: "仔细阅读·推理判断题",
+    keyWords: [],
     microLesson: {
       goal: "学完这节课，你能认出 infer、imply 类推理题，知道答案要基于原文往合理方向推一步，既不能照抄原句，也不能脱离原文自己开脑洞。",
       blocks: [
@@ -392,6 +406,7 @@ export const LESSONS: Lesson[] = [
           "conclude",
           "推理"
         ],
+        tier: "core",
         mustCover: true
       },
       {
@@ -405,6 +420,7 @@ export const LESSONS: Lesson[] = [
           "基于原文",
           "合理推断"
         ],
+        tier: "core",
         mustCover: true
       },
       {
@@ -419,13 +435,15 @@ export const LESSONS: Lesson[] = [
           "举例目的",
           "对比"
         ],
-        mustCover: true
+        tier: "bonus",
+        mustCover: false
       },
       {
         id: "p4",
         point:
           "只做最近一步推断，不用个人常识或外部知识替代原文依据。",
         keyPhrases: ["一步", "就近", "常识", "外部知识", "证据", "开脑洞"],
+        tier: "core",
         mustCover: true
       },
       {
@@ -440,6 +458,7 @@ export const LESSONS: Lesson[] = [
           "太满",
           "绝对化"
         ],
+        tier: "core",
         mustCover: true
       }
     ],
@@ -455,6 +474,7 @@ export const LESSONS: Lesson[] = [
   {
     id: "l4",
     title: "观点态度题与词义猜测题",
+    keyWords: [],
     microLesson: {
       goal: "这节课解决两类小题：一是判断作者或文中人物的态度，二是不认识单词时靠上下文猜出词义或指代，两类都不靠语感，靠找线索。",
       blocks: [
@@ -546,6 +566,7 @@ export const LESSONS: Lesson[] = [
           "refers to",
           "指代"
         ],
+        tier: "core",
         mustCover: true
       },
       {
@@ -553,6 +574,7 @@ export const LESSONS: Lesson[] = [
         point:
           "态度题会定位评价性线索：形容词副词、情态动词、转折、评价动词和引言。",
         keyPhrases: ["形容词", "副词", "情态动词", "转折", "评价", "引言"],
+        tier: "core",
         mustCover: true
       },
       {
@@ -568,6 +590,7 @@ export const LESSONS: Lesson[] = [
           "indifferent",
           "中立"
         ],
+        tier: "core",
         mustCover: true
       },
       {
@@ -584,6 +607,7 @@ export const LESSONS: Lesson[] = [
           "构词",
           "前后缀"
         ],
+        tier: "core",
         mustCover: true
       },
       {
@@ -599,7 +623,8 @@ export const LESSONS: Lesson[] = [
           "程度过重",
           "相反"
         ],
-        mustCover: true
+        tier: "bonus",
+        mustCover: false
       }
     ],
     commonMistakes: [
@@ -614,6 +639,7 @@ export const LESSONS: Lesson[] = [
   {
     id: "l5",
     title: "选词填空（篇章词汇）",
+    keyWords: [],
     microLesson: {
       goal: "学完这节课，你能用先标词性、再判空格、边做边排除的流程，把 15 选 10 的选词填空做稳，而不是凭语感一个个试。",
       blocks: [
@@ -695,13 +721,15 @@ export const LESSONS: Lesson[] = [
           "副词",
           "ing"
         ],
+        tier: "core",
         mustCover: true
       },
       {
         id: "p2",
         point: "先读不设空的首句，把握文章主旨和整体时态。",
         keyPhrases: ["首句", "主旨", "时态", "第一句"],
-        mustCover: true
+        tier: "bonus",
+        mustCover: false
       },
       {
         id: "p3",
@@ -717,6 +745,7 @@ export const LESSONS: Lesson[] = [
           "副词",
           "并列"
         ],
+        tier: "core",
         mustCover: true
       },
       {
@@ -731,12 +760,14 @@ export const LESSONS: Lesson[] = [
           "缩小候选",
           "先易后难"
         ],
+        tier: "core",
         mustCover: true
       },
       {
         id: "p5",
         point: "选定后代入通读，核对词性、语义、搭配、时态和单复数。",
         keyPhrases: ["代入", "通读", "搭配", "语义", "单复数", "核对"],
+        tier: "core",
         mustCover: true
       }
     ],

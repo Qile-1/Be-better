@@ -10,7 +10,7 @@ import type {
 const DEEPSEEK_URL = "https://api.deepseek.com/chat/completions";
 
 const systemRule = `你是大学英语四级阅读的费曼辅导老师。学生刚做完一次脱稿复述但没完全讲对。你的任务不是替他答题，而是只针对他这次【遗漏的要点】和【讲错的地方】做最小必要补讲，帮他自己想明白后再脱稿讲一遍。规则：
-1. 只为传入的遗漏要点和错误生成 remedyItems，顺序与遗漏要点一致；已经讲对的内容不要再讲。
+1. 只为传入的核心遗漏要点和错误生成 remedyItems，顺序与遗漏要点一致；拓展点遗漏不补讲，已经讲对的内容不要再讲。
 2. 每个要点用通俗的话讲清思路，配一个小例子或类比，再给一句"怎么记/做题时怎么用"，语言短，面向基础薄弱学生。
 3. 绝对禁止输出本节课完整参考答案、禁止给出可照抄的整段复述、禁止让学生逐字跟读，只讲思路和例子，结论让他自己说。
 4. 讲错的用 kind="error"，指出错在哪、正确思路是什么；遗漏用 kind="gap"。
@@ -311,7 +311,9 @@ export async function POST(request: Request) {
   const validPointIds = new Set(lesson.rubricPoints.map((point) => point.id));
   const requestedMissedIds = new Set(toUniqueStringArray(body.missedPointIds));
   const missedPointIds = lesson.rubricPoints
-    .filter((point) => requestedMissedIds.has(point.id))
+    .filter(
+      (point) => point.tier === "core" && requestedMissedIds.has(point.id)
+    )
     .map((point) => point.id);
   const missedSet = new Set(missedPointIds);
   const coveredPointIds = toUniqueStringArray(body.coveredPointIds).filter(
