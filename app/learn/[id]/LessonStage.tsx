@@ -27,6 +27,7 @@ import type {
   RemedyResult,
   RubricPoint
 } from "../../../lib/types";
+import { VoiceDictation } from "./VoiceDictation";
 
 type LessonStageProps = {
   lesson: Lesson;
@@ -396,6 +397,12 @@ export function LessonStage({
               className="min-h-72 w-full resize-none rounded-lg border border-black/10 bg-white p-4 text-base leading-7 text-ink shadow-sm outline-none transition placeholder:text-ink/35 focus:border-leaf focus:ring-2 focus:ring-leaf/20"
             />
           </label>
+
+          <VoiceDictation
+            value={userText}
+            onChange={setUserText}
+            disabled={isSubmitting}
+          />
 
           {errorMessage ? (
             <div className="flex gap-2 rounded-lg border border-coral/25 bg-coral/10 p-3 text-sm leading-6 text-coral">
