@@ -5,10 +5,28 @@ export interface RubricPoint {
   mustCover: boolean;
 }
 
+export type MicroBlock =
+  | { type: "heading"; text: string }
+  | { type: "paragraph"; text: string }
+  | { type: "bullets"; items: string[] }
+  | { type: "tip"; text: string }
+  | {
+      type: "example";
+      title?: string;
+      question: string;
+      analysis: string;
+    };
+
+export interface MicroLesson {
+  goal: string;
+  blocks: MicroBlock[];
+}
+
 export interface Lesson {
   id: string;
   title: string;
-  video: { provider: "bilibili" | "youtube"; ref: string };
+  video?: { provider: "bilibili" | "youtube"; ref: string };
+  microLesson?: MicroLesson;
   retellTask: string;
   rubricPoints: RubricPoint[];
   commonMistakes: string[];

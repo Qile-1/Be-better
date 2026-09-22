@@ -17,7 +17,13 @@ import {
   markVideoChecked,
   saveDiagnosisResult
 } from "../../../lib/storage";
-import type { DiagnoseResult, Lesson, RubricPoint } from "../../../lib/types";
+import type {
+  DiagnoseResult,
+  Lesson,
+  MicroBlock,
+  MicroLesson,
+  RubricPoint
+} from "../../../lib/types";
 
 type LessonStageProps = {
   lesson: Lesson;
@@ -25,7 +31,7 @@ type LessonStageProps = {
   nextLesson?: Lesson;
 };
 
-const steps = ["看视频", "复述", "诊断"];
+const steps = ["学微课", "复述", "诊断"];
 
 type Stage = 1 | 2 | 3;
 
@@ -182,17 +188,7 @@ export function LessonStage({
 
       {stage === 1 && (
         <div className="space-y-5">
-          <div className="overflow-hidden rounded-lg border border-black/10 bg-black">
-            <div className="aspect-video w-full">
-              <iframe
-                title={lesson.title}
-                src={`https://player.bilibili.com/player.html?bvid=${lesson.video.ref}&high_quality=1`}
-                allow="fullscreen; autoplay; encrypted-media; picture-in-picture"
-                allowFullScreen
-                className="h-full w-full"
-              />
-            </div>
-          </div>
+          <MicroLessonContent microLesson={lesson.microLesson} />
 
           <details className="rounded-lg border border-black/10 bg-white p-4 shadow-sm">
             <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-base font-semibold text-ink">
@@ -228,7 +224,7 @@ export function LessonStage({
             className="flex h-16 w-full items-center justify-center gap-2 rounded-lg bg-leaf px-5 text-base font-bold text-white shadow-soft transition active:scale-[0.99]"
           >
             <CheckCircle2 aria-hidden="true" className="h-5 w-5" />
-            我看完了，去讲一遍
+            我学完了，去讲一遍
           </button>
         </div>
       )}
@@ -371,7 +367,7 @@ export function LessonStage({
                 className="flex h-16 w-full items-center justify-center gap-2 rounded-lg border border-black/10 bg-white px-5 text-base font-bold text-ink shadow-sm"
               >
                 <ArrowLeft aria-hidden="true" className="h-5 w-5" />
-                回看视频
+                回看微课
               </button>
             </div>
           )}
@@ -379,6 +375,85 @@ export function LessonStage({
       )}
     </section>
   );
+}
+
+function MicroLessonContent({
+  microLesson
+}: {
+  microLesson?: MicroLesson;
+}) {
+  if (!microLesson) {
+    return <p className="text-sm text-ink/60">本节微课内容筹备中</p>;
+  }
+
+  return (
+    <div className="space-y-4">
+      <section className="rounded-lg border border-black/10 bg-white p-4 shadow-sm">
+        <h2 className="mb-2 text-sm font-semibold text-coral">本节目标</h2>
+        <p className="text-sm leading-7 text-ink/75">{microLesson.goal}</p>
+      </section>
+
+      <div>{renderBlocks(microLesson.blocks)}</div>
+    </div>
+  );
+}
+
+function renderBlocks(blocks: MicroBlock[]) {
+  return blocks.map((block, index) => {
+    const key = `${block.type}-${index}`;
+
+    switch (block.type) {
+      case "heading":
+        return (
+          <h2 key={key} className="mb-3 mt-6 text-base font-bold text-ink">
+            {block.text}
+          </h2>
+        );
+      case "paragraph":
+        return (
+          <p key={key} className="mb-4 text-sm leading-7 text-ink/75">
+            {block.text}
+          </p>
+        );
+      case "bullets":
+        return (
+          <ul key={key} className="mb-4 space-y-2">
+            {block.items.map((item) => (
+              <li key={item} className="rounded-lg bg-paper px-3 py-2">
+                <span className="text-sm leading-6 text-ink/75">{item}</span>
+              </li>
+            ))}
+          </ul>
+        );
+      case "tip":
+        return (
+          <div
+            key={key}
+            className="mb-4 rounded-lg border border-leaf/30 bg-leaf/10 p-3 text-sm leading-6 text-leaf"
+          >
+            {block.text}
+          </div>
+        );
+      case "example":
+        return (
+          <section
+            key={key}
+            className="mb-4 rounded-lg border border-black/10 bg-white p-4 shadow-sm"
+          >
+            {block.title ? (
+              <h3 className="mb-3 text-base font-bold text-ink">
+                {block.title}
+              </h3>
+            ) : null}
+            <p className="text-sm leading-7 text-ink/75">{block.question}</p>
+            <p className="mt-3 text-sm leading-7 text-ink/75">
+              <span className="font-semibold text-leaf">解析：</span>
+              {block.analysis}
+            </p>
+          </section>
+        );
+    }
+  });
 }
 
 function ResultBlock({
