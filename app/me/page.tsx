@@ -22,21 +22,48 @@ export default function MePage() {
   }, [progress]);
 
   return (
-    <section className="px-5 py-7">
-      <header className="mb-6 space-y-2">
-        <p className="text-sm font-semibold text-coral">我的</p>
-        <h1 className="text-3xl font-bold text-ink">学习账户</h1>
+    <section className="px-5 py-7 md:px-10 md:py-10 lg:px-12 xl:px-14">
+      <header className="mb-8 max-w-2xl space-y-3">
+        <p className="inline-flex rounded-full bg-coral/10 px-3 py-1.5 text-xs font-bold text-coral">
+          我的
+        </p>
+        <h1 className="text-3xl font-extrabold text-ink md:text-4xl">
+          学习账户
+        </h1>
+        <p className="text-sm leading-6 text-ink/55">
+          掌握度按核心要点覆盖率计算。
+        </p>
       </header>
 
-      <div className="rounded-lg border border-black/10 bg-white p-4 shadow-sm">
-        <h2 className="text-base font-semibold text-ink">学习进度</h2>
-        <dl className="mt-4 grid grid-cols-2 gap-3">
-          <Stat label="已掌握" value={summary.mastered} tone="text-leaf" />
-          <Stat label="基本掌握" value={summary.basic} tone="text-ink" />
-          <Stat label="待复习" value={summary.review} tone="text-coral" />
-          <Stat label="已学习" value={summary.learned} tone="text-ink" />
+      <section>
+        <h2 className="text-lg font-bold text-ink">学习进度</h2>
+        <dl className="mt-4 grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-5">
+          <Stat
+            label="已掌握"
+            value={summary.mastered}
+            tone="text-leaf"
+            surface="border-leaf/15 bg-leaf/10"
+          />
+          <Stat
+            label="基本掌握"
+            value={summary.basic}
+            tone="text-ink"
+            surface="border-wheat bg-wheat/50"
+          />
+          <Stat
+            label="待复习"
+            value={summary.review}
+            tone="text-coral"
+            surface="border-coral/15 bg-coral/10"
+          />
+          <Stat
+            label="已学习"
+            value={summary.learned}
+            tone="text-ink"
+            surface="border-black/5 bg-paper"
+          />
         </dl>
-      </div>
+      </section>
     </section>
   );
 }
@@ -44,16 +71,23 @@ export default function MePage() {
 function Stat({
   label,
   value,
-  tone
+  tone,
+  surface
 }: {
   label: string;
   value: number;
   tone: string;
+  surface: string;
 }) {
   return (
-    <div className="rounded-lg bg-paper px-4 py-3">
-      <dt className="text-xs text-ink/55">{label}</dt>
-      <dd className={`mt-1 text-2xl font-bold ${tone}`}>{value} 节</dd>
+    <div
+      className={`rounded-2xl border px-5 py-5 shadow-[0_10px_28px_rgba(22,32,25,0.05)] ${surface}`}
+    >
+      <dt className="text-sm font-semibold text-ink/55">{label}</dt>
+      <dd className={`mt-2 text-3xl font-extrabold md:text-4xl ${tone}`}>
+        {value}
+        <span className="ml-1 text-sm font-semibold text-ink/45">节</span>
+      </dd>
     </div>
   );
 }

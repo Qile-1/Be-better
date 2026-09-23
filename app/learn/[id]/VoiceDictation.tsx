@@ -285,7 +285,7 @@ export function VoiceDictation({
         <button
           type="button"
           disabled
-          className="flex h-14 w-full items-center justify-center gap-2 rounded-lg border border-black/10 bg-paper px-4 text-sm font-semibold text-ink/35"
+          className="flex h-14 w-full items-center justify-center gap-2 rounded-xl border border-black/10 bg-white/70 px-4 text-sm font-semibold text-ink/35"
         >
           <Mic aria-hidden="true" className="h-5 w-5" />
           用嘴讲（语音转文字）
@@ -305,7 +305,7 @@ export function VoiceDictation({
         disabled={disabled || isSupported === null}
         onClick={isListening ? stopListening : startListening}
         className={[
-          "flex h-14 w-full items-center justify-center gap-2 rounded-lg border px-4 text-sm font-bold transition disabled:cursor-not-allowed disabled:opacity-50",
+          "flex h-14 w-full items-center justify-center gap-2 rounded-xl border px-4 text-sm font-bold transition disabled:cursor-not-allowed disabled:opacity-50",
           isListening
             ? "border-coral bg-coral/10 text-coral"
             : "border-leaf/40 bg-white text-leaf"
@@ -342,7 +342,7 @@ export function VoiceDictation({
       {errorMessage ? (
         <p
           role="status"
-          className="rounded-lg border border-coral/25 bg-coral/10 px-3 py-2 text-sm leading-6 text-coral"
+          className="rounded-xl border border-coral/25 bg-coral/10 px-3 py-2 text-sm leading-6 text-coral"
         >
           {errorMessage}
         </p>

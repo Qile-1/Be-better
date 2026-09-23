@@ -21,9 +21,9 @@ export default function RootLayout({
   return (
     <html lang="zh-CN">
       <body className="antialiased">
-        <div className="mx-auto flex min-h-dvh w-full max-w-md flex-col bg-paper shadow-soft">
-          <main className="flex-1 pb-24">{children}</main>
+        <div className="mx-auto flex min-h-dvh w-full max-w-md flex-col bg-[#fbfcf9]/95 shadow-soft md:max-w-5xl lg:my-6 lg:min-h-[calc(100dvh-3rem)] lg:rounded-3xl lg:border lg:border-white/80 lg:shadow-[0_28px_80px_rgba(22,32,25,0.10)] xl:max-w-6xl">
           <BottomNav />
+          <main className="flex-1 pb-24 md:pb-0">{children}</main>
         </div>
       </body>
     </html>
