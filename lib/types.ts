@@ -29,6 +29,19 @@ export type MicroBlock =
 export interface MicroLesson {
   goal: string;
   blocks: MicroBlock[];
+  advancedBlocks?: MicroBlock[];
+}
+
+export type PracticeOption = "A" | "B" | "C" | "D";
+
+export interface PracticeQuestion {
+  id: string;
+  passage: string;
+  prompt: string;
+  options: Record<PracticeOption, string>;
+  answer: PracticeOption;
+  explanation: string;
+  pointId: string;
 }
 
 export interface Lesson {
@@ -41,6 +54,7 @@ export interface Lesson {
   rubricPoints: RubricPoint[];
   commonMistakes: string[];
   modelAnswer: string;
+  practiceQuestions?: PracticeQuestion[];
 }
 
 export interface DiagnoseError {

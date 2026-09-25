@@ -9,6 +9,8 @@ export type LessonProgress = {
   attempts: number;
   pendingCorePointIds: string[];
   updatedAt: number;
+  reviewStep: number;
+  nextReviewAt: number;
 };
 
 export type Progress = {
@@ -21,6 +23,7 @@ const statusRank: Record<LessonMasteryStatus, number> = {
   basic: 1,
   mastered: 2
 };
+const REVIEW_DELAYS_MS = [1, 3, 7, 14].map((days) => days * 24 * 60 * 60 * 1000);
 
 function emptyProgress(): Progress {
   return {
@@ -54,6 +57,15 @@ function normalizeLessonProgress(value: unknown): LessonProgress | null {
     return null;
   }
 
+  const updatedAt =
+    typeof lesson.updatedAt === "number" && Number.isFinite(lesson.updatedAt)
+      ? lesson.updatedAt
+      : 0;
+  const reviewStep =
+    typeof lesson.reviewStep === "number" && Number.isFinite(lesson.reviewStep)
+      ? Math.min(REVIEW_DELAYS_MS.length - 1, Math.max(0, Math.floor(lesson.reviewStep)))
+      : 0;
+
   return {
     status: lesson.status,
     bestCoreCoverage: clampCoverage(lesson.bestCoreCoverage),
@@ -70,10 +82,14 @@ function normalizeLessonProgress(value: unknown): LessonProgress | null {
           )
         )
       : [],
-    updatedAt:
-      typeof lesson.updatedAt === "number" && Number.isFinite(lesson.updatedAt)
-        ? lesson.updatedAt
-        : 0
+    updatedAt,
+    reviewStep,
+    nextReviewAt:
+      typeof lesson.nextReviewAt === "number" && Number.isFinite(lesson.nextReviewAt)
+        ? lesson.nextReviewAt
+        : lesson.status === "review"
+          ? updatedAt
+          : updatedAt + REVIEW_DELAYS_MS[0]
   };
 }
 
@@ -135,7 +151,9 @@ function createLessonProgress(): LessonProgress {
     bestCoreCoverage: 0,
     attempts: 0,
     pendingCorePointIds: [],
-    updatedAt: Date.now()
+    updatedAt: Date.now(),
+    reviewStep: 0,
+    nextReviewAt: Date.now()
   };
 }
 
@@ -194,6 +212,23 @@ export function saveMastery({
   const nextStatus = statusImproved ? status : previous.status;
   const shouldReplacePending =
     statusImproved || sameStatusImprovedCoverage || !progress.lessons[lessonId];
+  const now = Date.now();
+  const completedDueReview =
+    status === "mastered" &&
+    previous.status === "mastered" &&
+    previous.nextReviewAt <= now;
+  const reviewStep =
+    completedDueReview
+      ? Math.min(REVIEW_DELAYS_MS.length - 1, previous.reviewStep + 1)
+      : status === "mastered" && previous.status === "mastered"
+        ? previous.reviewStep
+        : 0;
+  const nextReviewAt =
+    status === "review"
+      ? now
+      : status === "mastered" && previous.status === "mastered" && !completedDueReview
+        ? previous.nextReviewAt
+        : now + REVIEW_DELAYS_MS[reviewStep];
 
   saveLessonProgress(lessonId, {
     ...previous,
@@ -205,6 +240,8 @@ export function saveMastery({
     pendingCorePointIds: shouldReplacePending
       ? Array.from(new Set(missingCorePointIds))
       : previous.pendingCorePointIds,
-    updatedAt: Date.now()
+    updatedAt: now,
+    reviewStep,
+    nextReviewAt
   });
 }

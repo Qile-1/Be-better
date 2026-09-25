@@ -1,7 +1,7 @@
-// tier 为临时划分，待真题材料校准，第二步会重排
+import { EXISTING_LESSON_ENRICHMENTS, EXTRA_LESSONS } from "./curriculum";
 import type { Lesson } from "./types";
 
-export const LESSONS: Lesson[] = [
+const BASE_LESSONS: Lesson[] = [
   {
     id: "l1",
     title: "仔细阅读·主旨大意题",
@@ -780,6 +780,23 @@ export const LESSONS: Lesson[] = [
     modelAnswer:
       "选词填空我先认清规则，10 个空、15 个词，每个只用一次，还有 5 个干扰。第一步先给词库每个词标名词、动词、形容词、副词，ed 和 ing 可能既是动词又当形容词，都标上。第二步读不设空的首句，抓主旨和时态。第三步逐空判词性，冠词介词和物主代词后面多是名词，主语后面缺谓语就找动词并核对主谓一致、时态和被动，名词前用形容词，修饰动词或整句用副词，and 并列前后词性一致。第四步先做固定搭配和最有把握的，用一个划一个，难空靠排除法。最后每个词都代回通读，确认词性、意思、搭配、时态和单复数都对。"
   }
+];
+
+export const LESSONS: Lesson[] = [
+  ...BASE_LESSONS.map((lesson) => {
+    const enrichment = EXISTING_LESSON_ENRICHMENTS[lesson.id];
+
+    return enrichment
+      ? {
+          ...lesson,
+          microLesson: lesson.microLesson
+            ? { ...lesson.microLesson, advancedBlocks: enrichment.advancedBlocks }
+            : undefined,
+          practiceQuestions: enrichment.practiceQuestions
+        }
+      : lesson;
+  }),
+  ...EXTRA_LESSONS
 ];
 
 export function getLessonById(id: string) {

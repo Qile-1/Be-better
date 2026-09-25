@@ -9,6 +9,7 @@ import { getProgress } from "../lib/storage";
 export default function HomePage() {
   const [masteredCount, setMasteredCount] = useState(0);
   const [learnedCount, setLearnedCount] = useState(0);
+  const [reviewDueCount, setReviewDueCount] = useState(0);
 
   useEffect(() => {
     const lessons = Object.values(getProgress().lessons);
@@ -16,6 +17,9 @@ export default function HomePage() {
       lessons.filter((lesson) => lesson.status === "mastered").length
     );
     setLearnedCount(lessons.length);
+    setReviewDueCount(
+      lessons.filter((lesson) => lesson.nextReviewAt <= Date.now()).length
+    );
   }, []);
 
   const progress = Math.round((masteredCount / LESSONS.length) * 100);
@@ -42,7 +46,11 @@ export default function HomePage() {
           href="/learn"
           className="mt-10 inline-flex h-14 w-full items-center justify-between bg-ink px-5 text-sm font-semibold text-white transition hover:bg-ink/85 sm:w-64"
         >
-          {learnedCount > 0 ? "继续学习" : "开始第一节"}
+          {reviewDueCount > 0
+            ? `复习 ${reviewDueCount} 节待巩固内容`
+            : learnedCount > 0
+              ? "继续学习"
+              : "开始第一节"}
           <ArrowRight aria-hidden="true" className="h-4 w-4" />
         </Link>
       </div>

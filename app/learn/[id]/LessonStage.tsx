@@ -365,6 +365,14 @@ export function LessonStage({
             <CheckCircle2 aria-hidden="true" className="h-5 w-5" />
             我学完了，去讲一遍
           </button>
+          {lesson.practiceQuestions && lesson.practiceQuestions.length > 0 ? (
+            <Link
+              href={`/learn/${lesson.id}/practice`}
+              className="flex h-12 w-full items-center justify-center border border-ink/25 px-5 text-sm font-medium text-ink/65 transition hover:bg-paper"
+            >
+              或先做课后例题（可选）
+            </Link>
+          ) : null}
         </div>
       )}
 
@@ -526,6 +534,21 @@ export function LessonStage({
               </p>
             </section>
           )}
+
+          {lesson.practiceQuestions && lesson.practiceQuestions.length > 0 ? (
+            <section className="border-t border-ink/15 pt-6">
+              <h3 className="text-base font-semibold">课后例题 · 可选</h3>
+              <p className="mt-2 text-sm leading-6 text-ink/55">
+                用本节知识做两道原创小题；做完可讲解思路，或直接对答案。
+              </p>
+              <Link
+                href={`/learn/${lesson.id}/practice`}
+                className="mt-5 inline-flex h-12 items-center border border-ink px-5 text-sm font-medium text-ink transition hover:bg-paper"
+              >
+                进入课后例题
+              </Link>
+            </section>
+          ) : null}
 
           {masteryStatus === "mastered" ? (
             <CompletedActions nextLesson={nextLesson} />
@@ -854,7 +877,22 @@ function MicroLessonContent({
         </p>
       </section>
 
-      <div className="space-y-0">{renderBlocks(microLesson.blocks)}</div>
+      <div>
+        <p className="border-b border-ink/20 pb-3 text-xs font-medium tracking-[0.12em] text-ink/55">
+          常用必会
+        </p>
+        <div className="space-y-0">{renderBlocks(microLesson.blocks)}</div>
+      </div>
+
+      {microLesson.advancedBlocks && microLesson.advancedBlocks.length > 0 ? (
+        <details className="border-t border-ink/20 py-5">
+          <summary className="flex cursor-pointer list-none items-center justify-between text-sm font-semibold text-ink">
+            拔高选学 · 展开后学习
+            <ChevronDown aria-hidden="true" className="h-4 w-4" />
+          </summary>
+          <div className="mt-4">{renderBlocks(microLesson.advancedBlocks)}</div>
+        </details>
+      ) : null}
     </div>
   );
 }

@@ -25,6 +25,9 @@ export function LearnMap() {
       {LESSONS.map((lesson, index) => {
         const lessonProgress = progress?.lessons[lesson.id];
         const status = lessonProgress?.status;
+        const reviewDue = Boolean(
+          lessonProgress && lessonProgress.nextReviewAt <= Date.now()
+        );
 
         return (
           <Link
@@ -40,7 +43,7 @@ export function LearnMap() {
                 {lesson.title}
               </h2>
               <p className="mt-2 text-xs text-ink/50">
-                {status ? statusLabel[status] : "未开始"}
+                {reviewDue ? "建议复习" : status ? statusLabel[status] : "未开始"}
                 {lessonProgress && status
                   ? ` · 核心覆盖率 ${Math.round(lessonProgress.bestCoreCoverage * 100)}%`
                   : ""}
