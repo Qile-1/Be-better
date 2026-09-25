@@ -27,7 +27,7 @@ export default function HomePage() {
   return (
     <section className="mx-auto flex min-h-[calc(100dvh-6rem)] w-full max-w-4xl flex-col px-6 pb-12 pt-12 md:min-h-[calc(100dvh-4.5rem)] md:px-12 md:pt-20">
       <p className="text-xs font-medium tracking-[0.18em] text-ink/45">
-        CET-4 READING · AI 费曼督学
+        CET-4 · AI 费曼督学
       </p>
 
       <div className="flex flex-1 flex-col justify-center py-16 md:py-24">
@@ -36,7 +36,7 @@ export default function HomePage() {
           Be better<span className="text-ink/30">.</span>
         </h1>
         <p className="mt-8 max-w-xl text-xl font-medium leading-relaxed md:text-2xl">
-          把阅读讲清楚，再去拿分。
+          把阅读、写作、翻译的方法讲清楚，再动手练。
         </p>
         <p className="mt-2 text-sm leading-7 text-ink/55 md:text-base">
           学一个要点，用自己的话讲一遍，再看哪里需要补。

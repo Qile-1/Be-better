@@ -1,4 +1,5 @@
 import { EXISTING_LESSON_ENRICHMENTS, EXTRA_LESSONS } from "./curriculum";
+import { PRODUCTION_LESSONS } from "./productionCurriculum";
 import type { Lesson } from "./types";
 
 const BASE_LESSONS: Lesson[] = [
@@ -796,7 +797,8 @@ export const LESSONS: Lesson[] = [
         }
       : lesson;
   }),
-  ...EXTRA_LESSONS
+  ...EXTRA_LESSONS,
+  ...PRODUCTION_LESSONS
 ];
 
 export function getLessonById(id: string) {

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getLessonById, LESSONS } from "../../../../lib/lessons";
 import { PracticeSection } from "../PracticeSection";
+import { ProductionPracticeSection } from "../ProductionPracticeSection";
 
 type PracticePageProps = {
   params: Promise<{ id: string }>;
@@ -16,7 +17,7 @@ export default async function PracticePage({ params }: PracticePageProps) {
   const { id } = await params;
   const lesson = getLessonById(id);
 
-  if (!lesson || !lesson.practiceQuestions?.length) {
+  if (!lesson || (!lesson.practiceQuestions?.length && !lesson.productionTasks?.length)) {
     notFound();
   }
 
@@ -32,7 +33,11 @@ export default async function PracticePage({ params }: PracticePageProps) {
       <p className="mt-10 text-xs font-medium tracking-[0.16em] text-ink/45">
         {lesson.title}
       </p>
-      <PracticeSection lessonId={lesson.id} questions={lesson.practiceQuestions} />
+      {lesson.practiceQuestions?.length ? (
+        <PracticeSection lessonId={lesson.id} questions={lesson.practiceQuestions} />
+      ) : (
+        <ProductionPracticeSection lessonId={lesson.id} category={lesson.category === "translation" ? "translation" : "writing"} tasks={lesson.productionTasks ?? []} />
+      )}
     </section>
   );
 }

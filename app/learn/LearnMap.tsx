@@ -20,9 +20,22 @@ export function LearnMap() {
     setProgress(getProgress());
   }, []);
 
+  const groups = [
+    { category: "reading", label: "阅读", note: "三类题型与解题方法" },
+    { category: "writing", label: "写作", note: "按主题练观点、例子与结构" },
+    { category: "translation", label: "翻译", note: "按主题练信息与英文表达" }
+  ] as const;
+
   return (
-    <div className="border-t border-ink/20">
-      {LESSONS.map((lesson, index) => {
+    <div>
+      {groups.map((group) => (
+        <section key={group.category} className="mb-12">
+          <div className="flex flex-wrap items-end justify-between gap-2 border-b border-ink/20 pb-4">
+            <h2 className="text-xl font-semibold text-ink">{group.label}</h2>
+            <p className="text-xs text-ink/50">{group.note}</p>
+          </div>
+          {LESSONS.map((lesson, index) => {
+        if ((lesson.category ?? "reading") !== group.category) return null;
         const lessonProgress = progress?.lessons[lesson.id];
         const status = lessonProgress?.status;
         const reviewDue = Boolean(
@@ -39,9 +52,9 @@ export function LearnMap() {
               {String(index + 1).padStart(2, "0")}
             </span>
             <div className="min-w-0">
-              <h2 className="text-base font-medium leading-6 text-ink md:text-lg">
+              <h3 className="text-base font-medium leading-6 text-ink md:text-lg">
                 {lesson.title}
-              </h2>
+              </h3>
               <p className="mt-2 text-xs text-ink/50">
                 {reviewDue ? "建议复习" : status ? statusLabel[status] : "未开始"}
                 {lessonProgress && status
@@ -55,7 +68,9 @@ export function LearnMap() {
             />
           </Link>
         );
-      })}
+          })}
+        </section>
+      ))}
     </div>
   );
 }

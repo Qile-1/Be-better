@@ -365,7 +365,7 @@ export function LessonStage({
             <CheckCircle2 aria-hidden="true" className="h-5 w-5" />
             我学完了，去讲一遍
           </button>
-          {lesson.practiceQuestions && lesson.practiceQuestions.length > 0 ? (
+          {(lesson.practiceQuestions?.length || lesson.productionTasks?.length) ? (
             <Link
               href={`/learn/${lesson.id}/practice`}
               className="flex h-12 w-full items-center justify-center border border-ink/25 px-5 text-sm font-medium text-ink/65 transition hover:bg-paper"
@@ -403,7 +403,7 @@ export function LessonStage({
             <textarea
               value={userText}
               onChange={(event) => setUserText(event.target.value)}
-              placeholder="不用背讲义，像教同学一样说清楚：怎么识别题型、去哪里找主旨、怎么排除干扰项。"
+              placeholder={lesson.category === "writing" ? "不用背讲义，像教同学一样说清：这个主题怎样审题、组织段落、举例和检查？" : lesson.category === "translation" ? "不用背讲义，像教同学一样说清：怎样拆分信息、处理文化词和逻辑关系？" : "不用背讲义，像教同学一样说清楚：怎么识别题型、去哪里找证据、怎么排除干扰项。"}
               className="min-h-80 w-full resize-y border border-ink/20 bg-white p-5 text-base leading-7 text-ink outline-none transition placeholder:text-ink/35 focus:border-ink focus:ring-2 focus:ring-ink/10 md:min-h-96"
             />
           </label>
@@ -535,11 +535,11 @@ export function LessonStage({
             </section>
           )}
 
-          {lesson.practiceQuestions && lesson.practiceQuestions.length > 0 ? (
+          {(lesson.practiceQuestions?.length || lesson.productionTasks?.length) ? (
             <section className="border-t border-ink/15 pt-6">
               <h3 className="text-base font-semibold">课后例题 · 可选</h3>
               <p className="mt-2 text-sm leading-6 text-ink/55">
-                用本节知识做两道原创小题；做完可讲解思路，或直接对答案。
+                {lesson.productionTasks?.length ? `用本节知识练习 ${lesson.productionTasks.length} 道原创开放题；写完可获取 AI 反馈，或直接看参考写法与解析。` : "用本节知识做两道原创小题；做完可讲解思路，或直接对答案。"}
               </p>
               <Link
                 href={`/learn/${lesson.id}/practice`}

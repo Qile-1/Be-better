@@ -4,7 +4,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Be better",
-  description: "四级阅读的 AI 费曼督学产品"
+  description: "四级阅读、写作与翻译的 AI 费曼督学产品"
 };
 
 export const viewport: Viewport = {

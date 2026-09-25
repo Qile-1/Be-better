@@ -44,9 +44,18 @@ export interface PracticeQuestion {
   pointId: string;
 }
 
+export interface ProductionTask {
+  id: string;
+  prompt: string;
+  focus: string;
+  reference: string;
+  analysis: string[];
+}
+
 export interface Lesson {
   id: string;
   title: string;
+  category?: "reading" | "writing" | "translation";
   video?: { provider: "bilibili" | "youtube"; ref: string };
   microLesson?: MicroLesson;
   keyWords?: KeyWord[];
@@ -55,6 +64,7 @@ export interface Lesson {
   commonMistakes: string[];
   modelAnswer: string;
   practiceQuestions?: PracticeQuestion[];
+  productionTasks?: ProductionTask[];
 }
 
 export interface DiagnoseError {
