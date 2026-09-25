@@ -22,45 +22,37 @@ export default function MePage() {
   }, [progress]);
 
   return (
-    <section className="px-5 py-7 md:px-10 md:py-10 lg:px-12 xl:px-14">
-      <header className="mb-8 max-w-2xl space-y-3">
-        <p className="inline-flex rounded-full bg-coral/10 px-3 py-1.5 text-xs font-bold text-coral">
-          我的
+    <section className="mx-auto w-full max-w-4xl px-6 py-12 md:px-12 md:py-16">
+      <header className="mb-12 max-w-2xl">
+        <p className="text-xs font-medium tracking-[0.18em] text-ink/45">
+          MY PROGRESS
         </p>
-        <h1 className="text-3xl font-extrabold text-ink md:text-4xl">
+        <h1 className="mt-4 text-3xl font-semibold text-ink md:text-4xl">
           学习账户
         </h1>
-        <p className="text-sm leading-6 text-ink/55">
+        <p className="mt-5 text-sm leading-6 text-ink/55">
           掌握度按核心要点覆盖率计算。
         </p>
       </header>
 
       <section>
-        <h2 className="text-lg font-bold text-ink">学习进度</h2>
-        <dl className="mt-4 grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-5">
+        <h2 className="text-base font-medium text-ink">学习进度</h2>
+        <dl className="mt-5 grid grid-cols-2 border-t border-ink/20 md:grid-cols-4">
           <Stat
             label="已掌握"
             value={summary.mastered}
-            tone="text-leaf"
-            surface="border-leaf/15 bg-leaf/10"
           />
           <Stat
             label="基本掌握"
             value={summary.basic}
-            tone="text-ink"
-            surface="border-wheat bg-wheat/50"
           />
           <Stat
             label="待复习"
             value={summary.review}
-            tone="text-coral"
-            surface="border-coral/15 bg-coral/10"
           />
           <Stat
             label="已学习"
             value={summary.learned}
-            tone="text-ink"
-            surface="border-black/5 bg-paper"
           />
         </dl>
       </section>
@@ -70,23 +62,17 @@ export default function MePage() {
 
 function Stat({
   label,
-  value,
-  tone,
-  surface
+  value
 }: {
   label: string;
   value: number;
-  tone: string;
-  surface: string;
 }) {
   return (
-    <div
-      className={`rounded-2xl border px-5 py-5 shadow-[0_10px_28px_rgba(22,32,25,0.05)] ${surface}`}
-    >
-      <dt className="text-sm font-semibold text-ink/55">{label}</dt>
-      <dd className={`mt-2 text-3xl font-extrabold md:text-4xl ${tone}`}>
+    <div className="border-b border-ink/15 py-7 pr-4 md:py-8">
+      <dt className="text-sm text-ink/50">{label}</dt>
+      <dd className="mt-3 text-4xl font-semibold tabular-nums text-ink md:text-5xl">
         {value}
-        <span className="ml-1 text-sm font-semibold text-ink/45">节</span>
+        <span className="ml-1 text-sm font-normal text-ink/45">节</span>
       </dd>
     </div>
   );

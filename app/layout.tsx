@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#F6F7F2"
+  themeColor: "#F6F6F5"
 };
 
 export default function RootLayout({
@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="zh-CN">
       <body className="antialiased">
-        <div className="mx-auto flex min-h-dvh w-full max-w-md flex-col bg-[#fbfcf9]/95 shadow-soft md:max-w-5xl lg:my-6 lg:min-h-[calc(100dvh-3rem)] lg:rounded-3xl lg:border lg:border-white/80 lg:shadow-[0_28px_80px_rgba(22,32,25,0.10)] xl:max-w-6xl">
+        <div className="mx-auto flex min-h-dvh w-full max-w-5xl flex-col bg-white">
           <BottomNav />
           <main className="flex-1 pb-24 md:pb-0">{children}</main>
         </div>

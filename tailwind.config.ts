@@ -8,11 +8,11 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        leaf: "#2F6F4E",
-        ink: "#162019",
-        paper: "#F6F7F2",
-        wheat: "#E7D8A9",
-        coral: "#D86B57"
+        leaf: "#202223",
+        ink: "#202223",
+        paper: "#F6F6F5",
+        wheat: "#E9E9E7",
+        coral: "#4C4F4E"
       },
       boxShadow: {
         soft: "0 14px 40px rgba(22, 32, 25, 0.08)"

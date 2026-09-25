@@ -266,17 +266,17 @@ export function LessonStage({
   }
 
   return (
-    <section className="mx-auto w-full max-w-4xl px-5 py-7 md:px-8 md:py-10 lg:px-10 lg:py-12">
-      <header className="mb-7 space-y-3">
-        <p className="inline-flex rounded-full bg-coral/10 px-3 py-1.5 text-xs font-bold text-coral">
+    <section className="mx-auto w-full max-w-4xl px-6 py-10 md:px-12 md:py-14">
+      <header className="mb-9 space-y-3">
+        <p className="text-xs font-medium tracking-[0.16em] text-ink/45">
           第 {lessonNumber} 节
         </p>
-        <h1 className="text-2xl font-extrabold leading-8 text-ink md:text-3xl md:leading-10">
+        <h1 className="text-2xl font-semibold leading-8 text-ink md:text-3xl md:leading-10">
           {lesson.title}
         </h1>
       </header>
 
-      <ol className="mb-8 grid grid-cols-3 gap-2 md:gap-4">
+      <ol className="mb-10 grid grid-cols-3 border-b border-ink/15">
         {steps.map((label, index) => {
           const stepNumber = (index + 1) as Stage;
           const isActive = stage === stepNumber;
@@ -286,12 +286,12 @@ export function LessonStage({
             <li
               key={label}
               className={[
-                "rounded-2xl border px-2 py-3 text-center text-xs font-semibold shadow-sm md:py-4",
+                "border-b-2 px-2 py-3 text-center text-xs font-medium md:py-4",
                 isActive
-                  ? "border-leaf bg-gradient-to-br from-[#5b9472] to-leaf text-white shadow-[0_10px_24px_rgba(47,111,78,0.18)]"
+                  ? "border-ink text-ink"
                   : isDone
-                    ? "border-leaf/20 bg-leaf/10 text-leaf"
-                    : "border-black/10 bg-white text-ink/45"
+                    ? "border-transparent text-ink/70"
+                    : "border-transparent text-ink/40"
               ].join(" ")}
             >
               <span className="mb-1 block text-base">{index + 1}</span>
@@ -305,7 +305,7 @@ export function LessonStage({
         <div className="space-y-5">
           <MicroLessonContent microLesson={lesson.microLesson} />
 
-          <details className="rounded-2xl border border-black/5 bg-white p-5 shadow-[0_12px_30px_rgba(22,32,25,0.06)] md:p-6">
+          <details className="border-t border-ink/15 py-6">
             <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-base font-semibold text-ink">
               本节讲义要点
               <ChevronDown aria-hidden="true" className="h-5 w-5" />
@@ -336,15 +336,15 @@ export function LessonStage({
           </details>
 
           {lesson.keyWords && lesson.keyWords.length > 0 ? (
-            <section className="rounded-2xl border border-black/5 bg-white p-5 shadow-[0_12px_30px_rgba(22,32,25,0.06)]">
+            <section className="border-t border-ink/15 py-6">
               <h2 className="font-bold text-ink">
                 本节高频词（会认就行，不要求复述）
               </h2>
-              <ul className="mt-3 space-y-2">
+              <ul className="mt-3 divide-y divide-ink/10 border-t border-ink/10">
                 {lesson.keyWords.map((item) => (
                   <li
                     key={item.word}
-                    className="rounded-xl bg-paper px-3 py-2.5 text-sm leading-6"
+                    className="py-3 text-sm leading-6"
                   >
                     <span className="font-semibold text-ink">{item.word}</span>
                     <span className="ml-2 text-ink/70">{item.meaning}</span>
@@ -360,7 +360,7 @@ export function LessonStage({
           <button
             type="button"
             onClick={handleVideoDone}
-            className="flex h-16 w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-leaf to-[#4f8a68] px-5 text-base font-bold text-white shadow-[0_14px_30px_rgba(47,111,78,0.22)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_38px_rgba(47,111,78,0.28)] active:translate-y-0"
+            className="flex h-14 w-full items-center justify-center gap-2 bg-ink px-5 text-sm font-semibold text-white transition hover:bg-ink/85"
           >
             <CheckCircle2 aria-hidden="true" className="h-5 w-5" />
             我学完了，去讲一遍
@@ -371,7 +371,7 @@ export function LessonStage({
       {stage === 2 && (
         <div className="space-y-5">
           {result && masteryStatus === "review" && missedCorePoints.length > 0 ? (
-            <section className="rounded-2xl border border-wheat bg-wheat/30 p-5 shadow-sm">
+            <section className="border-l-2 border-ink bg-paper p-5">
               <h2 className="mb-3 font-bold text-ink">
                 上一次还漏了这几点，这次重点讲清楚
               </h2>
@@ -379,7 +379,7 @@ export function LessonStage({
                 {missedCorePoints.map((point) => (
                   <li
                     key={point.id}
-                    className="rounded-xl bg-white/75 px-3 py-2.5 text-sm leading-6 text-ink/75"
+                    className="border-t border-ink/10 py-2.5 text-sm leading-6 text-ink/75"
                   >
                     {point.point}
                   </li>
@@ -396,11 +396,11 @@ export function LessonStage({
               value={userText}
               onChange={(event) => setUserText(event.target.value)}
               placeholder="不用背讲义，像教同学一样说清楚：怎么识别题型、去哪里找主旨、怎么排除干扰项。"
-              className="min-h-80 w-full resize-none rounded-2xl border border-black/10 bg-white p-5 text-base leading-7 text-ink shadow-[0_10px_28px_rgba(22,32,25,0.05)] outline-none transition placeholder:text-ink/35 focus:border-leaf focus:ring-4 focus:ring-leaf/10 md:min-h-96"
+              className="min-h-80 w-full resize-y border border-ink/20 bg-white p-5 text-base leading-7 text-ink outline-none transition placeholder:text-ink/35 focus:border-ink focus:ring-2 focus:ring-ink/10 md:min-h-96"
             />
           </label>
 
-          <div className="rounded-2xl border border-black/5 bg-paper p-4">
+          <div className="border-t border-ink/15 pt-4">
             <VoiceDictation
               value={userText}
               onChange={setUserText}
@@ -409,7 +409,7 @@ export function LessonStage({
           </div>
 
           {errorMessage ? (
-            <div className="flex gap-2 rounded-2xl border border-coral/25 bg-coral/10 p-4 text-sm leading-6 text-coral">
+            <div className="flex gap-2 rounded-none border border-coral/25 bg-paper p-4 text-sm leading-6 text-coral">
               <AlertCircle aria-hidden="true" className="mt-0.5 h-5 w-5" />
               <p>{errorMessage}</p>
             </div>
@@ -420,9 +420,9 @@ export function LessonStage({
             disabled={!canSubmit}
             onClick={handleSubmit}
             className={[
-              "flex h-16 w-full items-center justify-center gap-2 rounded-2xl px-5 text-base font-bold transition",
+              "flex h-14 w-full items-center justify-center gap-2 px-5 text-sm font-semibold transition",
               canSubmit
-                ? "bg-gradient-to-r from-leaf to-[#4f8a68] text-white shadow-[0_14px_30px_rgba(47,111,78,0.22)] hover:-translate-y-0.5 hover:shadow-[0_18px_38px_rgba(47,111,78,0.28)] active:translate-y-0"
+                ? "bg-ink text-white hover:bg-ink/85"
                 : "bg-black/10 text-ink/35"
             ].join(" ")}
           >
@@ -437,7 +437,7 @@ export function LessonStage({
       )}
 
       {stage === 3 && result && masteryStatus && (
-        <div className="space-y-4">
+        <div className="space-y-8">
           <MasteryCard
             status={masteryStatus}
             coreCoverage={coreCoverage}
@@ -445,21 +445,19 @@ export function LessonStage({
           />
 
           {coveredBonusPoints.length > 0 ? (
-            <p className="rounded-2xl bg-leaf/10 px-4 py-3 text-sm font-semibold text-leaf">
+            <p className="border-b border-ink/15 pb-4 text-sm text-ink/60">
               额外讲到 {coveredBonusPoints.length} 个拓展点
             </p>
           ) : null}
 
           <ResultBlock
             title="你讲清楚了这些"
-            tone="green"
             items={coveredCorePoints.map((point) => point.point)}
             emptyText="还没有明确覆盖的核心点。"
           />
 
           <ResultBlock
             title="你漏掉了这些"
-            tone="orange"
             items={missedCorePoints.map((point) => point.point)}
             emptyText="核心点没有遗漏。"
           />
@@ -472,8 +470,8 @@ export function LessonStage({
           ) : null}
 
           {result.errors.length > 0 ? (
-            <section className="rounded-2xl border border-red-200 bg-red-50 p-5">
-              <div className="mb-3 flex items-center gap-2 text-red-700">
+            <section className="border-t border-ink/15 pt-6">
+              <div className="mb-3 flex items-center gap-2 text-ink">
                 <XCircle aria-hidden="true" className="h-5 w-5" />
                 <h3 className="font-bold">这里讲错了</h3>
               </div>
@@ -481,7 +479,7 @@ export function LessonStage({
                 {result.errors.map((error, index) => (
                   <li
                     key={`${error.point}-${index}`}
-                    className="rounded-xl bg-white/70 p-3 text-sm leading-6 text-red-900"
+                    className="border-t border-ink/10 py-3 text-sm leading-6 text-ink"
                   >
                     <p className="font-semibold">{error.point}</p>
                     <p>{error.detail}</p>
@@ -500,7 +498,7 @@ export function LessonStage({
             />
           ) : null}
 
-          <section className="rounded-2xl border border-black/5 bg-white p-5 shadow-[0_10px_28px_rgba(22,32,25,0.05)]">
+          <section className="border-t border-ink/15 pt-6">
             <h3 className="mb-2 font-bold text-ink">鼓励一下</h3>
             <p className="text-sm leading-6 text-ink/70">
               {result.encouragement}
@@ -508,7 +506,7 @@ export function LessonStage({
           </section>
 
           {masteryStatus === "review" ? (
-            <details className="rounded-2xl border border-black/5 bg-white p-5 shadow-[0_10px_28px_rgba(22,32,25,0.05)]">
+            <details className="border-t border-ink/15 pt-6">
               <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-sm font-semibold leading-6 text-ink">
                 实在没思路？展开看完整讲法（建议先自己补讲）
                 <ChevronDown
@@ -521,7 +519,7 @@ export function LessonStage({
               </p>
             </details>
           ) : (
-            <section className="rounded-2xl border border-black/5 bg-white p-5 shadow-[0_10px_28px_rgba(22,32,25,0.05)]">
+            <section className="border-t border-ink/15 pt-6">
               <h3 className="mb-2 font-bold text-ink">参考讲法</h3>
               <p className="text-sm leading-6 text-ink/70">
                 {result.modelAnswer}
@@ -570,24 +568,22 @@ function RubricGroup({
 
   return (
     <div>
-      <p className={`mb-3 font-bold ${isCore ? "text-leaf" : "text-ink/70"}`}>
+      <p className={`mb-3 font-semibold ${isCore ? "text-ink" : "text-ink/70"}`}>
         {title}
       </p>
-      <ul className="space-y-2">
+      <ul className="divide-y divide-ink/10 border-t border-ink/10">
         {points.map((point) => (
           <li
             key={point.id}
             className={[
-              "flex items-start gap-3 rounded-2xl border px-3 py-3",
-              isCore
-                ? "border-leaf/25 bg-leaf/10"
-                : "border-black/5 bg-paper"
+              "flex items-start gap-3 py-3",
+              isCore ? "text-ink" : "text-ink/70"
             ].join(" ")}
           >
             <span
               className={[
                 "mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full",
-                isCore ? "bg-leaf text-white" : "bg-white text-ink/45"
+                isCore ? "bg-ink text-white" : "bg-paper text-ink/45"
               ].join(" ")}
             >
               {isCore ? (
@@ -599,8 +595,8 @@ function RubricGroup({
             <span className="min-w-0">
               <span
                 className={[
-                  "mb-1 inline-flex rounded-lg px-2 py-0.5 text-xs font-semibold",
-                  isCore ? "bg-leaf text-white" : "bg-white text-ink/55"
+                  "mb-1 inline-flex text-xs font-medium",
+                  isCore ? "text-ink/60" : "text-ink/45"
                 ].join(" ")}
               >
                 {badge}
@@ -626,20 +622,17 @@ function MasteryCard({
   const presentation = {
     mastered: {
       title: "已掌握",
-      className:
-        "border-transparent bg-gradient-to-br from-[#5b9472] to-leaf text-white shadow-[0_18px_40px_rgba(47,111,78,0.22)]",
-      mutedClassName: "text-white/75"
+      className: "border-ink/20 bg-white text-ink",
+      mutedClassName: "text-ink/55"
     },
     basic: {
       title: "基本掌握",
-      className:
-        "border-wheat bg-gradient-to-br from-[#f7efd8] to-wheat/70 text-ink shadow-[0_14px_32px_rgba(120,96,40,0.10)]",
+      className: "border-ink/20 bg-white text-ink",
       mutedClassName: "text-ink/60"
     },
     review: {
       title: "还差一点",
-      className:
-        "border-coral/25 bg-gradient-to-br from-coral/5 to-coral/15 text-ink shadow-[0_14px_32px_rgba(216,107,87,0.10)]",
+      className: "border-ink/20 bg-white text-ink",
       mutedClassName: "text-ink/60"
     }
   }[status];
@@ -651,16 +644,16 @@ function MasteryCard({
         : RotateCcw;
 
   return (
-    <div className={`rounded-2xl border p-5 md:p-6 ${presentation.className}`}>
+    <div className={`border-t pt-6 ${presentation.className}`}>
       <div className="flex items-center gap-4">
-        <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/20">
-          <Icon aria-hidden="true" className="h-7 w-7" />
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center bg-paper">
+          <Icon aria-hidden="true" className="h-5 w-5" />
         </span>
         <div>
           <p className={`text-sm font-semibold ${presentation.mutedClassName}`}>
             核心点覆盖率 {Math.round(coreCoverage * 100)}%
           </p>
-          <h2 className="mt-1 text-2xl font-extrabold">
+          <h2 className="mt-1 text-2xl font-semibold">
             {presentation.title}
           </h2>
           {status === "review" ? (
@@ -682,12 +675,12 @@ function BonusSummary({
   missedPoints: RubricPoint[];
 }) {
   return (
-    <section className="rounded-2xl border border-black/5 bg-paper p-5">
+    <section className="border-t border-ink/15 pt-6">
       <h3 className="font-bold text-ink">拓展点（不影响掌握度）</h3>
       <p className="mt-1 text-xs leading-5 text-ink/50">
         拓展点看懂即可，没讲到不影响本节结果。
       </p>
-      <ul className="mt-3 space-y-2">
+      <ul className="mt-3 divide-y divide-ink/10 border-t border-ink/10">
         {[...coveredPoints, ...missedPoints].map((point) => {
           const isCovered = coveredPoints.some(
             (covered) => covered.id === point.id
@@ -696,13 +689,13 @@ function BonusSummary({
           return (
             <li
               key={point.id}
-              className="rounded-xl bg-white/75 px-3 py-2.5 text-sm leading-6 text-ink/65"
+              className="py-3 text-sm leading-6 text-ink/65"
             >
               <span
                 className={[
                   "mr-2 inline-flex rounded-full px-2 py-0.5 text-xs font-semibold",
                   isCovered
-                    ? "bg-leaf/10 text-leaf"
+                    ? "bg-paper text-leaf"
                     : "bg-black/5 text-ink/45"
                 ].join(" ")}
               >
@@ -720,7 +713,7 @@ function BonusSummary({
 function CompletedActions({ nextLesson }: { nextLesson?: Lesson }) {
   if (!nextLesson) {
     return (
-      <div className="rounded-2xl bg-gradient-to-r from-leaf to-[#4f8a68] p-5 text-center text-white shadow-[0_14px_30px_rgba(47,111,78,0.22)]">
+      <div className="rounded-none bg-ink p-5 text-center text-white">
         <p className="text-lg font-bold">全部课程已完成</p>
         <p className="mt-1 text-sm text-white/80">这一轮讲得漂亮。</p>
       </div>
@@ -730,7 +723,7 @@ function CompletedActions({ nextLesson }: { nextLesson?: Lesson }) {
   return (
     <Link
       href={`/learn/${nextLesson.id}`}
-      className="flex h-16 w-full items-center justify-center rounded-2xl bg-gradient-to-r from-leaf to-[#4f8a68] px-5 text-base font-bold text-white shadow-[0_14px_30px_rgba(47,111,78,0.22)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_38px_rgba(47,111,78,0.28)]"
+      className="flex h-16 w-full items-center justify-center rounded-none bg-ink px-5 text-base font-bold text-white transition"
     >
       进入下一节
     </Link>
@@ -752,12 +745,12 @@ function BasicActions({
       {nextLesson ? (
         <Link
           href={`/learn/${nextLesson.id}`}
-          className="flex h-16 w-full items-center justify-center rounded-2xl bg-gradient-to-r from-leaf to-[#4f8a68] px-5 text-base font-bold text-white shadow-[0_14px_30px_rgba(47,111,78,0.22)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_38px_rgba(47,111,78,0.28)]"
+          className="flex h-16 w-full items-center justify-center rounded-none bg-ink px-5 text-base font-bold text-white transition"
         >
           进入下一节
         </Link>
       ) : (
-        <div className="rounded-2xl bg-gradient-to-r from-leaf to-[#4f8a68] p-5 text-center text-white shadow-[0_14px_30px_rgba(47,111,78,0.22)]">
+        <div className="rounded-none bg-ink p-5 text-center text-white">
           <p className="text-lg font-bold">全部课程已完成</p>
           <p className="mt-1 text-sm text-white/80">
             待复习点已经为你记下。
@@ -767,7 +760,7 @@ function BasicActions({
       <button
         type="button"
         onClick={onRetry}
-        className="h-12 w-full rounded-2xl border border-leaf/25 bg-white text-sm font-semibold text-leaf transition hover:bg-leaf/5"
+        className="h-12 w-full rounded-none border border-leaf/25 bg-white text-sm font-semibold text-leaf transition hover:bg-leaf/5"
       >
         再讲一遍冲全掌握
       </button>
@@ -797,9 +790,9 @@ function ReviewActions({
         type="button"
         onClick={onRetry}
         className={[
-          "flex h-16 w-full items-center justify-center gap-2 rounded-2xl px-5 text-base font-bold transition",
+          "flex h-16 w-full items-center justify-center gap-2 rounded-none px-5 text-base font-bold transition",
           isFirstAttempt
-            ? "bg-gradient-to-r from-leaf to-[#4f8a68] text-white shadow-[0_14px_30px_rgba(47,111,78,0.22)] hover:-translate-y-0.5"
+            ? "bg-ink text-white"
             : "border border-leaf/30 bg-white text-leaf hover:bg-leaf/5"
         ].join(" ")}
       >
@@ -811,7 +804,7 @@ function ReviewActions({
         <Link
           href={nextHref}
           onClick={onLeave}
-          className="flex h-14 w-full items-center justify-center rounded-2xl border border-coral/25 bg-coral/10 px-5 text-sm font-bold text-coral transition hover:bg-coral/15"
+          className="flex h-14 w-full items-center justify-center rounded-none border border-coral/25 bg-paper px-5 text-sm font-bold text-coral transition hover:bg-coral/15"
         >
           {nextLesson
             ? "进入下一节（标记为待复习）"
@@ -822,7 +815,7 @@ function ReviewActions({
       <button
         type="button"
         onClick={onReviewLesson}
-        className="flex h-14 w-full items-center justify-center gap-2 rounded-2xl border border-black/10 bg-white px-5 text-sm font-bold text-ink shadow-sm transition hover:border-leaf/25 hover:text-leaf"
+        className="flex h-14 w-full items-center justify-center gap-2 rounded-none border border-ink/20 bg-white px-5 text-sm font-bold text-ink transition hover:border-leaf/25 hover:text-leaf"
       >
         <ArrowLeft aria-hidden="true" className="h-5 w-5" />
         回看微课
@@ -854,14 +847,14 @@ function MicroLessonContent({
 
   return (
     <div className="space-y-5">
-      <section className="rounded-2xl border border-black/5 border-l-4 border-l-leaf bg-leaf/5 p-5 shadow-[0_10px_28px_rgba(22,32,25,0.05)] md:p-6">
-        <h2 className="mb-2 text-sm font-bold text-leaf">本节目标</h2>
+      <section className="border-l-2 border-ink bg-paper px-5 py-5 md:px-6">
+        <h2 className="mb-2 text-sm font-semibold text-ink">本节目标</h2>
         <p className="text-sm leading-7 text-ink/75 md:text-base md:leading-8">
           {microLesson.goal}
         </p>
       </section>
 
-      <div className="space-y-4">{renderBlocks(microLesson.blocks)}</div>
+      <div className="space-y-0">{renderBlocks(microLesson.blocks)}</div>
     </div>
   );
 }
@@ -880,7 +873,7 @@ function renderBlocks(blocks: MicroBlock[]) {
   return sections.map((section, sectionIndex) => (
     <section
       key={`micro-section-${sectionIndex}`}
-      className="rounded-2xl border border-black/5 bg-white p-5 shadow-[0_10px_28px_rgba(22,32,25,0.05)] md:p-6"
+      className="border-b border-ink/15 py-7 first:border-t"
     >
       {section.map((block, blockIndex) =>
         renderMicroBlock(block, `${sectionIndex}-${blockIndex}`)
@@ -912,7 +905,7 @@ function renderMicroBlock(block: MicroBlock, key: string) {
             {block.items.map((item) => (
               <li
                 key={item}
-                className="flex gap-3 rounded-xl bg-paper px-3 py-2.5"
+                className="flex gap-3 py-2.5"
               >
                 <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-leaf/70" />
                 <span className="text-sm leading-6 text-ink/75 md:text-base md:leading-7">
@@ -926,7 +919,7 @@ function renderMicroBlock(block: MicroBlock, key: string) {
         return (
           <div
             key={key}
-            className="mb-4 rounded-xl border border-leaf/20 bg-leaf/10 p-4 text-sm leading-7 text-leaf last:mb-0 md:text-base"
+            className="mb-4 border-l-2 border-ink bg-paper px-4 py-3 text-sm leading-7 text-ink last:mb-0 md:text-base"
           >
             <span className="mr-2 font-bold">记住</span>
             {block.text}
@@ -936,7 +929,7 @@ function renderMicroBlock(block: MicroBlock, key: string) {
         return (
           <div
             key={key}
-            className="mb-4 rounded-xl border-l-4 border-l-wheat bg-wheat/25 p-4 last:mb-0"
+            className="mb-4 border-l-2 border-l-ink/30 bg-paper px-4 py-3 last:mb-0"
           >
             {block.title ? (
               <h3 className="mb-3 text-base font-bold text-ink md:text-lg">
@@ -967,18 +960,18 @@ function RemedySection({
   onRetry: () => void;
 }) {
   return (
-    <section className="space-y-3">
-      <h3 className="font-bold text-ink">针对性补讲</h3>
+    <section className="space-y-4 border-t border-ink/15 pt-6">
+      <h3 className="font-semibold text-ink">针对性补讲</h3>
 
       {isLoading ? (
-        <div className="flex items-center gap-2 rounded-2xl border border-leaf/25 bg-leaf/10 p-4 text-sm leading-6 text-leaf">
+        <div className="flex items-center gap-2 rounded-none border border-leaf/25 bg-paper p-4 text-sm leading-6 text-leaf">
           <Loader2 aria-hidden="true" className="h-5 w-5 animate-spin" />
           正在根据你漏的点准备补讲...
         </div>
       ) : null}
 
       {errorMessage ? (
-        <div className="flex gap-2 rounded-2xl border border-coral/25 bg-coral/10 p-4 text-sm leading-6 text-coral">
+        <div className="flex gap-2 rounded-none border border-coral/25 bg-paper p-4 text-sm leading-6 text-coral">
           <AlertCircle aria-hidden="true" className="mt-0.5 h-5 w-5" />
           <p>{errorMessage}</p>
         </div>
@@ -986,7 +979,7 @@ function RemedySection({
 
       {remedy ? (
         <div className="space-y-3">
-          <div className="rounded-2xl border border-leaf/25 bg-leaf/10 p-4 text-sm leading-6 text-leaf">
+          <div className="border-l-2 border-ink bg-paper px-4 py-3 text-sm leading-6 text-ink">
             {remedy.recap}
           </div>
 
@@ -997,12 +990,7 @@ function RemedySection({
             return (
               <article
                 key={`${item.kind}-${item.pointId}-${index}`}
-                className={[
-                  "rounded-2xl border p-4 shadow-[0_12px_28px_rgba(31,42,34,0.05)]",
-                  isError
-                    ? "border-coral/25 bg-coral/10"
-                    : "border-wheat bg-wheat/30"
-                ].join(" ")}
+                className="border-t border-ink/15 py-5"
               >
                 <div
                   className={[
@@ -1011,7 +999,7 @@ function RemedySection({
                   ].join(" ")}
                 >
                   <Icon aria-hidden="true" className="h-5 w-5 shrink-0" />
-                  <h4 className="font-bold">{item.title}</h4>
+                  <h4 className="font-semibold">{item.title}</h4>
                 </div>
                 <p className="text-sm leading-6 text-ink/75">
                   {item.explanation}
@@ -1028,7 +1016,7 @@ function RemedySection({
             );
           })}
 
-          <p className="rounded-2xl bg-paper px-4 py-3 text-sm leading-6 text-ink/70">
+          <p className="border-t border-ink/15 pt-4 text-sm leading-6 text-ink/70">
             {remedy.nextPrompt}
           </p>
         </div>
@@ -1038,7 +1026,7 @@ function RemedySection({
         <button
           type="button"
           onClick={onRetry}
-          className="h-12 w-full rounded-xl border border-black/10 bg-white px-4 text-sm font-semibold text-ink/60 transition hover:border-leaf/30 hover:text-leaf"
+          className="h-12 w-full rounded-none border border-ink/20 bg-white px-4 text-sm font-semibold text-ink/60 transition hover:border-leaf/30 hover:text-leaf"
         >
           {remedy ? "重新生成补讲" : "生成补讲"}
         </button>
@@ -1049,38 +1037,22 @@ function RemedySection({
 
 function ResultBlock({
   title,
-  tone,
   items,
   emptyText
 }: {
   title: string;
-  tone: "green" | "orange";
   items: string[];
   emptyText: string;
 }) {
-  const isGreen = tone === "green";
-
   return (
-    <section
-      className={[
-        "rounded-2xl border p-5 shadow-[0_12px_30px_rgba(31,42,34,0.05)]",
-        isGreen ? "border-leaf/25 bg-leaf/10" : "border-wheat bg-wheat/30"
-      ].join(" ")}
-    >
-      <h3
-        className={[
-          "mb-3 font-bold",
-          isGreen ? "text-leaf" : "text-ink"
-        ].join(" ")}
-      >
-        {title}
-      </h3>
+    <section className="border-t border-ink/15 pt-6">
+      <h3 className="mb-3 font-semibold text-ink">{title}</h3>
       {items.length > 0 ? (
-        <ul className="space-y-2">
+        <ul className="divide-y divide-ink/10 border-t border-ink/10">
           {items.map((item) => (
             <li
               key={item}
-              className="rounded-xl bg-white/75 p-3 text-sm leading-6 text-ink/75"
+              className="py-3 text-sm leading-6 text-ink/75"
             >
               {item}
             </li>
