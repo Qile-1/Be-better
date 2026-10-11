@@ -23,7 +23,7 @@ export default function RootLayout({
     <html lang="zh-CN">
       <body className="antialiased">
         <VideoIntro>
-          <div className="mx-auto flex min-h-dvh w-full max-w-5xl flex-col bg-white">
+          <div className="mx-auto flex min-h-dvh w-full max-w-[1440px] flex-col bg-[#fafafa]">
             <BottomNav />
             <main className="flex-1 pb-24 md:pb-0">{children}</main>
           </div>

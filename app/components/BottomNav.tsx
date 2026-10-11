@@ -24,7 +24,7 @@ export function BottomNav() {
     <>
       <nav
         aria-label="主导航"
-        className="fixed inset-x-0 bottom-0 z-30 mx-auto w-full border-t border-ink/15 bg-white px-2 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-2 md:hidden"
+        className="fixed inset-x-0 bottom-0 z-30 mx-auto w-full border-t border-ink/10 bg-white/95 px-2 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-2 backdrop-blur-xl md:hidden"
       >
         <div className="grid grid-cols-3 gap-1.5">
           {navItems.map(({ href, label, Icon }) => {
@@ -39,7 +39,7 @@ export function BottomNav() {
                 className={[
                   "flex h-14 flex-col items-center justify-center text-xs font-medium transition",
                   isActive
-                    ? "text-ink"
+                    ? "rounded-xl bg-paper text-ink"
                     : "text-ink/45 hover:text-ink"
                 ].join(" ")}
               >
@@ -54,10 +54,10 @@ export function BottomNav() {
 
       <nav
         aria-label="主导航"
-        className="sticky top-0 z-30 hidden items-center justify-between border-b border-ink/10 bg-white px-12 py-4 md:flex"
+        className="sticky top-0 z-30 hidden items-center justify-between border-b border-ink/10 bg-white/90 px-8 py-3 backdrop-blur-xl md:flex lg:px-12"
       >
         <Link href="/" className="flex items-center gap-3">
-          <span className="flex h-9 w-9 items-center justify-center bg-ink text-sm font-semibold text-white">
+          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-ink text-sm font-semibold text-white shadow-sm">
             B
           </span>
           <span className="text-lg font-semibold text-ink">Be better</span>
@@ -76,7 +76,7 @@ export function BottomNav() {
                 className={[
                   "flex h-11 items-center gap-2 border-b-2 px-4 text-sm font-medium transition",
                   isActive
-                    ? "border-ink text-ink"
+                    ? "rounded-lg border-transparent bg-paper text-ink"
                     : "border-transparent text-ink/50 hover:text-ink"
                 ].join(" ")}
               >
