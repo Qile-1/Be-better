@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { BottomNav } from "./components/BottomNav";
+import { VideoIntro } from "./components/VideoIntro";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -21,10 +22,12 @@ export default function RootLayout({
   return (
     <html lang="zh-CN">
       <body className="antialiased">
-        <div className="mx-auto flex min-h-dvh w-full max-w-5xl flex-col bg-white">
-          <BottomNav />
-          <main className="flex-1 pb-24 md:pb-0">{children}</main>
-        </div>
+        <VideoIntro>
+          <div className="mx-auto flex min-h-dvh w-full max-w-5xl flex-col bg-white">
+            <BottomNav />
+            <main className="flex-1 pb-24 md:pb-0">{children}</main>
+          </div>
+        </VideoIntro>
       </body>
     </html>
   );
