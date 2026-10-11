@@ -24,16 +24,23 @@ export function VideoIntro({ children }: { children: React.ReactNode }) {
     skipRef.current?.focus({ preventScroll: true });
     if (!video) return;
     // A failed or stalled opening must never block access to the app.
-    let watchdog = window.setTimeout(dismiss, 12000);
+    let watchdog = window.setTimeout(dismiss, 4000);
+    const maximumDuration = window.setTimeout(dismiss, 120000);
     const onPlaying = () => {
       window.clearTimeout(watchdog);
-      watchdog = window.setTimeout(dismiss, 120000);
+    };
+    const onWaiting = () => {
+      window.clearTimeout(watchdog);
+      watchdog = window.setTimeout(dismiss, 3000);
     };
     video.addEventListener("playing", onPlaying);
+    video.addEventListener("waiting", onWaiting);
     video.play().catch(dismiss);
     return () => {
       window.clearTimeout(watchdog);
+      window.clearTimeout(maximumDuration);
       video.removeEventListener("playing", onPlaying);
+      video.removeEventListener("waiting", onWaiting);
       video.pause();
     };
   }, [phase, dismiss]);
@@ -63,7 +70,7 @@ export function VideoIntro({ children }: { children: React.ReactNode }) {
         >
           <video
             ref={videoRef}
-            src="/videos/be-better-intro.mp4"
+            src="/videos/be-better-intro-web-v2.mp4"
             autoPlay
             muted
             playsInline
