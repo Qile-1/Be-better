@@ -12,7 +12,7 @@ import {
   XCircle
 } from "lucide-react";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState, type ReactNode } from "react";
 import {
   incrementLessonAttempts,
   markVideoChecked,
@@ -28,6 +28,7 @@ import type {
   RubricPoint
 } from "../../../lib/types";
 import { VoiceDictation } from "./VoiceDictation";
+import { PronounceWords, ReadAloudBlock, ReadAloudProvider } from "./ReadAloud";
 
 type LessonStageProps = {
   lesson: Lesson;
@@ -100,6 +101,7 @@ export function LessonStage({
   const [remedy, setRemedy] = useState<RemedyResult | null>(null);
   const [remedyLoading, setRemedyLoading] = useState(false);
   const [remedyError, setRemedyError] = useState("");
+  const remedyRequestRef = useRef(0);
   const [attemptCount, setAttemptCount] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -160,6 +162,7 @@ export function LessonStage({
   }
 
   async function handleLoadRemedy(diagnosis: DiagnoseResult) {
+    const requestId = ++remedyRequestRef.current;
     const diagnosisCoveredIds = new Set(diagnosis.coveredPointIds);
     const missingCorePointIds = corePoints
       .filter((point) => !diagnosisCoveredIds.has(point.id))
@@ -189,11 +192,11 @@ export function LessonStage({
         throw new Error("Remedy request failed");
       }
 
-      setRemedy(data);
+      if (requestId === remedyRequestRef.current) setRemedy(data);
     } catch {
-      setRemedyError("补讲没生成出来，点下面按钮重试");
+      if (requestId === remedyRequestRef.current) setRemedyError("补讲没生成出来，点下面按钮重试");
     } finally {
-      setRemedyLoading(false);
+      if (requestId === remedyRequestRef.current) setRemedyLoading(false);
     }
   }
 
@@ -204,7 +207,10 @@ export function LessonStage({
 
     const nextAttemptCount = attemptCount + 1;
     setAttemptCount(nextAttemptCount);
+    remedyRequestRef.current += 1;
+    setRemedyLoading(false);
     setRemedyError("");
+    setRemedy(null);
     setIsSubmitting(true);
     setErrorMessage("");
     incrementLessonAttempts(lesson.id);
@@ -240,7 +246,7 @@ export function LessonStage({
       saveCurrentMastery(nextMasteryStatus, data, nextCoreCoverage);
       setStage(3);
 
-      if (nextMasteryStatus === "review" && nextAttemptCount === 1) {
+      if (nextMasteryStatus === "review") {
         void handleLoadRemedy(data);
       }
     } catch (error) {
@@ -303,7 +309,21 @@ export function LessonStage({
 
       {stage === 1 && (
         <div className="space-y-5">
-          <MicroLessonContent microLesson={lesson.microLesson} />
+          {lesson.alignment ? (
+            <details className="border-y border-ink/15 py-4 text-sm leading-7 text-ink/70">
+              <summary className="cursor-pointer font-semibold text-ink">
+                考查能力与课程依据
+              </summary>
+              <p className="mt-3">{lesson.alignment.reason}</p>
+              <p className="mt-2">{lesson.alignment.skills.join(" · ")}</p>
+              <p className="mt-2">复述掌握度不等同于考试得分，学完还需独立做新题。</p>
+              <ul className="mt-2 space-y-1">
+                {lesson.alignment.evidence.map((source) => <li key={source.url}><a href={source.url} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">{source.label}</a></li>)}
+              </ul>
+              <p className="mt-2 text-xs text-ink/50">对照窗口：2021—2025。真题链接来自第三方汇编；本站例题均为原创，不是官方真题或预测题。</p>
+            </details>
+          ) : null}
+          <MicroLessonContent microLesson={lesson.microLesson} emphasisTerms={corePoints.flatMap((point) => point.keyPhrases)} />
 
           <details className="border-t border-ink/15 py-6">
             <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-base font-semibold text-ink">
@@ -338,7 +358,7 @@ export function LessonStage({
           {lesson.keyWords && lesson.keyWords.length > 0 ? (
             <section className="border-t border-ink/15 py-6">
               <h2 className="font-bold text-ink">
-                本节高频词（会认就行，不要求复述）
+                本节重点词（会认就行，不要求复述）
               </h2>
               <ul className="mt-3 divide-y divide-ink/10 border-t border-ink/10">
                 {lesson.keyWords.map((item) => (
@@ -470,13 +490,6 @@ export function LessonStage({
             emptyText="核心点没有遗漏。"
           />
 
-          {bonusPoints.length > 0 ? (
-            <BonusSummary
-              coveredPoints={coveredBonusPoints}
-              missedPoints={missedBonusPoints}
-            />
-          ) : null}
-
           {result.errors.length > 0 ? (
             <section className="border-t border-ink/15 pt-6">
               <div className="mb-3 flex items-center gap-2 text-ink">
@@ -535,11 +548,15 @@ export function LessonStage({
             </section>
           )}
 
+          {bonusPoints.length > 0 ? (
+            <BonusSummary coveredPoints={coveredBonusPoints} missedPoints={missedBonusPoints} />
+          ) : null}
+
           {(lesson.practiceQuestions?.length || lesson.productionTasks?.length) ? (
             <section className="border-t border-ink/15 pt-6">
               <h3 className="text-base font-semibold">课后例题 · 可选</h3>
               <p className="mt-2 text-sm leading-6 text-ink/55">
-                {lesson.productionTasks?.length ? `用本节知识练习 ${lesson.productionTasks.length} 道原创开放题；写完可获取 AI 反馈，或直接看参考写法与解析。` : "用本节知识做两道原创小题；做完可讲解思路，或直接对答案。"}
+                {lesson.productionTasks?.length ? `用本节知识练习 ${lesson.productionTasks.length} 道原创开放题；写完可获取 AI 反馈，或直接看参考写法与解析。` : `用本节知识做 ${lesson.practiceQuestions?.length ?? 0} 道原创小题${lesson.formatPractice?.length ? "，另有题型整组训练" : ""}；做完可讲解思路，或直接对答案。`}
               </p>
               <Link
                 href={`/learn/${lesson.id}/practice`}
@@ -590,8 +607,8 @@ function RubricGroup({
   const isCore = tone === "core";
 
   return (
-    <div>
-      <p className={`mb-3 font-semibold ${isCore ? "text-ink" : "text-ink/70"}`}>
+    <div className={isCore ? "" : "rounded-lg border border-[#aacdb4] bg-[#e7f2e9] px-4 pt-4"}>
+      <p className={`mb-3 font-bold ${isCore ? "text-ink" : "text-[#295c3b]"}`}>
         {title}
       </p>
       <ul className="divide-y divide-ink/10 border-t border-ink/10">
@@ -698,12 +715,12 @@ function BonusSummary({
   missedPoints: RubricPoint[];
 }) {
   return (
-    <section className="border-t border-ink/15 pt-6">
-      <h3 className="font-bold text-ink">拓展点（不影响掌握度）</h3>
+    <section className="rounded-lg border border-[#aacdb4] bg-[#e7f2e9] p-5">
+      <h3 className="font-bold text-[#295c3b]">拔高拓展（不影响掌握度）</h3>
       <p className="mt-1 text-xs leading-5 text-ink/50">
         拓展点看懂即可，没讲到不影响本节结果。
       </p>
-      <ul className="mt-3 divide-y divide-ink/10 border-t border-ink/10">
+      <ul className="mt-3 divide-y divide-[#295c3b]/20 border-t border-[#295c3b]/20">
         {[...coveredPoints, ...missedPoints].map((point) => {
           const isCovered = coveredPoints.some(
             (covered) => covered.id === point.id
@@ -860,44 +877,48 @@ function ReviewActions({
 }
 
 function MicroLessonContent({
-  microLesson
+  microLesson,
+  emphasisTerms
 }: {
   microLesson?: MicroLesson;
+  emphasisTerms: string[];
 }) {
   if (!microLesson) {
     return <p className="text-sm text-ink/60">本节微课内容筹备中</p>;
   }
 
   return (
-    <div className="space-y-5">
-      <section className="border-l-2 border-ink bg-paper px-5 py-5 md:px-6">
-        <h2 className="mb-2 text-sm font-semibold text-ink">本节目标</h2>
-        <p className="text-sm leading-7 text-ink/75 md:text-base md:leading-8">
-          {microLesson.goal}
-        </p>
+    <ReadAloudProvider>
+    <div className="space-y-7">
+      <section className="border-l-4 border-ink bg-ink/[0.035] px-5 py-6 md:px-7">
+        <h2 className="mb-3 text-sm font-bold text-ink">本节目标</h2>
+        <ReadAloudBlock text={microLesson.goal} label="本节目标">
+          <p className="text-base leading-8 text-ink/80"><PronounceWords text={microLesson.goal} /></p>
+        </ReadAloudBlock>
       </section>
 
       <div>
-        <p className="border-b border-ink/20 pb-3 text-xs font-medium tracking-[0.12em] text-ink/55">
+        <p className="border-b-2 border-ink/80 pb-3 text-sm font-bold text-ink">
           常用必会
         </p>
-        <div className="space-y-0">{renderBlocks(microLesson.blocks)}</div>
+        <div>{renderBlocks(microLesson.blocks, emphasisTerms)}</div>
       </div>
 
       {microLesson.advancedBlocks && microLesson.advancedBlocks.length > 0 ? (
-        <details className="border-t border-ink/20 py-5">
-          <summary className="flex cursor-pointer list-none items-center justify-between text-sm font-semibold text-ink">
+        <details className="rounded-lg border border-[#aacdb4] bg-[#e7f2e9] px-5 py-4">
+          <summary className="flex cursor-pointer list-none items-center justify-between text-sm font-bold text-[#295c3b]">
             拔高选学 · 展开后学习
             <ChevronDown aria-hidden="true" className="h-4 w-4" />
           </summary>
-          <div className="mt-4">{renderBlocks(microLesson.advancedBlocks)}</div>
+          <div className="mt-4">{renderBlocks(microLesson.advancedBlocks, emphasisTerms)}</div>
         </details>
       ) : null}
     </div>
+    </ReadAloudProvider>
   );
 }
 
-function renderBlocks(blocks: MicroBlock[]) {
+function renderBlocks(blocks: MicroBlock[], emphasisTerms: string[]) {
   const sections: MicroBlock[][] = [];
 
   for (const block of blocks) {
@@ -911,76 +932,127 @@ function renderBlocks(blocks: MicroBlock[]) {
   return sections.map((section, sectionIndex) => (
     <section
       key={`micro-section-${sectionIndex}`}
-      className="border-b border-ink/15 py-7 first:border-t"
+      className="border-b border-ink/20 py-8 last:border-b-0 md:py-10"
     >
       {section.map((block, blockIndex) =>
-        renderMicroBlock(block, `${sectionIndex}-${blockIndex}`)
+        renderMicroBlock(block, `${sectionIndex}-${blockIndex}`, emphasisTerms)
       )}
     </section>
   ));
 }
 
-function renderMicroBlock(block: MicroBlock, key: string) {
+// Highlight only a few rubric phrases so emphasis remains useful, not decorative.
+function emphasizeText(text: string, terms: string[]): ReactNode {
+  const phrases = [...new Set(terms)]
+    .filter((term) => /[\u3400-\u9fff]/.test(term) ? term.length >= 2 : term.length >= 4)
+    .sort((a, b) => b.length - a.length)
+    .map((term) => {
+      const escaped = term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      return /^[a-z\s]+$/i.test(term) ? `\\b${escaped}\\b` : escaped;
+    });
+  if (!phrases.length) return <PronounceWords text={text} />;
+
+  const pattern = new RegExp(phrases.join("|"), "gi");
+  const parts: ReactNode[] = [];
+  const highlighted = new Set<string>();
+  let cursor = 0;
+  for (const match of text.matchAll(pattern)) {
+    const phrase = match[0];
+    if (highlighted.size >= 3 || highlighted.has(phrase.toLowerCase())) continue;
+    const index = match.index;
+    parts.push(<PronounceWords key={`text-${index}`} text={text.slice(cursor, index)} />);
+    parts.push(<strong key={index} className="font-bold text-ink"><PronounceWords text={phrase} /></strong>);
+    highlighted.add(phrase.toLowerCase());
+    cursor = index + phrase.length;
+  }
+  parts.push(<PronounceWords key="remaining" text={text.slice(cursor)} />);
+  return parts;
+}
+
+function emphasizeBullet(text: string, terms: string[]) {
+  const label = text.match(/^([^：:]{1,14}[：:])/);
+  return label ? (
+    <>
+      <strong className="font-bold text-ink"><PronounceWords text={label[0]} /></strong>
+      {emphasizeText(text.slice(label[0].length), terms)}
+    </>
+  ) : emphasizeText(text, terms);
+}
+
+function renderMicroBlock(block: MicroBlock, key: string, emphasisTerms: string[]) {
     switch (block.type) {
       case "heading":
         return (
-          <h2 key={key} className="mb-4 text-lg font-extrabold text-ink">
-            {block.text}
+          <h2 key={key} className="mb-6 border-l-4 border-ink pl-3 text-lg font-bold leading-8 text-ink md:text-xl">
+            <PronounceWords text={block.text} />
           </h2>
         );
       case "paragraph":
         return (
-          <p
+          <div
             key={key}
-            className="mb-4 text-sm leading-7 text-ink/75 last:mb-0 md:text-base md:leading-8"
+            className="mb-6 last:mb-0"
           >
-            {block.text}
-          </p>
+            <ReadAloudBlock text={block.text} label="本段知识点">
+              <p className="text-base leading-8 text-ink/75">{emphasizeText(block.text, emphasisTerms)}</p>
+            </ReadAloudBlock>
+          </div>
         );
       case "bullets":
         return (
-          <ul key={key} className="mb-4 space-y-2.5 last:mb-0">
+          <ul key={key} className="mb-6 divide-y divide-ink/10 border-y border-ink/10 last:mb-0">
             {block.items.map((item) => (
               <li
                 key={item}
-                className="flex gap-3 py-2.5"
+                className="flex gap-3 px-3 py-4 odd:bg-ink/[0.025] md:px-4"
               >
-                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-leaf/70" />
-                <span className="text-sm leading-6 text-ink/75 md:text-base md:leading-7">
-                  {item}
-                </span>
+                <span aria-hidden="true" className="mt-3 h-1.5 w-1.5 shrink-0 rounded-full bg-ink/50" />
+                <div className="min-w-0 flex-1">
+                  <ReadAloudBlock text={item} label="本条知识点">
+                    <p className="text-base leading-8 text-ink/75">{emphasizeBullet(item, emphasisTerms)}</p>
+                  </ReadAloudBlock>
+                </div>
               </li>
             ))}
           </ul>
         );
       case "tip":
         return (
-          <div
+          <aside
             key={key}
-            className="mb-4 border-l-2 border-ink bg-paper px-4 py-3 text-sm leading-7 text-ink last:mb-0 md:text-base"
+            className="mb-6 border-l-4 border-ink/60 bg-ink/[0.04] px-5 py-5 last:mb-0"
           >
-            <span className="mr-2 font-bold">记住</span>
-            {block.text}
-          </div>
+            <h3 className="mb-2 flex items-center gap-2 text-sm font-bold text-ink">
+              <Lightbulb aria-hidden="true" className="h-4 w-4 shrink-0" />
+              关键提醒
+            </h3>
+            <ReadAloudBlock text={block.text} label="关键提醒">
+              <p className="text-base leading-8 text-ink/80">{emphasizeText(block.text, emphasisTerms)}</p>
+            </ReadAloudBlock>
+          </aside>
         );
       case "example":
         return (
           <div
             key={key}
-            className="mb-4 border-l-2 border-l-ink/30 bg-paper px-4 py-3 last:mb-0"
+            className="mb-6 border-y border-ink/20 bg-ink/[0.025] px-5 py-6 last:mb-0 md:px-6"
           >
             {block.title ? (
-              <h3 className="mb-3 text-base font-bold text-ink md:text-lg">
-                {block.title}
+              <h3 className="mb-4 text-base font-bold leading-7 text-ink md:text-lg">
+                <PronounceWords text={block.title} />
               </h3>
             ) : null}
-            <p className="text-sm leading-7 text-ink/75 md:text-base md:leading-8">
-              {block.question}
-            </p>
-            <p className="mt-3 text-sm leading-7 text-ink/75 md:text-base md:leading-8">
-              <span className="font-semibold text-leaf">解析：</span>
-              {block.analysis}
-            </p>
+            <ReadAloudBlock text={block.question} label="例题题干">
+              <p className="text-base leading-8 text-ink/75"><PronounceWords text={block.question} /></p>
+            </ReadAloudBlock>
+            <div className="mt-5 border-t border-ink/10 pt-4">
+              <ReadAloudBlock text={block.analysis} label="例题解析">
+                <p className="text-base leading-8 text-ink/75">
+                  <span className="font-bold text-ink">解析：</span>
+                  {emphasizeText(block.analysis, emphasisTerms)}
+                </p>
+              </ReadAloudBlock>
+            </div>
           </div>
         );
     }
@@ -999,7 +1071,7 @@ function RemedySection({
 }) {
   return (
     <section className="space-y-4 border-t border-ink/15 pt-6">
-      <h3 className="font-semibold text-ink">针对性补讲</h3>
+      <h3 className="text-lg font-bold text-ink">针对性补讲</h3>
 
       {isLoading ? (
         <div className="flex items-center gap-2 rounded-none border border-leaf/25 bg-paper p-4 text-sm leading-6 text-leaf">

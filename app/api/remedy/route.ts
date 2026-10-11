@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getLessonById } from "../../../lib/lessons";
+import { getAssessmentContext, getAssessmentGuidance } from "../../../lib/assessmentContext";
 import type {
   DiagnoseError,
   RemedyItem,
@@ -9,11 +10,11 @@ import type {
 
 const DEEPSEEK_URL = "https://api.deepseek.com/chat/completions";
 
-const systemRule = `你是大学英语四级阅读的费曼辅导老师。学生刚做完一次脱稿复述但没完全讲对。你的任务不是替他答题，而是只针对他这次【遗漏的要点】和【讲错的地方】做最小必要补讲，帮他自己想明白后再脱稿讲一遍。规则：
-1. 只为传入的核心遗漏要点和错误生成 remedyItems，顺序与遗漏要点一致；拓展点遗漏不补讲，已经讲对的内容不要再讲。
+const systemRule = `你是大学英语四级阅读、写作与翻译的费曼辅导老师。根据课程类别和当前本节清单，为这次复述的遗漏与硬伤做定点补讲，帮学生理解后自己重新组织。规则：
+1. 以本节清单为唯一知识依据。先纠正传入的明确错误，再按核心遗漏要点顺序补齐；相同要点既有错误又遗漏时合并成一个 error 项。每个待补核心点和每个错误目标都要覆盖。遗漏 bonus 不补讲，已经讲对且没有错误的点不要重复讲。
 2. 每个要点用通俗的话讲清思路，配一个小例子或类比，再给一句"怎么记/做题时怎么用"，语言短，面向基础薄弱学生。
 3. 绝对禁止输出本节课完整参考答案、禁止给出可照抄的整段复述、禁止让学生逐字跟读，只讲思路和例子，结论让他自己说。
-4. 讲错的用 kind="error"，指出错在哪、正确思路是什么；遗漏用 kind="gap"。
+4. 讲错的用 kind="error"，先核对学生原话与本节方法，指出具体冲突、正确思路；遗漏用 kind="gap"，不能把遗漏说成讲错。写作与翻译复述是方法讲解，别要求学生背范文、唯一译文或模板。例子可原创，但不虚构真题频率、研究或考试提分。
 5. recap 基于已覆盖要点具体肯定他讲对的部分，不要空泛夸奖；nextPrompt 引导他合上讲义、脱稿再讲一遍并重点补遗漏点。
 只输出一个 JSON 对象，键名必须与下面完全一致，不能新增或改名：
 {
@@ -66,7 +67,7 @@ function normalizeRequestErrors(value: unknown): DiagnoseError[] {
   }
 
   return value
-    .map((item) => {
+    .map((item): DiagnoseError | null => {
       if (!item || typeof item !== "object") {
         return null;
       }
@@ -79,7 +80,8 @@ function normalizeRequestErrors(value: unknown): DiagnoseError[] {
           ? record.point.trim()
           : "相关要点";
 
-      return detail ? { point, detail } : null;
+      const pointId = typeof record.pointId === "string" ? record.pointId.trim() : undefined;
+      return detail ? { pointId, point, detail } : null;
     })
     .filter((item): item is DiagnoseError => item !== null);
 }
@@ -97,12 +99,14 @@ function normalizeRemedyItem({
   missedPointIds,
   validPointIds,
   pointTextById,
+  errorPointIds,
   errorFallback
 }: {
   value: unknown;
   missedPointIds: Set<string>;
   validPointIds: Set<string>;
   pointTextById: Map<string, string>;
+  errorPointIds: Set<string>;
   errorFallback?: DiagnoseError;
 }): RemedyItem | null {
   if (!value || typeof value !== "object") {
@@ -120,6 +124,10 @@ function normalizeRemedyItem({
   const rawPointId = getText(record, "pointId");
 
   if (kind === "gap" && !missedPointIds.has(rawPointId)) {
+    return null;
+  }
+
+  if (kind === "error" && !errorPointIds.has(rawPointId)) {
     return null;
   }
 
@@ -188,6 +196,7 @@ function normalizeRemedyResult({
   }
 
   const missedSet = new Set(missedPointIds);
+  const errorPointIds = new Set(errors.map((error) => error.pointId ?? "review"));
   const normalizedItems = record.remedyItems
     .map((item, index) =>
       normalizeRemedyItem({
@@ -195,13 +204,14 @@ function normalizeRemedyResult({
         missedPointIds: missedSet,
         validPointIds,
         pointTextById,
-        errorFallback: errors[index]
+        errorPointIds,
+        errorFallback: errors.find((error) => (error.pointId ?? "review") === (item && typeof item === "object" ? (item as Record<string, unknown>).pointId : "")) ?? errors[index]
       })
     )
     .filter((item): item is RemedyItem => item !== null);
 
   const firstGapById = new Map<string, RemedyItem>();
-  const errorItems: RemedyItem[] = [];
+  const firstErrorById = new Map<string, RemedyItem>();
 
   for (const item of normalizedItems) {
     if (item.kind === "gap") {
@@ -209,17 +219,21 @@ function normalizeRemedyResult({
         firstGapById.set(item.pointId, item);
       }
     } else {
-      errorItems.push(item);
+      if (!firstErrorById.has(item.pointId)) firstErrorById.set(item.pointId, item);
     }
   }
 
-  const maxItems = Math.min(6, missedPointIds.length + errors.length);
   const remedyItems = [
+    ...Array.from(errorPointIds).map((id) => firstErrorById.get(id)).filter((item): item is RemedyItem => item !== undefined),
     ...missedPointIds
+      .filter((id) => !firstErrorById.has(id))
       .map((id) => firstGapById.get(id))
-      .filter((item): item is RemedyItem => item !== undefined),
-    ...errorItems
-  ].slice(0, maxItems);
+      .filter((item): item is RemedyItem => item !== undefined)
+  ];
+
+  if (missedPointIds.some((id) => !firstGapById.has(id) && !firstErrorById.has(id)) || Array.from(errorPointIds).some((id) => !firstErrorById.has(id))) {
+    return null;
+  }
 
   if (remedyItems.length === 0) {
     return null;
@@ -242,13 +256,16 @@ function normalizeRemedyResult({
 
 async function callDeepSeek({
   apiKey,
+  systemContent,
   userContent
 }: {
   apiKey: string;
+  systemContent: string;
   userContent: string;
 }) {
   const response = await fetch(DEEPSEEK_URL, {
     method: "POST",
+    signal: AbortSignal.timeout(45000),
     headers: {
       Authorization: `Bearer ${apiKey}`,
       "Content-Type": "application/json"
@@ -258,7 +275,7 @@ async function callDeepSeek({
       temperature: 0.3,
       response_format: { type: "json_object" },
       messages: [
-        { role: "system", content: systemRule },
+        { role: "system", content: systemContent },
         { role: "user", content: userContent }
       ]
     })
@@ -301,6 +318,7 @@ export async function POST(request: Request) {
     return friendlyError("请求格式不正确，请再试一次", 400);
   }
 
+  if (!body || typeof body !== "object" || Array.isArray(body)) return friendlyError("请求格式不正确，请再试一次", 400);
   const lessonId = typeof body.lessonId === "string" ? body.lessonId : "";
   const lesson = getLessonById(lessonId);
 
@@ -319,7 +337,13 @@ export async function POST(request: Request) {
   const coveredPointIds = toUniqueStringArray(body.coveredPointIds).filter(
     (id) => validPointIds.has(id) && !missedSet.has(id)
   );
-  const errors = normalizeRequestErrors(body.errors);
+  const errors = normalizeRequestErrors(body.errors).map((error) => ({
+    ...error,
+    pointId: error.pointId ?? lesson.rubricPoints.find((point) => point.point === error.point)?.id
+  }));
+  if (errors.some((error) => error.pointId && !validPointIds.has(error.pointId))) {
+    return friendlyError("诊断要点已更新，请重新提交复述后获取补讲", 400);
+  }
 
   if (missedPointIds.length === 0 && errors.length === 0) {
     return friendlyError("这次没有需要补讲的要点", 400);
@@ -337,11 +361,13 @@ export async function POST(request: Request) {
   const pointTextById = new Map(
     lesson.rubricPoints.map((point) => [point.id, point.point])
   );
+  const systemContent = `${systemRule}\n${getAssessmentGuidance(lesson)}\n当前课程依据：${JSON.stringify(getAssessmentContext(lesson))}`;
   const userContent = JSON.stringify({
     userText: typeof body.userText === "string" ? body.userText : "",
     missedPoints,
-    errors,
+    errors: errors.map((error) => ({ ...error, pointId: error.pointId ?? "review" })),
     coveredPointIds,
+    coveredPoints: lesson.rubricPoints.filter((point) => coveredPointIds.includes(point.id)).map(({ id, point }) => ({ id, point })),
     material: {
       goal: lesson.microLesson?.goal ?? "",
       commonMistakes: lesson.commonMistakes
@@ -356,14 +382,14 @@ export async function POST(request: Request) {
   };
 
   try {
-    const firstContent = await callDeepSeek({ apiKey, userContent });
+    const firstContent = await callDeepSeek({ apiKey, systemContent, userContent });
     const firstResult = parseModelJson(firstContent, normalizeContext);
 
     if (firstResult) {
       return NextResponse.json(firstResult);
     }
 
-    const secondContent = await callDeepSeek({ apiKey, userContent });
+    const secondContent = await callDeepSeek({ apiKey, systemContent, userContent });
     const secondResult = parseModelJson(secondContent, normalizeContext);
 
     if (secondResult) {

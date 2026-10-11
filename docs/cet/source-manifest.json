@@ -1,0 +1,682 @@
+[
+  {
+    "id": "cet4_2021_06_1",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2021_06_1",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2021_06_1.pdf",
+    "sha256": "a398a171743e9402576ec35fe488f5daeeaa2456b40eee2dc4d8b9af3c2ddcb5",
+    "pages": 8,
+    "role": "paper-compilation",
+    "review": "task-inventory-and-reading-stem-review",
+    "extraction": "pdf-text"
+  },
+  {
+    "id": "cet4_2021_06_1_ans",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2021_06_1_ans",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2021_06_1_ans.pdf",
+    "sha256": "97ed5bc4add7ec5fc4cc4ed80f3cb48dbb15058fce29bf50f84f3e809fb4c9cd",
+    "pages": 15,
+    "role": "answer-compilation",
+    "review": "downloaded-reference-not-fully-ocr-reviewed",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2021_06_2",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2021_06_2",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2021_06_2.pdf",
+    "sha256": "8d5d51042b01b12574f6bbc1880b16c74b45a3ffd3b205db06630ecf0a3195be",
+    "pages": 8,
+    "role": "paper-compilation",
+    "review": "task-inventory-and-reading-stem-review",
+    "extraction": "pdf-text"
+  },
+  {
+    "id": "cet4_2021_06_2_ans",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2021_06_2_ans",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2021_06_2_ans.pdf",
+    "sha256": "81d74542cafcd18e5b5349d65a28d9415d25d6b347410a97ebcb24018fc64ce4",
+    "pages": 15,
+    "role": "answer-compilation",
+    "review": "downloaded-reference-not-fully-ocr-reviewed",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2021_06_3",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2021_06_3",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2021_06_3.pdf",
+    "sha256": "a0d57af51bce87f7193cf3e2e4c34a01ff2d76eed7f603ccb3f3635ae2122fc7",
+    "pages": 6,
+    "role": "paper-compilation",
+    "review": "task-inventory-and-reading-stem-review",
+    "extraction": "pdf-text"
+  },
+  {
+    "id": "cet4_2021_06_3_ans",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2021_06_3_ans",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2021_06_3_ans.pdf",
+    "sha256": "b99eb54739de06a48d5fb55c7189b7e0f0341f3a62f31c1bb44517ca582508cd",
+    "pages": 10,
+    "role": "answer-compilation",
+    "review": "downloaded-reference-not-fully-ocr-reviewed",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2021_12_1",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2021_12_1",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2021_12_1.pdf",
+    "sha256": "9bf9deb13cf23f1e4f589012ee4eceeb0dc88beada93c97102e23093d0196163",
+    "pages": 10,
+    "role": "paper-compilation",
+    "review": "task-inventory-and-reading-stem-review",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2021_12_1_ans",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2021_12_1_ans",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2021_12_1_ans.pdf",
+    "sha256": "4ace0dc07e0881c7aefd87dee6b44e84349d40b64d76451eca8f5999881f20b7",
+    "pages": 15,
+    "role": "answer-compilation",
+    "review": "downloaded-reference-not-fully-ocr-reviewed",
+    "extraction": "pdf-text"
+  },
+  {
+    "id": "cet4_2021_12_2",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2021_12_2",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2021_12_2.pdf",
+    "sha256": "ad5c97c19a000bbb21ba1a19c80daa4b53bd8c4429146e028a90b8ba8462572e",
+    "pages": 10,
+    "role": "paper-compilation",
+    "review": "task-inventory-and-reading-stem-review",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2021_12_2_ans",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2021_12_2_ans",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2021_12_2_ans.pdf",
+    "sha256": "8e8daf5ae69358d4b3cab7376ef21ee5c7be10a2c4499d96b3d0cc69176a5a8f",
+    "pages": 15,
+    "role": "answer-compilation",
+    "review": "downloaded-reference-not-fully-ocr-reviewed",
+    "extraction": "pdf-text"
+  },
+  {
+    "id": "cet4_2021_12_3",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2021_12_3",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2021_12_3.pdf",
+    "sha256": "20f7d6e833e1f7fd88f176394ba00ca806bb99f4a2f8cdecd5a9741e016b7ded",
+    "pages": 7,
+    "role": "paper-compilation",
+    "review": "task-inventory-and-reading-stem-review",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2021_12_3_ans",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2021_12_3_ans",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2021_12_3_ans.pdf",
+    "sha256": "4f03c54dfda1a837452e30d2990db59c6681402451c327c7c8ef6c332ddebd05",
+    "pages": 10,
+    "role": "answer-compilation",
+    "review": "downloaded-reference-not-fully-ocr-reviewed",
+    "extraction": "pdf-text"
+  },
+  {
+    "id": "cet4_2022_06_1",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2022_06_1",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2022_06_1.pdf",
+    "sha256": "98a4aaecf332f9874f8940a802593eb66b2cb44dfaabfaadade4eb4c97b9c585",
+    "pages": 8,
+    "role": "paper-compilation",
+    "review": "task-inventory-and-reading-stem-review",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2022_06_1_ans",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2022_06_1_ans",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2022_06_1_ans.pdf",
+    "sha256": "8ee468ef7d12fe2950441aa8e2414c7550b8ae9dc8b9bcbf4a0d7dc09071ac3f",
+    "pages": 14,
+    "role": "answer-compilation",
+    "review": "downloaded-reference-not-fully-ocr-reviewed",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2022_06_2",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2022_06_2",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2022_06_2.pdf",
+    "sha256": "315b1fcd4ebcdcada822b8ba32896aa55c3dca890a5493ff3d55e6a09dbe0d3b",
+    "pages": 6,
+    "role": "paper-compilation",
+    "review": "task-inventory-and-reading-stem-review",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2022_06_2_ans",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2022_06_2_ans",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2022_06_2_ans.pdf",
+    "sha256": "5babad090dc67db1d648bce2d13abc1c064a08aed57b0e45ee421190e279bad1",
+    "pages": 10,
+    "role": "answer-compilation",
+    "review": "downloaded-reference-not-fully-ocr-reviewed",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2022_06_3",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2022_06_3",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2022_06_3.pdf",
+    "sha256": "97f136a584793e94f4f0dc950b1bbaea52eb1bee60daef8bbf72d45617b88789",
+    "pages": 1,
+    "role": "paper-compilation",
+    "review": "task-inventory-and-reading-stem-review",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2022_06_3_ans",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2022_06_3_ans",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2022_06_3_ans.pdf",
+    "sha256": "e819e47f2bcfb3d2e95e14904ed21c7356eaa677354dbbcf2be1b4a0ee33e2c3",
+    "pages": 2,
+    "role": "answer-compilation",
+    "review": "downloaded-reference-not-fully-ocr-reviewed",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2022_09_1",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2022_09_1",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2022_09_1.pdf",
+    "sha256": "38db7898e9b6cf56c9f58693ae055a9fb0f3162836d6f6a8b82be394508393b3",
+    "pages": 10,
+    "role": "paper-compilation",
+    "review": "task-inventory-and-reading-stem-review",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2022_09_1_ans",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2022_09_1_ans",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2022_09_1_ans.pdf",
+    "sha256": "f9b34d1819b4bc802438d49e569ed5403710e8c17e71e5c200d7552eb3fb1192",
+    "pages": 13,
+    "role": "answer-compilation",
+    "review": "downloaded-reference-not-fully-ocr-reviewed",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2022_09_2-3",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2022_09_2-3",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2022_09_2-3.pdf",
+    "sha256": "bc05bf8999d7b68f1a7f148934e1a9ed6c4e0bd8b45a6ba26e14b2d7e8ecea74",
+    "pages": 2,
+    "role": "paper-compilation",
+    "review": "task-inventory-and-reading-stem-review",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2022_09_2-3_ans",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2022_09_2-3_ans",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2022_09_2-3_ans.pdf",
+    "sha256": "f3e6b74b5c6aa0e56c9da7d8d740bdf987a2f5234111e5eda43a8dc7db8e5d0d",
+    "pages": 2,
+    "role": "answer-compilation",
+    "review": "downloaded-reference-not-fully-ocr-reviewed",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2022_12_1",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2022_12_1",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2022_12_1.pdf",
+    "sha256": "c29d9111253133135fe2fe40cdc6e0b18667f2251d05c48ebcae6ae528e88c17",
+    "pages": 8,
+    "role": "paper-compilation",
+    "review": "task-inventory-and-reading-stem-review",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2022_12_1_ans",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2022_12_1_ans",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2022_12_1_ans.pdf",
+    "sha256": "50823f391b353322c5cb0a5e1c2fa9a52322168e521953bf1a23cefd747be553",
+    "pages": 14,
+    "role": "answer-compilation",
+    "review": "downloaded-reference-not-fully-ocr-reviewed",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2022_12_2",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2022_12_2",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2022_12_2.pdf",
+    "sha256": "5218c0206fda282bba0c3a56b99c2c7a2187fc63da2b871c2e436728757bbcc7",
+    "pages": 8,
+    "role": "paper-compilation",
+    "review": "task-inventory-and-reading-stem-review",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2022_12_2_ans",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2022_12_2_ans",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2022_12_2_ans.pdf",
+    "sha256": "b6cfc2bfab7380c699db00c6d6774500c95417f303f29d8aaa97d6e7a7b5bea2",
+    "pages": 14,
+    "role": "answer-compilation",
+    "review": "downloaded-reference-not-fully-ocr-reviewed",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2022_12_3",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2022_12_3",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2022_12_3.pdf",
+    "sha256": "277d8ea6e799069bf9b0367cf069166358f44af559293d5037f9faacc105cdcd",
+    "pages": 6,
+    "role": "paper-compilation",
+    "review": "task-inventory-and-reading-stem-review",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2022_12_3_ans",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2022_12_3_ans",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2022_12_3_ans.pdf",
+    "sha256": "e3b7e0f036be624888d6bbc7e44453006bcd498153416aeec369045a870c79ec",
+    "pages": 10,
+    "role": "answer-compilation",
+    "review": "downloaded-reference-not-fully-ocr-reviewed",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2023_03_1",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2023_03_1",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2023_03_1.pdf",
+    "sha256": "40a0aaad9c96828069ac2161603fd133b69fbe1b0a2bd52484a60da94b2b0178",
+    "pages": 9,
+    "role": "paper-compilation",
+    "review": "task-inventory-and-reading-stem-review",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2023_03_1_ans",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2023_03_1_ans",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2023_03_1_ans.pdf",
+    "sha256": "718331b486783211eedd360f4d40ef23e08282ab80f0a53b5d41481b51ac714b",
+    "pages": 12,
+    "role": "answer-compilation",
+    "review": "downloaded-reference-not-fully-ocr-reviewed",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2023_03_2-3",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2023_03_2-3",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2023_03_2-3.pdf",
+    "sha256": "0d695e4d6d568aadcaf9420fd1396107bf4fd05041b12423609dc37d3581a1d9",
+    "pages": 4,
+    "role": "paper-compilation",
+    "review": "task-inventory-and-reading-stem-review",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2023_03_2-3_ans",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2023_03_2-3_ans",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2023_03_2-3_ans.pdf",
+    "sha256": "e45928bfa29792f57a09370dcbec30da3293b4aabfd545905b84a70e2a2378e6",
+    "pages": 4,
+    "role": "answer-compilation",
+    "review": "downloaded-reference-not-fully-ocr-reviewed",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2023_06_1",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2023_06_1",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2023_06_1.pdf",
+    "sha256": "9a61fb8b74a989810ce4d3561a4c3d8fc80510c1bde79afbf574b132e0fd9f4f",
+    "pages": 8,
+    "role": "paper-compilation",
+    "review": "task-inventory-and-reading-stem-review",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2023_06_1_ans",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2023_06_1_ans",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2023_06_1_ans.pdf",
+    "sha256": "937d1b450b5d26b8f5c563624ae5c18b030b2315949eef65d70dfbbc0c03e3e7",
+    "pages": 15,
+    "role": "answer-compilation",
+    "review": "downloaded-reference-not-fully-ocr-reviewed",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2023_06_2",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2023_06_2",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2023_06_2.pdf",
+    "sha256": "fe37a99b9f09dd848ca00df780ee4d187140e9ed2e1ac81f197a798457ed0668",
+    "pages": 8,
+    "role": "paper-compilation",
+    "review": "task-inventory-and-reading-stem-review",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2023_06_2_ans",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2023_06_2_ans",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2023_06_2_ans.pdf",
+    "sha256": "b9bf0d70815d828a282f18e424400bed1e13d8fc69a6adc3ec6f567d44908480",
+    "pages": 14,
+    "role": "answer-compilation",
+    "review": "downloaded-reference-not-fully-ocr-reviewed",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2023_06_3",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2023_06_3",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2023_06_3.pdf",
+    "sha256": "0025fc03ecad69fc75ad4d16a74eb98c99a3660b38818ba9b892eef15484b8ea",
+    "pages": 6,
+    "role": "paper-compilation",
+    "review": "task-inventory-and-reading-stem-review",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2023_06_3_ans",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2023_06_3_ans",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2023_06_3_ans.pdf",
+    "sha256": "c8ef963c9eb6096e3393c197a661d17accd83e4e0d368fbde23b519727decc70",
+    "pages": 9,
+    "role": "answer-compilation",
+    "review": "downloaded-reference-not-fully-ocr-reviewed",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2023_12_1",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2023_12_1",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2023_12_1.pdf",
+    "sha256": "0c033a2fe168d4783fc80ab4e6ef60d6246130fa41e897ec0db71601fb020410",
+    "pages": 9,
+    "role": "paper-compilation",
+    "review": "task-inventory-and-reading-stem-review",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2023_12_1_ans",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2023_12_1_ans",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2023_12_1_ans.pdf",
+    "sha256": "fc3f8ef70ff883b8fecc665c1616738e0689657cb1ad200e22c836b397cc00c3",
+    "pages": 19,
+    "role": "answer-compilation",
+    "review": "downloaded-reference-not-fully-ocr-reviewed",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2023_12_2",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2023_12_2",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2023_12_2.pdf",
+    "sha256": "9dc516c8db6b9f1ffd459e6c7a8dce11b4325dfe4e52e28668776d2e544652e5",
+    "pages": 9,
+    "role": "paper-compilation",
+    "review": "task-inventory-and-reading-stem-review",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2023_12_2_ans",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2023_12_2_ans",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2023_12_2_ans.pdf",
+    "sha256": "51d6b097ca28cbf09aeca9c18913bd4ab44d4abab979b42be07974950022bb32",
+    "pages": 18,
+    "role": "answer-compilation",
+    "review": "downloaded-reference-not-fully-ocr-reviewed",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2023_12_3",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2023_12_3",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2023_12_3.pdf",
+    "sha256": "9b95b2e4cbf4fd7763ada5f69d38ac659c18dbcb5386239f5f7bb1b72a7059a2",
+    "pages": 6,
+    "role": "paper-compilation",
+    "review": "task-inventory-and-reading-stem-review",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2023_12_3_ans",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2023_12_3_ans",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2023_12_3_ans.pdf",
+    "sha256": "ef53a867d57ca03656c32e67bd1bd0f04226edd372be4c576bf7dedc74be0642",
+    "pages": 11,
+    "role": "answer-compilation",
+    "review": "downloaded-reference-not-fully-ocr-reviewed",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2024_06_1",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2024_06_1",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2024_06_1.pdf",
+    "sha256": "be050a97398dfd72ef0f349e0f2036bbb82f71434a5186eec4bfd63f6babf183",
+    "pages": 7,
+    "role": "paper-compilation",
+    "review": "task-inventory-and-reading-stem-review",
+    "extraction": "pdf-text"
+  },
+  {
+    "id": "cet4_2024_06_1_ans",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2024_06_1_ans",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2024_06_1_ans.pdf",
+    "sha256": "f0013c91edf1a2e2280601a3fc944b51e17259802ae7d4394c3d2fcb45357117",
+    "pages": 19,
+    "role": "answer-compilation",
+    "review": "downloaded-reference-not-fully-ocr-reviewed",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2024_06_2",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2024_06_2",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2024_06_2.pdf",
+    "sha256": "aada101cc537bcfc69d54a77acdaefa52bf340779bead0f2a1e29ee40683d358",
+    "pages": 8,
+    "role": "paper-compilation",
+    "review": "task-inventory-and-reading-stem-review",
+    "extraction": "pdf-text"
+  },
+  {
+    "id": "cet4_2024_06_2_ans",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2024_06_2_ans",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2024_06_2_ans.pdf",
+    "sha256": "8e1ab6ee16f90d47e624d45ac5fc233feeaa415244c2263e39b54f4cb54165f4",
+    "pages": 18,
+    "role": "answer-compilation",
+    "review": "downloaded-reference-not-fully-ocr-reviewed",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2024_06_3",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2024_06_3",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2024_06_3.pdf",
+    "sha256": "ec1c750fc530c5ca9b5db11c9d0bcccb90f0ac9220c0a1c5ae840f4f43c171c0",
+    "pages": 6,
+    "role": "paper-compilation",
+    "review": "task-inventory-and-reading-stem-review",
+    "extraction": "pdf-text"
+  },
+  {
+    "id": "cet4_2024_06_3_ans",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2024_06_3_ans",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2024_06_3_ans.pdf",
+    "sha256": "bd043efd7477d716d1731a19d71970ab32d4bcc2a2e83f371faeb51bf6fb94ea",
+    "pages": 11,
+    "role": "answer-compilation",
+    "review": "downloaded-reference-not-fully-ocr-reviewed",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2024_12_1",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2024_12_1",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2024_12_1.pdf",
+    "sha256": "451a0a9470c043cd6e5449d3fc265877283e31153aaa2647167f1bde4a706216",
+    "pages": 8,
+    "role": "paper-compilation",
+    "review": "task-inventory-and-reading-stem-review",
+    "extraction": "pdf-text"
+  },
+  {
+    "id": "cet4_2024_12_1_ans",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2024_12_1_ans",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2024_12_1_ans.pdf",
+    "sha256": "f7bb689ec7f373f756a0ff86eea577bf427ee755794c7d0fa9a86a10b3e990e9",
+    "pages": 18,
+    "role": "answer-compilation",
+    "review": "downloaded-reference-not-fully-ocr-reviewed",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2024_12_2",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2024_12_2",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2024_12_2.pdf",
+    "sha256": "982a486689a7dc6196fe41e7e687ab6b28846523f14f53cdd5e64e3172cdc603",
+    "pages": 8,
+    "role": "paper-compilation",
+    "review": "task-inventory-and-reading-stem-review",
+    "extraction": "pdf-text"
+  },
+  {
+    "id": "cet4_2024_12_2_ans",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2024_12_2_ans",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2024_12_2_ans.pdf",
+    "sha256": "de0abe924fc05550bb9259391abaf0a122621380951f28f3a6e46e816a3c672e",
+    "pages": 19,
+    "role": "answer-compilation",
+    "review": "downloaded-reference-not-fully-ocr-reviewed",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2024_12_3",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2024_12_3",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2024_12_3.pdf",
+    "sha256": "ffeabe7091f01fd2f1367ef5b401cebeaac6cf3c0af0dbeb855dabb08c8024bd",
+    "pages": 6,
+    "role": "paper-compilation",
+    "review": "task-inventory-and-reading-stem-review",
+    "extraction": "pdf-text"
+  },
+  {
+    "id": "cet4_2024_12_3_ans",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2024_12_3_ans",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2024_12_3_ans.pdf",
+    "sha256": "3743e6c4052aeb1cf797578d2cebff7b51c6582c73f18d48dd7faa387dfdc6b4",
+    "pages": 11,
+    "role": "answer-compilation",
+    "review": "downloaded-reference-not-fully-ocr-reviewed",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2025_06_1",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2025_06_1",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2025_06_1.pdf",
+    "sha256": "2880977bc0a8b730800d310471a3120eb45e4a51d964dc97cb71c32ddf09ac08",
+    "pages": 8,
+    "role": "paper-compilation",
+    "review": "task-inventory-and-reading-stem-review",
+    "extraction": "pdf-text"
+  },
+  {
+    "id": "cet4_2025_06_1_ans",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2025_06_1_ans",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2025_06_1_ans.pdf",
+    "sha256": "1021d97c5326909346907c137e98d9a3ed7538b614117bcfb03c8b2d0db232f4",
+    "pages": 19,
+    "role": "answer-compilation",
+    "review": "downloaded-reference-not-fully-ocr-reviewed",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2025_06_2",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2025_06_2",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2025_06_2.pdf",
+    "sha256": "71d831b5b27bf3e8701fb772855b593bfe48a269143bc997191dd31b6e9e18cd",
+    "pages": 8,
+    "role": "paper-compilation",
+    "review": "task-inventory-and-reading-stem-review",
+    "extraction": "pdf-text"
+  },
+  {
+    "id": "cet4_2025_06_2_ans",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2025_06_2_ans",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2025_06_2_ans.pdf",
+    "sha256": "d86be3691514de7808d5fd65dfef0b4866e281d777c9ee47fedb82a02751210b",
+    "pages": 18,
+    "role": "answer-compilation",
+    "review": "downloaded-reference-not-fully-ocr-reviewed",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2025_06_3",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2025_06_3",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2025_06_3.pdf",
+    "sha256": "815c185ee43391d1e504b42d552ba2b4ea4c2765bed6386ddf2674c7b13826de",
+    "pages": 6,
+    "role": "paper-compilation",
+    "review": "task-inventory-and-reading-stem-review",
+    "extraction": "pdf-text"
+  },
+  {
+    "id": "cet4_2025_06_3_ans",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2025_06_3_ans",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2025_06_3_ans.pdf",
+    "sha256": "2f297907b9cf88738954bd80390f9512978efe8e7e89e80f7fdb16f879c4197b",
+    "pages": 11,
+    "role": "answer-compilation",
+    "review": "downloaded-reference-not-fully-ocr-reviewed",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2025_12_1",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2025_12_1",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2025_12_1.pdf",
+    "sha256": "c67cdf8c77f2dfc74f40afd50587ae4d5eb759aaca7ad57ad6388d867cd3dadf",
+    "pages": 8,
+    "role": "paper-compilation",
+    "review": "task-inventory-and-reading-stem-review",
+    "extraction": "pdf-text"
+  },
+  {
+    "id": "cet4_2025_12_1_ans",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2025_12_1_ans",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2025_12_1_ans.pdf",
+    "sha256": "1cb2a30c8101296622a31939e9f124cfdfb6141f8edcb66372689cfc2acee9b0",
+    "pages": 18,
+    "role": "answer-compilation",
+    "review": "downloaded-reference-not-fully-ocr-reviewed",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2025_12_2",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2025_12_2",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2025_12_2.pdf",
+    "sha256": "29da4a4a079809d02aa560782938552f7b85237d047e8a9763e003d767995cfd",
+    "pages": 8,
+    "role": "paper-compilation",
+    "review": "task-inventory-and-reading-stem-review",
+    "extraction": "pdf-text"
+  },
+  {
+    "id": "cet4_2025_12_2_ans",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2025_12_2_ans",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2025_12_2_ans.pdf",
+    "sha256": "4ad3428466d59bea69e2412fa0fc0ad62c28a907d2b4b593d3f2e7f23de9aaa7",
+    "pages": 19,
+    "role": "answer-compilation",
+    "review": "downloaded-reference-not-fully-ocr-reviewed",
+    "extraction": "ocr"
+  },
+  {
+    "id": "cet4_2025_12_3",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2025_12_3",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2025_12_3.pdf",
+    "sha256": "8b29c1b4b871def55ade9a164bfd6aceb921a6cbde7fa9654e9d8a97798d56a8",
+    "pages": 6,
+    "role": "paper-compilation",
+    "review": "task-inventory-and-reading-stem-review",
+    "extraction": "pdf-text"
+  },
+  {
+    "id": "cet4_2025_12_3_ans",
+    "pageUrl": "https://www.wehuster.com/cet4/cet4_2025_12_3_ans",
+    "pdfUrl": "https://www.wehuster.com/static/cet4/cet4_2025_12_3_ans.pdf",
+    "sha256": "b39d9eb289d7ef5ea1a82fb478b8190425b03a52eec73e71dd6b4413c70fe788",
+    "pages": 11,
+    "role": "answer-compilation",
+    "review": "downloaded-reference-not-fully-ocr-reviewed",
+    "extraction": "ocr"
+  }
+]

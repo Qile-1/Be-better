@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { getLessonById, LESSONS } from "../../../../lib/lessons";
 import { PracticeSection } from "../PracticeSection";
 import { ProductionPracticeSection } from "../ProductionPracticeSection";
+import { FormatPracticeSection } from "../FormatPracticeSection";
 
 type PracticePageProps = {
   params: Promise<{ id: string }>;
@@ -33,6 +34,9 @@ export default async function PracticePage({ params }: PracticePageProps) {
       <p className="mt-10 text-xs font-medium tracking-[0.16em] text-ink/45">
         {lesson.title}
       </p>
+      {lesson.formatPractice?.map((practice) => (
+        <FormatPracticeSection key={practice.id} practice={practice} />
+      ))}
       {lesson.practiceQuestions?.length ? (
         <PracticeSection lessonId={lesson.id} questions={lesson.practiceQuestions} />
       ) : (

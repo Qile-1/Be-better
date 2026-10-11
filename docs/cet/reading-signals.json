@@ -1,0 +1,2299 @@
+[
+  {
+    "package": "cet4_2021_06_1",
+    "question": 46,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_06_1",
+    "question": 47,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_06_1",
+    "question": 48,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_06_1",
+    "question": 49,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_06_1",
+    "question": 50,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_06_1",
+    "question": 51,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_06_1",
+    "question": 52,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_06_1",
+    "question": 53,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_06_1",
+    "question": 54,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_06_1",
+    "question": 55,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_06_2",
+    "question": 46,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_06_2",
+    "question": 47,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_06_2",
+    "question": 48,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_06_2",
+    "question": 49,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_06_2",
+    "question": 50,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_06_2",
+    "question": 51,
+    "signals": [
+      "explicit_example_function"
+    ],
+    "reviewedSignal": "example_function",
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_06_2",
+    "question": 52,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_06_2",
+    "question": 53,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_06_2",
+    "question": 54,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_06_2",
+    "question": 55,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_06_3",
+    "question": 46,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_06_3",
+    "question": 47,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_06_3",
+    "question": 48,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_06_3",
+    "question": 49,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_06_3",
+    "question": 50,
+    "signals": [
+      "explicit_lexical_reference"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_06_3",
+    "question": 51,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_06_3",
+    "question": 52,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_06_3",
+    "question": 53,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_06_3",
+    "question": 54,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_06_3",
+    "question": 55,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_12_1",
+    "question": 46,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_12_1",
+    "question": 47,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_12_1",
+    "question": 48,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_12_1",
+    "question": 49,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_12_1",
+    "question": 50,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_12_1",
+    "question": 51,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_12_1",
+    "question": 52,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_12_1",
+    "question": 53,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_12_1",
+    "question": 54,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_12_1",
+    "question": 55,
+    "signals": [
+      "explicit_example_function"
+    ],
+    "reviewedSignal": "example_function",
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_12_2",
+    "question": 46,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_12_2",
+    "question": 47,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_12_2",
+    "question": 48,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_12_2",
+    "question": 49,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_12_2",
+    "question": 50,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_12_2",
+    "question": 51,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_12_2",
+    "question": 52,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_12_2",
+    "question": 53,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_12_2",
+    "question": 54,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_12_2",
+    "question": 55,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_12_3",
+    "question": 46,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_12_3",
+    "question": 47,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_12_3",
+    "question": 48,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_12_3",
+    "question": 49,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_12_3",
+    "question": 50,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_12_3",
+    "question": 51,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_12_3",
+    "question": 52,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_12_3",
+    "question": 53,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_12_3",
+    "question": 54,
+    "signals": [
+      "explicit_example_function"
+    ],
+    "reviewedSignal": "example_function",
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2021_12_3",
+    "question": 55,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_06_1",
+    "question": 46,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_06_1",
+    "question": 47,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_06_1",
+    "question": 48,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_06_1",
+    "question": 49,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_06_1",
+    "question": 50,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_06_1",
+    "question": 51,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_06_1",
+    "question": 52,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_06_1",
+    "question": 53,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_06_1",
+    "question": 54,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_06_1",
+    "question": 55,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_06_2",
+    "question": 46,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_06_2",
+    "question": 47,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_06_2",
+    "question": 48,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_06_2",
+    "question": 49,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_06_2",
+    "question": 50,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_06_2",
+    "question": 51,
+    "signals": [
+      "explicit_main_topic"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_06_2",
+    "question": 52,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_06_2",
+    "question": 53,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_06_2",
+    "question": 54,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_06_2",
+    "question": 55,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_09_1",
+    "question": 46,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_09_1",
+    "question": 47,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_09_1",
+    "question": 48,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_09_1",
+    "question": 49,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_09_1",
+    "question": 50,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_09_1",
+    "question": 51,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_09_1",
+    "question": 52,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_09_1",
+    "question": 53,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_09_1",
+    "question": 54,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_09_1",
+    "question": 55,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_12_1",
+    "question": 46,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_12_1",
+    "question": 47,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_12_1",
+    "question": 48,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_12_1",
+    "question": 49,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_12_1",
+    "question": 50,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_12_1",
+    "question": 51,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_12_1",
+    "question": 52,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_12_1",
+    "question": 53,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_12_1",
+    "question": 54,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_12_1",
+    "question": 55,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_12_2",
+    "question": 46,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_12_2",
+    "question": 47,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_12_2",
+    "question": 48,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_12_2",
+    "question": 49,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_12_2",
+    "question": 50,
+    "signals": [
+      "explicit_infer_imply"
+    ],
+    "reviewedSignal": "explicit_infer_imply",
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_12_2",
+    "question": 51,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_12_2",
+    "question": 52,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_12_2",
+    "question": 53,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_12_2",
+    "question": 54,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_12_2",
+    "question": 55,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_12_3",
+    "question": 46,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_12_3",
+    "question": 47,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_12_3",
+    "question": 48,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_12_3",
+    "question": 49,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_12_3",
+    "question": 50,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_12_3",
+    "question": 51,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_12_3",
+    "question": 52,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_12_3",
+    "question": 53,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_12_3",
+    "question": 54,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2022_12_3",
+    "question": 55,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_03_1",
+    "question": 46,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_03_1",
+    "question": 47,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_03_1",
+    "question": 48,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_03_1",
+    "question": 49,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_03_1",
+    "question": 50,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_03_1",
+    "question": 51,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_03_1",
+    "question": 52,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_03_1",
+    "question": 53,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_03_1",
+    "question": 54,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_03_1",
+    "question": 55,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_06_1",
+    "question": 46,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_06_1",
+    "question": 47,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_06_1",
+    "question": 48,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_06_1",
+    "question": 49,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_06_1",
+    "question": 50,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_06_1",
+    "question": 51,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_06_1",
+    "question": 52,
+    "signals": [
+      "explicit_infer_imply"
+    ],
+    "reviewedSignal": "explicit_infer_imply",
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_06_1",
+    "question": 53,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_06_1",
+    "question": 54,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_06_1",
+    "question": 55,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_06_2",
+    "question": 46,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_06_2",
+    "question": 47,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_06_2",
+    "question": 48,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_06_2",
+    "question": 49,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_06_2",
+    "question": 50,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_06_2",
+    "question": 51,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_06_2",
+    "question": 52,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_06_2",
+    "question": 53,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_06_2",
+    "question": 54,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_06_2",
+    "question": 55,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_06_3",
+    "question": 46,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_06_3",
+    "question": 47,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_06_3",
+    "question": 48,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_06_3",
+    "question": 49,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_06_3",
+    "question": 50,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_06_3",
+    "question": 51,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_06_3",
+    "question": 52,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_06_3",
+    "question": 53,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_06_3",
+    "question": 54,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_06_3",
+    "question": 55,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_12_1",
+    "question": 46,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_12_1",
+    "question": 47,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_12_1",
+    "question": 48,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_12_1",
+    "question": 49,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_12_1",
+    "question": 50,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_12_1",
+    "question": 51,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_12_1",
+    "question": 52,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_12_1",
+    "question": 53,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_12_1",
+    "question": 54,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_12_1",
+    "question": 55,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_12_2",
+    "question": 46,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_12_2",
+    "question": 47,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_12_2",
+    "question": 48,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_12_2",
+    "question": 49,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_12_2",
+    "question": 50,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_12_2",
+    "question": 51,
+    "signals": [
+      "explicit_lexical_reference"
+    ],
+    "reviewedSignal": "lexical_concept",
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_12_2",
+    "question": 52,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_12_2",
+    "question": 53,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_12_2",
+    "question": 54,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_12_2",
+    "question": 55,
+    "signals": [
+      "explicit_infer_imply"
+    ],
+    "reviewedSignal": "explicit_infer_imply",
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_12_3",
+    "question": 46,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_12_3",
+    "question": 47,
+    "signals": [
+      "explicit_lexical_reference"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_12_3",
+    "question": 48,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_12_3",
+    "question": 49,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_12_3",
+    "question": 50,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_12_3",
+    "question": 51,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_12_3",
+    "question": 52,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_12_3",
+    "question": 53,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_12_3",
+    "question": 54,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2023_12_3",
+    "question": 55,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_06_1",
+    "question": 46,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_06_1",
+    "question": 47,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_06_1",
+    "question": 48,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_06_1",
+    "question": 49,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_06_1",
+    "question": 50,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_06_1",
+    "question": 51,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_06_1",
+    "question": 52,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_06_1",
+    "question": 53,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_06_1",
+    "question": 54,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_06_1",
+    "question": 55,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_06_2",
+    "question": 46,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_06_2",
+    "question": 47,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_06_2",
+    "question": 48,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_06_2",
+    "question": 49,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_06_2",
+    "question": 50,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_06_2",
+    "question": 51,
+    "signals": [
+      "explicit_main_topic"
+    ],
+    "reviewedSignal": "whole_passage_topic",
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_06_2",
+    "question": 52,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_06_2",
+    "question": 53,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_06_2",
+    "question": 54,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_06_2",
+    "question": 55,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_06_3",
+    "question": 46,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_06_3",
+    "question": 47,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_06_3",
+    "question": 48,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_06_3",
+    "question": 49,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_06_3",
+    "question": 50,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_06_3",
+    "question": 51,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_06_3",
+    "question": 52,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_06_3",
+    "question": 53,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_06_3",
+    "question": 54,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_06_3",
+    "question": 55,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_12_1",
+    "question": 46,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_12_1",
+    "question": 47,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_12_1",
+    "question": 48,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_12_1",
+    "question": 49,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_12_1",
+    "question": 50,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_12_1",
+    "question": 51,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_12_1",
+    "question": 52,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_12_1",
+    "question": 53,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_12_1",
+    "question": 54,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_12_1",
+    "question": 55,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_12_2",
+    "question": 46,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_12_2",
+    "question": 47,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_12_2",
+    "question": 48,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_12_2",
+    "question": 49,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_12_2",
+    "question": 50,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_12_2",
+    "question": 51,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_12_2",
+    "question": 52,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_12_2",
+    "question": 53,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_12_2",
+    "question": 54,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_12_2",
+    "question": 55,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_12_3",
+    "question": 46,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_12_3",
+    "question": 47,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_12_3",
+    "question": 48,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_12_3",
+    "question": 49,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_12_3",
+    "question": 50,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_12_3",
+    "question": 51,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_12_3",
+    "question": 52,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_12_3",
+    "question": 53,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_12_3",
+    "question": 54,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2024_12_3",
+    "question": 55,
+    "signals": [
+      "explicit_infer_imply"
+    ],
+    "reviewedSignal": "explicit_infer_imply",
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_06_1",
+    "question": 46,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_06_1",
+    "question": 47,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_06_1",
+    "question": 48,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_06_1",
+    "question": 49,
+    "signals": [
+      "explicit_infer_imply"
+    ],
+    "reviewedSignal": "explicit_infer_imply",
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_06_1",
+    "question": 50,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_06_1",
+    "question": 51,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_06_1",
+    "question": 52,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_06_1",
+    "question": 53,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_06_1",
+    "question": 54,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_06_1",
+    "question": 55,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_06_2",
+    "question": 46,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_06_2",
+    "question": 47,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_06_2",
+    "question": 48,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_06_2",
+    "question": 49,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_06_2",
+    "question": 50,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_06_2",
+    "question": 51,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_06_2",
+    "question": 52,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_06_2",
+    "question": 53,
+    "signals": [
+      "explicit_example_function",
+      "why_or_how"
+    ],
+    "reviewedSignal": "example_function",
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_06_2",
+    "question": 54,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_06_2",
+    "question": 55,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_06_3",
+    "question": 46,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_06_3",
+    "question": 47,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_06_3",
+    "question": 48,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_06_3",
+    "question": 49,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_06_3",
+    "question": 50,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_06_3",
+    "question": 51,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_06_3",
+    "question": 52,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_06_3",
+    "question": 53,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_06_3",
+    "question": 54,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_06_3",
+    "question": 55,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_12_1",
+    "question": 46,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_12_1",
+    "question": 47,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_12_1",
+    "question": 48,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_12_1",
+    "question": 49,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_12_1",
+    "question": 50,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_12_1",
+    "question": 51,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_12_1",
+    "question": 52,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_12_1",
+    "question": 53,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_12_1",
+    "question": 54,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_12_1",
+    "question": 55,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_12_2",
+    "question": 46,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_12_2",
+    "question": 47,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_12_2",
+    "question": 48,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_12_2",
+    "question": 49,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_12_2",
+    "question": 50,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_12_2",
+    "question": 51,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_12_2",
+    "question": 52,
+    "signals": [
+      "explicit_infer_imply"
+    ],
+    "reviewedSignal": "explicit_infer_imply",
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_12_2",
+    "question": 53,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_12_2",
+    "question": 54,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_12_2",
+    "question": 55,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_12_3",
+    "question": 46,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_12_3",
+    "question": 47,
+    "signals": [
+      "why_or_how"
+    ],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_12_3",
+    "question": 48,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_12_3",
+    "question": 49,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_12_3",
+    "question": 50,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_12_3",
+    "question": 51,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_12_3",
+    "question": 52,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_12_3",
+    "question": 53,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_12_3",
+    "question": 54,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  },
+  {
+    "package": "cet4_2025_12_3",
+    "question": 55,
+    "signals": [],
+    "reviewedSignal": null,
+    "semanticSkillAnnotation": "not-completed"
+  }
+]

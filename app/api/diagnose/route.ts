@@ -1,28 +1,29 @@
 import { NextResponse } from "next/server";
 import { getLessonById } from "../../../lib/lessons";
+import { getAssessmentContext, getAssessmentGuidance } from "../../../lib/assessmentContext";
 import type { DiagnoseError, DiagnoseResult } from "../../../lib/types";
 
 const DEEPSEEK_URL = "https://api.deepseek.com/chat/completions";
 
-const systemRule = `你是大学英语四级阅读的「费曼复述」考评老师。学生刚学完一节阅读解题方法，现在要用自己的话把方法讲给你听。你只能依据我随后提供的本节《要点清单》来评判，规则如下：
+const systemRule = `你是大学英语四级阅读、写作与翻译的「费曼复述」考评老师。学生正在复述本节方法，不是提交正式考试答案。你只能依据我随后提供的本节《要点清单》和课程类别来评判，规则如下：
 1. 判断学生覆盖了清单里的哪些要点、遗漏了哪些要点；要点 id 只能从我给出的《要点清单》里的 id 中选择，不许编造清单里没有的 id。
-2. 只有当学生的说法与《要点清单》或四级阅读的标准方法直接冲突时，才算硬伤错误；清单之外的内容不要评判对错，也不要补充清单以外的知识点，更不要编造。
+2. 只有当学生明确说法与本节《要点清单》直接冲突时才算硬伤；遗漏、表达简短或没使用关键词不算硬伤。语义正确的自己的话应认可，不要求背原句。清单之外内容不判对错，不补充其他课程知识。
 3. 拿不准是否覆盖，一律算遗漏，不要默认他会了。
-4. 给出一段简洁的参考讲法，严格基于要点清单。
+4. 参考讲法先讲本节 core 点，再简短补充 bonus 点，严格基于清单。鼓励要具体，指出下一步能做什么，不承诺考试提分。
 5. 要点的 tier="core" 表示核心必会点，tier="bonus" 表示拓展点。每个点都要如实判断并返回在 coveredPointIds 或 missedPointIds 中；bonus 没讲到不算错误，也不算致命问题。
 
 你必须只输出一个 JSON 对象。键名必须与下面完全一致，一个都不能少、不能改名、不能新增键：
 {
   "coveredPointIds": ["已覆盖要点的 id"],
   "missedPointIds": ["遗漏要点的 id"],
-  "errors": [{"point": "冲突的知识点", "detail": "学生是怎么说的；正确说法是什么"}],
+  "errors": [{"pointId": "本节真实要点 id", "point": "冲突的知识点", "detail": "学生是怎么说的；正确说法是什么"}],
   "fatalErrorCount": 0,
   "coverage": 0.0,
   "passed": false,
   "modelAnswer": "一段基于要点清单的简洁参考讲法",
   "encouragement": "一句简短的中文鼓励"
 }
-要求：errors 在没有硬伤错误时必须是空数组 []；fatalErrorCount 必须等于 errors 数组的长度；coverage 只按已覆盖 core 点数量除以 core 点总数计算，保留两位小数；passed 只在全部 core 点都覆盖且 fatalErrorCount 为 0 时为 true，最终掌握状态由前端判定。不要输出 JSON 以外的任何文字，不要使用 markdown 代码块。`;
+要求：每个本节 id 恰好出现在 coveredPointIds 或 missedPointIds 之一。同一处错误不重复计数，明确讲错的点不能同时算覆盖。errors 为空时 fatalErrorCount 为 0，否则等于 errors 长度；每条错误必须引用真实 pointId。coverage 只按 core 计算；passed 只在全部 core 覆盖且无硬伤时为 true，最终三档状态由前端判定。不要输出 JSON 以外文字或 markdown 代码块。`;
 
 type DeepSeekResponse = {
   choices?: Array<{
@@ -73,7 +74,8 @@ function normalizeErrors(value: unknown): DiagnoseError[] {
             ? record.point
             : "相关要点";
 
-        return detail.trim() ? { point, detail: detail.trim() } : null;
+        const pointId = typeof record.pointId === "string" ? record.pointId.trim() : undefined;
+        return detail.trim() ? { pointId, point, detail: detail.trim() } : null;
       }
 
       return null;
@@ -92,7 +94,11 @@ function normalizeDiagnoseResult(
 
   const record = value as Record<string, unknown>;
 
-  const coveredPointIds = Array.from(
+  if (!Array.isArray(record.coveredPointIds) || !Array.isArray(record.missedPointIds) || !Array.isArray(record.errors)) {
+    return null;
+  }
+
+  let coveredPointIds = Array.from(
     new Set(
       toStringArray(record.coveredPointIds ?? record.coveredPoints).filter(
         (id) => validPointIds.has(id)
@@ -100,6 +106,12 @@ function normalizeDiagnoseResult(
     )
   );
 
+  const errors = normalizeErrors(record.errors);
+  if (errors.length !== record.errors.length || errors.some((error) => !error.pointId || !validPointIds.has(error.pointId))) {
+    return null;
+  }
+  const incorrectIds = new Set(errors.map((error) => error.pointId));
+  coveredPointIds = coveredPointIds.filter((id) => !incorrectIds.has(id));
   const coveredSet = new Set(coveredPointIds);
 
   const reportedMissedPointIds = toStringArray(
@@ -112,12 +124,7 @@ function normalizeDiagnoseResult(
     ])
   );
 
-  const errors = normalizeErrors(record.errors);
-
-  const fatalErrorCount =
-    typeof record.fatalErrorCount === "number"
-      ? record.fatalErrorCount
-      : errors.length;
+  const fatalErrorCount = errors.length;
 
   const coveredCoreCount = coveredPointIds.filter((id) =>
     corePointIds.has(id)
@@ -127,7 +134,7 @@ function normalizeDiagnoseResult(
       ? Math.round((coveredCoreCount / corePointIds.size) * 100) / 100
       : 0;
 
-  const passed = coverage === 1 && fatalErrorCount === 0;
+  const passed = corePointIds.size > 0 && coveredCoreCount === corePointIds.size && fatalErrorCount === 0;
 
   const modelAnswer =
     typeof record.modelAnswer === "string" && record.modelAnswer.trim()
@@ -166,6 +173,7 @@ async function callDeepSeek({
 }) {
   const response = await fetch(DEEPSEEK_URL, {
     method: "POST",
+    signal: AbortSignal.timeout(45000),
     headers: {
       Authorization: `Bearer ${apiKey}`,
       "Content-Type": "application/json"
@@ -220,6 +228,7 @@ export async function POST(request: Request) {
     return friendlyError("请求格式不正确，请再试一次", 400);
   }
 
+  if (!body || typeof body !== "object" || Array.isArray(body)) return friendlyError("请求格式不正确，请再试一次", 400);
   const lessonId = typeof body.lessonId === "string" ? body.lessonId : "";
   const userText = typeof body.userText === "string" ? body.userText : "";
 
@@ -245,15 +254,8 @@ export async function POST(request: Request) {
       .filter((point) => point.tier === "core")
       .map((point) => point.id)
   );
-  const lessonContext = {
-    rubricPoints: lesson.rubricPoints.map(({ id, point, tier }) => ({
-      id,
-      point,
-      tier
-    })),
-    commonMistakes: lesson.commonMistakes
-  };
-  const systemContent = `${systemRule}\n本节《要点清单》与常见错误：${JSON.stringify(
+  const lessonContext = getAssessmentContext(lesson);
+  const systemContent = `${systemRule}\n${getAssessmentGuidance(lesson)}\n本节《要点清单》与常见错误：${JSON.stringify(
     lessonContext
   )}`;
 

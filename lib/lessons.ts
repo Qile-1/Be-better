@@ -1,6 +1,9 @@
 import { EXISTING_LESSON_ENRICHMENTS, EXTRA_LESSONS } from "./curriculum";
 import { PRODUCTION_LESSONS } from "./productionCurriculum";
 import type { Lesson } from "./types";
+import { COVERAGE_LESSONS } from "./coverageCurriculum";
+import { CURRICULUM_ALIGNMENT } from "./curriculumAlignment";
+import { CLOZE_PRACTICE, MATCHING_PRACTICE } from "./formatPractice";
 
 const BASE_LESSONS: Lesson[] = [
   {
@@ -29,7 +32,7 @@ const BASE_LESSONS: Lesson[] = [
         },
         {
           type: "tip",
-          text: "题干里出现 mainly about、main idea、purpose、best title、primarily、chiefly 这类词，基本就是主旨题。"
+          text: "main idea、best title 等可提示主旨任务，但要看提问范围。mainly 修饰原因、purpose 问某个行为的目的时，不一定是在问全文主旨。"
         },
         {
           type: "heading",
@@ -78,7 +81,7 @@ const BASE_LESSONS: Lesson[] = [
         },
         {
           type: "example",
-          title: "方法演示（不用读整篇也能判断）",
+          title: "方法演示（定位线索后仍须核对全文）",
           question:
             "题干是 What is the passage mainly about?。四个选项：A 是第 2 段举的一个例子；B 能同时概括首段观点和末段结论；C 提到一个文章完全没出现的概念；D 加了 only，说法比原文更绝对。",
           analysis:
@@ -90,7 +93,7 @@ const BASE_LESSONS: Lesson[] = [
         },
         {
           type: "paragraph",
-          text: "认信号词 → 读首段、末段和各段首句，盯住转折词和高频词 → 选罩得住全文的选项 → 排除太窄、太宽、太偏。"
+          text: "认清题目范围 → 利用首末段、段首句和转折定位线索 → 结合全文核对中心 → 排除太窄、太宽、太偏。主旨没有固定位置，不能只读首末句；绝对词是否错误取决于原文。"
         }
       ]
     },
@@ -136,10 +139,10 @@ const BASE_LESSONS: Lesson[] = [
       },
       {
         id: "p5",
-        point: "干扰项特征：用某个段落的细节冒充主旨、以偏概全、偷换概念、表述绝对化。",
+        point: "排除细节冒充主旨、以偏概全和偷换概念；绝对表达须对照原文，不能见到就排除。",
         keyPhrases: ["细节冒充", "以偏概全", "偷换", "绝对化"],
-        tier: "bonus",
-        mustCover: false
+        tier: "core",
+        mustCover: true
       }
     ],
     commonMistakes: [
@@ -148,7 +151,7 @@ const BASE_LESSONS: Lesson[] = [
       "选了原文出现过的词，但它并不是全文中心"
     ],
     modelAnswer:
-      "做主旨题我会先看题干，看到 main idea、best title、purpose 这些信号就确定是主旨题。然后重点读首段、末段和每段首句，尤其注意 but、however 这种转折之后的句子，再结合全文反复出现的高频词归纳中心。选答案时挑那个能概括全文的，太窄只讲某段细节、太宽文章没展开、或者出现原文没有的信息的都排除，表述特别绝对的也要警惕。"
+      "我先确认题干是否问全文中心、标题或写作目的，不能只凭 purpose 等单词判题型。利用首末段、段首、转折和重复概念定位线索，再结合全文核对中心，不保证主旨在固定位置。选择能概括全文且范围恰当的项，排除细节冒充、偷换和无依据的信息；绝对词也要对照原文，不能自动排除。"
   },
   {
     id: "l2",
@@ -178,7 +181,7 @@ const BASE_LESSONS: Lesson[] = [
         { type: "heading", text: "二、先圈定位词，再回原文找" },
         {
           type: "paragraph",
-          text: "不要通读全文硬找。先在题干里挑一两个最显眼、最不容易被改写的词当定位词。"
+          text: "先理解题干，再用一两个辨识度高的词定位。原词可能被改写；找不到时结合段意扩大查找，不要只搜相同单词。"
         },
         {
           type: "bullets",
@@ -196,7 +199,7 @@ const BASE_LESSONS: Lesson[] = [
         { type: "heading", text: "三、题文同序，按段落顺序扫" },
         {
           type: "paragraph",
-          text: "仔细阅读的细节题，题目顺序和文章顺序基本一致，这叫题文同序。前面的题答案一般在前面段落，后面的题顺着往下找，能快速锁定范围。"
+          text: "题文顺序可作为定位线索，但不是硬规则。相邻题可先在相邻段落查找，找不到时扩大范围，跨段信息还需合并核对。"
         },
         { type: "heading", text: "四、找到句子后，读定位句加前后句" },
         {
@@ -267,7 +270,7 @@ const BASE_LESSONS: Lesson[] = [
       {
         id: "p3",
         point:
-          "知道题文同序：题目顺序和文章段落顺序基本一致，可以据此缩小查找范围。",
+          "题文顺序可辅助缩小定位范围，但不保证严格同序，找不到时需扩大查找。",
         keyPhrases: ["题文同序", "顺序", "段落顺序", "顺着往下"],
         tier: "bonus",
         mustCover: false
@@ -309,7 +312,7 @@ const BASE_LESSONS: Lesson[] = [
     title: "仔细阅读·推理判断题",
     keyWords: [],
     microLesson: {
-      goal: "学完这节课，你能认出 infer、imply 类推理题，知道答案要基于原文往合理方向推一步，既不能照抄原句，也不能脱离原文自己开脑洞。",
+      goal: "学完这节课，你能识别明确的推断任务，结合证据得出不过度的结论，不靠选项是否复用原词判断正误。",
       blocks: [
         { type: "heading", text: "一、先认出它：推理题的信号" },
         {
@@ -328,19 +331,19 @@ const BASE_LESSONS: Lesson[] = [
         },
         {
           type: "tip",
-          text: "看到 infer、imply、suggest、indicate、learn、conclude、probably means，就是推理题。"
+          text: "infer、imply 常明确要求推断；suggest、learn、conclude 等也可能问原文信息，要结合完整题干和选项判断，不能按一个词机械分类。"
         },
         { type: "heading", text: "二、推理题答案的分寸" },
         {
           type: "paragraph",
-          text: "推理题正确答案的关键特点是：它在原文里没有被一字不差写出来，但一定能由原文合理地推一步得到。"
+          text: "推断要有充分证据支持，可能需要连接几处信息，但不能增添未经支持的前提。判断标准是含义与证据，不是文字是否相同。"
         },
         {
           type: "bullets",
           items: [
-            "直接照抄原句的往往不是答案，因为那根本不需要推理。",
+            "选项是否复用原词不是判定标准，关键是它是否回答题目且有证据支持。",
             "推得太远、加上原文没有的前提，也不是答案。",
-            "正确项是离原文最近的一步推断。"
+            "选择证据足够支持、范围不过度的结论。"
           ]
         },
         {
@@ -370,7 +373,7 @@ const BASE_LESSONS: Lesson[] = [
         {
           type: "bullets",
           items: [
-            "原文直述：句子本身对，但文章已经明说了，不需要推。",
+            "答非所问：句子本身正确，却没有回答题目要求，不能仅因用了原文词就选。",
             "过度推断：方向也许对，但加了原文没有的信息，或用 only、all、never 说得太满。",
             "与原文相反：和作者态度或事实正好矛盾。",
             "无据推断：听着合理，但文章里找不到任何支撑。"
@@ -380,14 +383,14 @@ const BASE_LESSONS: Lesson[] = [
           type: "example",
           title: "方法演示",
           question:
-            "原文说这家公司连续三年把研发预算翻倍，但至今没有一款产品盈利，题目问 It can be inferred that ___。",
+            "原文说某自习室增加了晚间预约，但报告只统计了预约次数，没有统计学习成绩。题目问能据此得出什么结论。",
           analysis:
-            "合理的一步推断是这家公司目前更看重技术积累而不是短期盈利，它由持续重投研发加上尚未盈利直接推出。若选项说明年一定会倒闭，就是过度推断加绝对化，原文没这个结论；若选项只是复述它研发预算翻倍，那是原文直述，也不是推理题答案。"
+            "可以判断晚间使用需求有所增加，但不能仅凭预约次数断言学习成绩提高。结论不超出测量范围，也不凭是否复用了原文词排除选项。"
         },
         { type: "heading", text: "六、记住这一条流程" },
         {
           type: "paragraph",
-          text: "认 infer、imply、learn → 定位段落 → 找转折、评价词、举例目的等证据 → 只做最近一步推断 → 排除原文直述、过度推断、与原文相反、无据推断。"
+          text: "确认任务 → 定位并核对上下文 → 找直接或跨句证据 → 得出不过度的结论 → 排除答非所问、过度推断、与原文相反和无据推断。"
         }
       ]
     },
@@ -397,7 +400,7 @@ const BASE_LESSONS: Lesson[] = [
       {
         id: "p1",
         point:
-          "能识别推理题信号词：infer、imply、suggest、indicate、learn、conclude、probably means。",
+          "infer、imply 常提示推断；suggest、learn 等需结合完整题干判断，不机械归类。",
         keyPhrases: [
           "infer",
           "imply",
@@ -413,11 +416,11 @@ const BASE_LESSONS: Lesson[] = [
       {
         id: "p2",
         point:
-          "正确答案要基于原文合理推一步：不是原句照抄，也不能脱离原文。",
+          "结论必须有原文证据且不过度；是否复用原词不是正误标准，也不能脱离原文。",
         keyPhrases: [
           "推一步",
           "言外之意",
-          "不是照抄",
+          "不凭原词",
           "基于原文",
           "合理推断"
         ],
@@ -436,13 +439,13 @@ const BASE_LESSONS: Lesson[] = [
           "举例目的",
           "对比"
         ],
-        tier: "bonus",
-        mustCover: false
+        tier: "core",
+        mustCover: true
       },
       {
         id: "p4",
         point:
-          "只做最近一步推断，不用个人常识或外部知识替代原文依据。",
+          "只得出证据支持的结论，必要时连接多处信息，不用个人常识替代原文依据。",
         keyPhrases: ["一步", "就近", "常识", "外部知识", "证据", "开脑洞"],
         tier: "core",
         mustCover: true
@@ -450,9 +453,9 @@ const BASE_LESSONS: Lesson[] = [
       {
         id: "p5",
         point:
-          "能排除干扰：原文直述、过度推断、与原文相反、无中生有，以及说得太满的绝对化。",
+          "排除答非所问、过度推断、与原文相反及无据结论，不能直接排除复用原文词的选项。",
         keyPhrases: [
-          "原文直述",
+          "答非所问",
           "过度推断",
           "相反",
           "无据",
@@ -464,13 +467,13 @@ const BASE_LESSONS: Lesson[] = [
       }
     ],
     commonMistakes: [
-      "选了和原文一字不差的句子，没意识到推理题要的是没明说但能推出的结论。",
+      "只看选项是否出现原词，不检查是否回答题目且得到证据支持。",
       "用自己的常识或课外知识脑补，选了文章里没有依据的选项。",
       "一次推两三步，把可能推成必然，中了过度推断和绝对化。",
       "只盯定位的那一句，没看转折和作者评价，把方向推反了。"
     ],
     modelAnswer:
-      "推理题我会先看题干，出现 infer、imply、suggest、learn、conclude 就确定是它。它和细节题最大的不同是，照抄原句的不是答案，答案必须在原文里没明说、但能合理推一步。我会先定位段落，重点看 but、however 这种转折对比，看评价性的形容词副词和 should、may 这类情态动词，还有例子想证明的前面那句观点。推断时只走离原文最近的一步，绝不用自己的常识补。最后排除四种：文章已经明说的原文直述、推太远或说太满的过度推断、和作者意思相反的、以及文章里压根没依据的。"
+      "我先确认题干是否要求推断，不能只凭 learn 或 suggest 判断。定位后结合上下文、转折和评价等证据，必要时连接多处信息，但结论不超过原文支持的范围。不用常识补前提，也不凭选项是否复用原词判断；最后排除答非所问、过度、相反和无依据的选项。"
   },
   {
     id: "l4",
@@ -495,7 +498,7 @@ const BASE_LESSONS: Lesson[] = [
         },
         {
           type: "tip",
-          text: "indifferent，也就是漠不关心，几乎不会是答案，作者真不在乎就不会专门写这篇文章。"
+          text: "indifferent 是漠不关心，objective 是客观，二者不同。任何态度词都要靠文本证据，不能凭出现频率或作者是否写文章直接排除。"
         },
         { type: "heading", text: "二、态度藏在这些词里" },
         {
@@ -504,7 +507,7 @@ const BASE_LESSONS: Lesson[] = [
         },
         {
           type: "tip",
-          text: "一定要分清这句话是作者自己的态度，还是作者在转述别人的观点，还是只是客观陈述事实。说明文里作者常只做客观介绍，答案多为 objective 或 neutral。"
+          text: "分清作者态度、引用人物观点与客观事实。说明文也可能有评价和立场，不能只看文体就选 objective 或 neutral。"
         },
         { type: "heading", text: "三、态度题的干扰项" },
         {
@@ -521,7 +524,7 @@ const BASE_LESSONS: Lesson[] = [
           type: "paragraph",
           text: "题目给一个词、短语或代词，问它在文中什么意思或指代谁，比如 The word X probably means ___、The underlined word is closest in meaning to ___、The word they or it refers to ___。"
         },
-        { type: "heading", text: "五、不靠词汇量，靠上下文线索" },
+        { type: "heading", text: "五、结合词汇知识与上下文线索" },
         {
           type: "bullets",
           items: [
@@ -534,7 +537,7 @@ const BASE_LESSONS: Lesson[] = [
         },
         {
           type: "tip",
-          text: "猜完一定把选项代回原句读一遍，看意思、感情色彩和逻辑通不通。指代题就往前找最近的名词，再核对单复数和语义。"
+          text: "把候选含义代回原句，核对语义、语气和逻辑。指代结合上下文、数和含义查找，可能指前文整件事，不能机械选择最近名词。"
         },
         {
           type: "example",
@@ -547,7 +550,7 @@ const BASE_LESSONS: Lesson[] = [
         { type: "heading", text: "六、记住这一条流程" },
         {
           type: "paragraph",
-          text: "态度题：找评价性词语和转折，分清是谁的态度，警惕 indifferent 和程度过重项。词义题：抓定义、举例、同义、反义、因果、构词六类线索，猜后代回原句验证，指代题向前找最近名词并核对单复数。"
+          text: "态度题：找评价与转折，分清主体、方向和强度，不凭文体猜立场。词义题：用定义、举例、同义、对比、因果与构词线索，代回验证；指代结合上下文而非只找最近名词。"
         }
       ]
     },
@@ -581,7 +584,7 @@ const BASE_LESSONS: Lesson[] = [
       {
         id: "p3",
         point:
-          "能区分作者本人态度、文中人物态度和客观叙述；知道说明文常选 objective 或 neutral，indifferent 通常排除。",
+          "区分作者态度、人物观点和客观叙述；根据证据判断方向与程度，不预先排除任何态度词。",
         keyPhrases: [
           "作者",
           "人物",
@@ -614,7 +617,7 @@ const BASE_LESSONS: Lesson[] = [
       {
         id: "p5",
         point:
-          "猜后代入原句验证通顺和逻辑；指代题向前找最近名词并核对单复数；能排除程度过重、方向相反、张冠李戴。",
+          "猜后代入原句验证逻辑；指代需结合上下文核对含义及单复数，不能机械选最近名词；排除程度和主体不符的选项。",
         keyPhrases: [
           "代入",
           "验证",
@@ -624,8 +627,8 @@ const BASE_LESSONS: Lesson[] = [
           "程度过重",
           "相反"
         ],
-        tier: "bonus",
-        mustCover: false
+        tier: "core",
+        mustCover: true
       }
     ],
     commonMistakes: [
@@ -635,7 +638,7 @@ const BASE_LESSONS: Lesson[] = [
       "指代题随手选最近的名词，没有代回句子核对单复数和逻辑。"
     ],
     modelAnswer:
-      "态度题我先认题干里的 attitude、tone，选项是一组态度形容词。然后去原文找评价性的形容词副词、should 这类情态动词、转折之后和作者引言，同时一定分清这是作者本人态度、文中人物观点，还是客观陈述，说明文一般选 objective 或 neutral，indifferent 基本排除，还要小心程度过重和方向相反的选项。词义题我不靠词汇量，而是看上下文六类线索：定义同位语、举例、同义复述、but 和 unlike 的反义对比、因果，以及前后缀构词。猜完把选项代回原句验证；遇到 it、they 这类指代，就往前找最近的名词，核对单复数和语义。"
+      "态度题先认清问谁对什么的态度，找评价、情态和转折证据，区分作者、引述者与事实，核对方向和强度，不直接排除某个态度词。词义结合词汇知识和定义、举例、同义、对比、因果、构词线索，再代回验证。指代结合上下文和单复数，可能指一件事，不能只选最近名词。"
   },
   {
     id: "l5",
@@ -674,11 +677,11 @@ const BASE_LESSONS: Lesson[] = [
         {
           type: "bullets",
           items: [
-            "冠词 a、an、the，形容词性物主代词 his、their，或介词后面，多半要名词。",
+            "冠词或物主代词引出名词短语，但空格也可能是名词前的形容词；介词后可能是名词、代词或动名词，要看整个结构。",
             "主语后面缺成分，往往要谓语动词，并核对主谓一致、时态、被动 be 加过去分词、进行时 be 加 doing。",
             "名词前面做修饰，多半要形容词。",
             "修饰动词、形容词或整个句子，常用副词。",
-            "and、or 并列结构前后词性通常一致。"
+            "and、or 连接的成分应在结构上平行；先判断并列的是词、短语还是句子。"
           ]
         },
         { type: "heading", text: "五、第四步：先易后难，边做边排除" },
@@ -729,13 +732,13 @@ const BASE_LESSONS: Lesson[] = [
         id: "p2",
         point: "先读不设空的首句，把握文章主旨和整体时态。",
         keyPhrases: ["首句", "主旨", "时态", "第一句"],
-        tier: "bonus",
-        mustCover: false
+        tier: "core",
+        mustCover: true
       },
       {
         id: "p3",
         point:
-          "能按语法结构判断空格词性：冠词介词物主代词后名词、主语后谓语动词、名词前形容词、修饰动词用副词、并列前后一致。",
+          "按完整句法判断词性：区分名词短语中心词与修饰语、谓语与非谓语，核对副词位置和并列结构，不能只看空格前一个词。",
         keyPhrases: [
           "冠词",
           "介词",
@@ -779,7 +782,7 @@ const BASE_LESSONS: Lesson[] = [
       "选定后不代回通读，单复数、时态或搭配错了没发现。"
     ],
     modelAnswer:
-      "选词填空我先认清规则，10 个空、15 个词，每个只用一次，还有 5 个干扰。第一步先给词库每个词标名词、动词、形容词、副词，ed 和 ing 可能既是动词又当形容词，都标上。第二步读不设空的首句，抓主旨和时态。第三步逐空判词性，冠词介词和物主代词后面多是名词，主语后面缺谓语就找动词并核对主谓一致、时态和被动，名词前用形容词，修饰动词或整句用副词，and 并列前后词性一致。第四步先做固定搭配和最有把握的，用一个划一个，难空靠排除法。最后每个词都代回通读，确认词性、意思、搭配、时态和单复数都对。"
+      "选词填空有 10 空、15 个词，每词最多一次且不改词形。我先看词库的词性和兼类，再读首句及上下文把握意思。逐空检查完整句法，区分名词短语中心词与修饰语、谓语与非谓语，并检查时态和并列。先确定有把握的，结合搭配和逻辑筛选同词性候选，最后全部代回检查，不能只凭空格前一个词猜词性。"
   }
 ];
 
@@ -798,8 +801,18 @@ export const LESSONS: Lesson[] = [
       : lesson;
   }),
   ...EXTRA_LESSONS,
-  ...PRODUCTION_LESSONS
-];
+  ...PRODUCTION_LESSONS,
+  ...COVERAGE_LESSONS
+].map((lesson) => ({
+  ...lesson,
+  alignment: CURRICULUM_ALIGNMENT[lesson.id],
+  formatPractice: lesson.id === "l5" ? [CLOZE_PRACTICE] : lesson.id === "l6" ? [MATCHING_PRACTICE] : undefined
+})).sort((a, b) => {
+  const categoryOrder = { reading: 0, writing: 1, translation: 2 };
+  const categoryDifference = categoryOrder[a.category ?? "reading"] - categoryOrder[b.category ?? "reading"];
+  if (categoryDifference !== 0) return categoryDifference;
+  return Number(a.alignment?.priority === "bonus") - Number(b.alignment?.priority === "bonus");
+});
 
 export function getLessonById(id: string) {
   return LESSONS.find((lesson) => lesson.id === id);

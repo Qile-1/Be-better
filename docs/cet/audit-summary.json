@@ -1,0 +1,53 @@
+{
+  "window": "2021-2025 complete calendar years; includes 2022-09 and 2023-03 postponed sessions",
+  "reviewedAt": "2026-10-11",
+  "provider": "WeHUSTER third-party compilations, not official master papers",
+  "paperPackages": 34,
+  "answerPackages": 34,
+  "writingTasks": 36,
+  "translationTasks": 36,
+  "readingPackages": 31,
+  "carefulReadingQuestions": 310,
+  "writingPrimaryTaskCounts": {
+    "观点论述": 15,
+    "提案": 5,
+    "报告": 4,
+    "书信": 2,
+    "推荐": 1,
+    "回应与建议": 6,
+    "经历与描述": 3
+  },
+  "translationThemeCounts": {
+    "茶文化": 3,
+    "水利工程": 3,
+    "寓言叙事": 3,
+    "文化习俗": 3,
+    "节气习俗": 3,
+    "旅游生活": 5,
+    "教育发展": 3,
+    "饮食生活": 3,
+    "传统文化": 3,
+    "社会生态": 6,
+    "文化保护": 1
+  },
+  "readingSignalCounts": {
+    "explicit_infer_imply": 6,
+    "explicit_main_topic": 2,
+    "explicit_example_function": 4,
+    "explicit_lexical_reference": 3,
+    "why_or_how": 49
+  },
+  "reviewedExplicitSignalCounts": {
+    "example_function": 4,
+    "explicit_infer_imply": 6,
+    "lexical_concept": 1,
+    "whole_passage_topic": 1
+  },
+  "limitations": [
+    "Reading signal counts overlap and are NOT semantic skill frequencies; absence of a signal does not mean detail question.",
+    "OCR and third-party reconstruction can contain errors; no independent official full-paper collection verified.",
+    "2026 papers are outside this fixed five-calendar-year window, not claimed as reviewed.",
+    "Underlying grammar, paraphrase and logic skills have no reliable item-level frequency count in this release.",
+    "The inventory is complete against this provider index, not a guarantee that every national variant is available."
+  ]
+}

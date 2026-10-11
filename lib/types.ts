@@ -52,6 +52,24 @@ export interface ProductionTask {
   analysis: string[];
 }
 
+export interface FormatPractice {
+  id: string;
+  kind: "cloze" | "matching";
+  title: string;
+  instructions: string;
+  passage?: string;
+  paragraphs?: { label: string; text: string }[];
+  options: { label: string; text: string }[];
+  items: { id: string; prompt: string; answer: string; explanation: string }[];
+}
+
+export interface CurriculumAlignment {
+  priority: "core" | "bonus";
+  reason: string;
+  skills: string[];
+  evidence: { label: string; url: string }[];
+}
+
 export interface Lesson {
   id: string;
   title: string;
@@ -65,9 +83,12 @@ export interface Lesson {
   modelAnswer: string;
   practiceQuestions?: PracticeQuestion[];
   productionTasks?: ProductionTask[];
+  alignment?: CurriculumAlignment;
+  formatPractice?: FormatPractice[];
 }
 
 export interface DiagnoseError {
+  pointId?: string;
   point: string;
   detail: string;
 }
