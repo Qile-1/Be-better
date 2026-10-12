@@ -1,0 +1,9 @@
+{
+  "checks": [
+    "Four scenes fit desktop and 360/390/768 mobile/tablet widths",
+    "Candidate selection, late-night guard, host dismissal, saved/escaped draft, owner/date confirmation gate and manual intervention work",
+    "No runtime errors; URL scene parameter normalized"
+  ],
+  "errors": [],
+  "scope": "Interactive prototype, not connected to live AI, conferencing or task services"
+}

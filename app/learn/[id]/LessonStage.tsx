@@ -272,45 +272,35 @@ export function LessonStage({
   }
 
   return (
-    <section className="mx-auto w-full max-w-4xl px-6 py-10 md:px-12 md:py-14">
-      <header className="mb-9 space-y-3">
-        <p className="text-xs font-medium tracking-[0.16em] text-ink/45">
-          第 {lessonNumber} 节
-        </p>
-        <h1 className="text-2xl font-semibold leading-8 text-ink md:text-3xl md:leading-10">
-          {lesson.title}
-        </h1>
+    <section className="lesson-shell">
+      <Link href="/learn" className="lesson-back"><ArrowLeft size={14} aria-hidden="true" /> 回到课程地图</Link>
+      <header className="lesson-heading">
+        <span className="lesson-display-number" aria-hidden="true">{String(lessonNumber).padStart(2, "0")}</span>
+        <div><p className="eyebrow">{lesson.category === "writing" ? "WRITING / 写作" : lesson.category === "translation" ? "TRANSLATION / 翻译" : "READING / 阅读"} · 第 {lessonNumber} 节</p>
+          <h1>{lesson.title.replace(/^[^·]+·\s*/, "")}</h1>
+        </div>
+        <p className="lesson-heading-note">先理解，再用自己的话讲一遍。<br />每一个讲清楚的要点，<br />都会成为自己的方法。</p>
       </header>
-
-      <ol className="mb-10 grid grid-cols-3 border-b border-ink/15">
+      <ol className="lesson-stages" aria-label="本节学习步骤">
         {steps.map((label, index) => {
           const stepNumber = (index + 1) as Stage;
-          const isActive = stage === stepNumber;
-          const isDone = stage > stepNumber;
-
-          return (
-            <li
-              key={label}
-              className={[
-                "border-b-2 px-2 py-3 text-center text-xs font-medium md:py-4",
-                isActive
-                  ? "border-ink text-ink"
-                  : isDone
-                    ? "border-transparent text-ink/70"
-                    : "border-transparent text-ink/40"
-              ].join(" ")}
-            >
-              <span className="mb-1 block text-base">{index + 1}</span>
-              {label}
-            </li>
-          );
+          return <li key={label} data-active={stage === stepNumber}>
+            <button type="button" aria-current={stage === stepNumber ? "step" : undefined}
+              disabled={isSubmitting || (stepNumber === 3 && !result)}
+              onClick={() => { if (stepNumber === 2 && stage === 1) handleVideoDone(); else setStage(stepNumber); }}>
+              <span>{String(stepNumber).padStart(2, "0")}</span>{label}
+            </button>
+          </li>;
         })}
       </ol>
 
       {stage === 1 && (
-        <div className="space-y-5">
+        <div className="lesson-study">
+          <MicroLessonContent microLesson={lesson.microLesson} emphasisTerms={corePoints.flatMap((point) => point.keyPhrases)}
+            recallPrompts={corePoints.map((point) => point.point)} onComplete={handleVideoDone} />
+          <div className="lesson-supplement">
           {lesson.alignment ? (
-            <details className="border-y border-ink/15 py-4 text-sm leading-7 text-ink/70">
+            <details className="lesson-evidence border-y border-ink/15 py-4 text-sm leading-7 text-ink/70">
               <summary className="cursor-pointer font-semibold text-ink">
                 考查能力与课程依据
               </summary>
@@ -323,7 +313,6 @@ export function LessonStage({
               <p className="mt-2 text-xs text-ink/50">对照窗口：2021—2025。真题链接来自第三方汇编；本站例题均为原创，不是官方真题或预测题。</p>
             </details>
           ) : null}
-          <MicroLessonContent microLesson={lesson.microLesson} emphasisTerms={corePoints.flatMap((point) => point.keyPhrases)} />
 
           <details className="border-t border-ink/15 py-6">
             <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-base font-semibold text-ink">
@@ -377,14 +366,6 @@ export function LessonStage({
             </section>
           ) : null}
 
-          <button
-            type="button"
-            onClick={handleVideoDone}
-            className="flex h-14 w-full items-center justify-center gap-2 bg-ink px-5 text-sm font-semibold text-white transition hover:bg-ink/85"
-          >
-            <CheckCircle2 aria-hidden="true" className="h-5 w-5" />
-            我学完了，去讲一遍
-          </button>
           {(lesson.practiceQuestions?.length || lesson.productionTasks?.length) ? (
             <Link
               href={`/learn/${lesson.id}/practice`}
@@ -393,11 +374,12 @@ export function LessonStage({
               或先做课后例题（可选）
             </Link>
           ) : null}
+          </div>
         </div>
       )}
 
       {stage === 2 && (
-        <div className="space-y-5">
+        <div className="lesson-stage-panel space-y-5">
           {result && masteryStatus === "review" && missedCorePoints.length > 0 ? (
             <section className="border-l-2 border-ink bg-paper p-5">
               <h2 className="mb-3 font-bold text-ink">
@@ -465,7 +447,7 @@ export function LessonStage({
       )}
 
       {stage === 3 && result && masteryStatus && (
-        <div className="space-y-8">
+        <div className="lesson-stage-panel space-y-8">
           <MasteryCard
             status={masteryStatus}
             coreCoverage={coreCoverage}
@@ -876,46 +858,46 @@ function ReviewActions({
   );
 }
 
-function MicroLessonContent({
-  microLesson,
-  emphasisTerms
-}: {
+function MicroLessonContent({ microLesson, emphasisTerms, recallPrompts, onComplete }: {
   microLesson?: MicroLesson;
   emphasisTerms: string[];
+  recallPrompts: string[];
+  onComplete: () => void;
 }) {
-  if (!microLesson) {
-    return <p className="text-sm text-ink/60">本节微课内容筹备中</p>;
+  const [chapter, setChapter] = useState(0);
+  const articleRef = useRef<HTMLElement>(null);
+  const sections: MicroBlock[][] = [];
+  for (const block of microLesson?.blocks ?? []) {
+    if (block.type === "heading" || sections.length === 0) sections.push([block]);
+    else sections[sections.length - 1].push(block);
   }
+  function chapterTitle(section: MicroBlock[], index: number) {
+    const heading = section.find((block) => block.type === "heading");
+    return heading?.type === "heading" ? heading.text.replace(/^[一二三四五六七八九十\d]+[、.．]\s*/, "") : `知识段 ${index + 1}`;
+  }
+  function chooseChapter(index: number) {
+    setChapter(index);
+    requestAnimationFrame(() => {
+      articleRef.current?.focus({ preventScroll: true });
+      if (window.innerWidth <= 760) articleRef.current?.scrollIntoView({ block: "start" });
+    });
+  }
+  if (!microLesson || !sections.length) return <div className="lesson-stage-panel"><p className="mb-5 text-sm text-ink/60">本节微课内容筹备中，可以先查看下方讲义。</p><button type="button" onClick={onComplete} className="design-cta">去讲一遍 →</button></div>;
 
-  return (
-    <ReadAloudProvider>
-    <div className="space-y-7">
-      <section className="border-l-4 border-ink bg-ink/[0.035] px-5 py-6 md:px-7">
-        <h2 className="mb-3 text-sm font-bold text-ink">本节目标</h2>
-        <ReadAloudBlock text={microLesson.goal} label="本节目标">
-          <p className="text-base leading-8 text-ink/80"><PronounceWords text={microLesson.goal} /></p>
-        </ReadAloudBlock>
-      </section>
-
-      <div>
-        <p className="border-b-2 border-ink/80 pb-3 text-sm font-bold text-ink">
-          常用必会
-        </p>
-        <div>{renderBlocks(microLesson.blocks, emphasisTerms)}</div>
-      </div>
-
-      {microLesson.advancedBlocks && microLesson.advancedBlocks.length > 0 ? (
-        <details className="rounded-lg border border-[#aacdb4] bg-[#e7f2e9] px-5 py-4">
-          <summary className="flex cursor-pointer list-none items-center justify-between text-sm font-bold text-[#295c3b]">
-            拔高选学 · 展开后学习
-            <ChevronDown aria-hidden="true" className="h-4 w-4" />
-          </summary>
-          <div className="mt-4">{renderBlocks(microLesson.advancedBlocks, emphasisTerms)}</div>
-        </details>
-      ) : null}
-    </div>
-    </ReadAloudProvider>
-  );
+  return <ReadAloudProvider><div className="editorial-reader">
+    <nav className="chapter-index" aria-label="本节知识段">
+      <p className="eyebrow">本节目录 / {sections.length} 段</p>
+      {sections.map((section, index) => <button key={index} type="button" aria-current={chapter === index ? "true" : undefined} onClick={() => chooseChapter(index)}><span>{String(index + 1).padStart(2, "0")}</span><span>{chapterTitle(section, index)}</span></button>)}
+      <a href="#lesson-advanced">进阶选学 <ChevronDown size={12} aria-hidden="true" /></a>
+    </nav>
+    <article className="chapter-article" ref={articleRef} tabIndex={-1} aria-label={`知识段 ${chapter + 1}：${chapterTitle(sections[chapter], chapter)}`}>
+      <div className="chapter-goal"><span>本节目标 / LEARNING GOAL</span><ReadAloudBlock text={microLesson.goal} label="本节目标"><p><PronounceWords text={microLesson.goal} /></p></ReadAloudBlock></div>
+      <div className="chapter-reading">{sections[chapter].map((block, index) => renderMicroBlock(block, `${chapter}-${index}`, emphasisTerms))}</div>
+      <div className="chapter-pager"><button type="button" disabled={chapter === 0} onClick={() => chooseChapter(chapter - 1)}>← 上一段</button><span>{chapter + 1} / {sections.length}</span><button type="button" className="design-cta" onClick={() => chapter < sections.length - 1 ? chooseChapter(chapter + 1) : onComplete()}>{chapter < sections.length - 1 ? "继续下一段" : "我学完了，去讲一遍"}<span aria-hidden="true">→</span></button></div>
+      {microLesson.advancedBlocks?.length ? <details id="lesson-advanced" className="chapter-advanced"><summary>拔高选学 · 不影响核心掌握度<ChevronDown size={14} aria-hidden="true" /></summary><div className="mt-4">{renderBlocks(microLesson.advancedBlocks, emphasisTerms)}</div></details> : <p id="lesson-advanced" className="mt-6 text-xs text-ink/50">本节从核心方法开始，拓展要点见下方讲义。</p>}
+    </article>
+    <aside className="chapter-marginal"><p className="eyebrow">留在脑海里的，不只是原句。</p><p className="chapter-hand">Learn it.<br />Explain it.<br />Make it yours.</p><h2>读完，试着讲清楚</h2>{recallPrompts.slice(0, 3).map((prompt, index) => <p className="chapter-recall" key={prompt}><span>{String(index + 1).padStart(2, "0")}</span>{prompt}</p>)}<a href="#lesson-advanced">进阶选学 <span aria-hidden="true">＋</span></a></aside>
+  </div></ReadAloudProvider>;
 }
 
 function renderBlocks(blocks: MicroBlock[], emphasisTerms: string[]) {
